@@ -1,0 +1,17 @@
+{
+  "name": "messenger",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "parcel build src/pages/*.pug",
+    "server": "parcel build src/pages/*.pug && node server.js",
+    "start": "parcel src/pages/*.pug --port 3000"
+  },
+  "author": "Melnikov Aleksei",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-pug": "^2.0.1",
+    "express": "^4.17.2",
+    "parcel": "^2.0.1"
+  }
+}
