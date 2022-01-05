@@ -1,4 +1,13 @@
 extends ../layout/layout
 
-block content 
-  h1 Not Found
+block title 
+  title Not found
+
+block content
+  div.page
+    header.page__header
+      div.page__flex-row-container
+        h1.page__heading Not found
+        nav.page__nav 
+          a.link(href='messages.pug') Messages
+    main.page__main
