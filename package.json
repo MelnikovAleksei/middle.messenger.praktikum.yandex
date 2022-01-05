@@ -5,7 +5,7 @@
   "scripts": {
     "build": "parcel build src/pages/*.pug",
     "server": "parcel build src/pages/*.pug && node server.js",
-    "start": "parcel src/pages/*.pug --port 3000"
+    "start": "parcel src/pages/*.pug --port 3000 --open"
   },
   "author": "Melnikov Aleksei",
   "license": "ISC",
