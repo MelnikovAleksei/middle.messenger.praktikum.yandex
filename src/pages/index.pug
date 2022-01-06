@@ -1,13 +1,11 @@
 extends ../layout/layout
 
-block content 
-  h1 Index
-
+block content
   nav 
-    a(href="authorization.pug") Authorization
-    a(href="error.pug") Error
-    a(href="index.pug") Index
-    a(href="messages.pug") Messages
-    a(href="not-found.pug") Not found
-    a(href="registration.pug") Registration
-    a(href="user-settings.pug") User settings
+    a(href='sign-in.pug' style='margin: 10px') Sign in
+    a(href='sign-up.pug' style='margin: 10px') Sign up
+    a(href='messages.pug' style='margin: 10px') Messages
+    a(href='single-chat.pug' style='margin: 10px') Single chat
+    a(href='user-settings.pug' style='margin: 10px') User settings
+    a(href='internal-error.pug' style='margin: 10px') Internal error
+    a(href='not-found.pug' style='margin: 10px') Not found

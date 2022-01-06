@@ -1,0 +1,4 @@
+mixin message-input-field(label, labelFor, name, id, placeholder, required = true, rows = '3')
+  div.input-container
+    label.label(for=labelFor)= label
+    textarea.text-input(name=name id=id placeholder=placeholder required=required rows=rows)
