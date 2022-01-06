@@ -1,5 +1,7 @@
 form.message-form
   include ../input-fields/message-input-field
+  +message-input-field('Message', 'message', 'message', 'messsage', 'Message', true, '3')
   div.message-form__flex-row-container
-    include ../input-fields/file-input-field    
-    button(class='button button_align_right') Send
+    include ../input-fields/file-input-field
+    +file-input-field('File', 'file', 'file', false)
+    button(class='button button_align_right' type='submit') Send
