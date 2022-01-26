@@ -2,8 +2,7 @@
   box-sizing: border-box;
   padding: 0 6px;
   margin: 0;
-  
-  font-family: var(--fontFamily-sansSerif);
+  font-family: var(--font-family-sans-serif);
   font-style: normal;
   font-size: 15px;
   font-weight: 400;
@@ -12,6 +11,5 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-
   color: var(--color-gray3);
 }

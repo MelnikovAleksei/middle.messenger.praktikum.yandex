@@ -2,19 +2,13 @@
   box-sizing: border-box;
   padding: 12px 20px;
   margin: 0 auto;
-  
   background-color: var(--color-gray6);
   border-bottom: 1px solid var(--color-gray5);
-
   width: 100%;
-
-  max-width: var(--pageHeader-maxWidth);
-
-  z-index: var(--pageHeader-zIndex);
-
+  max-width: var(--page-header-max-width);
+  z-index: var(--page-header-z-index);
   position: fixed;
   top: 0;
   left: 50%;
-  
   transform: translateX(-50%);
 }

@@ -1,29 +1,21 @@
 :root {
-  --fontFamily-sansSerif: 'Roboto', sans-serif;
-
-  --color-gray1: #333333;
-  --color-gray2: #4F4F4F;
+  --font-family-sans-serif: "Roboto", sans-serif;
+  --color-gray1: #333;
+  --color-gray2: #4f4f4f;
   --color-gray3: #828282;
-  --color-gray4: #BDBDBD;
-  --color-gray5: #E0E0E0;
-  --color-gray6: #F2F2F2;
-  
+  --color-gray4: #bdbdbd;
+  --color-gray5: #e0e0e0;
+  --color-gray6: #f2f2f2;
   --color-green: #219653;
-
-  --color-purple1: #9B51E0;
-  --color-purple2: #BB6BD9;
-  
-  --color-yellow: #F2C94C;
-
-  --safeAreaTop-large: 110px;
-  --safeAreaTop-default: 55px;
-
-  --safeAreaBottom-large: 160px;
-  --safeAreaBottom-default: 20px;
-
-  --pageMain-maxWidth: 768px;
-  --pageHeader-maxWidth: 1024px;
-
-  --pageHeader-zIndex: 4000;
-  --pageOther-zIndex: 5000;
+  --color-purple1: #9b51e0;
+  --color-purple2: #bb6bd9;
+  --color-yellow: #f2c94c;
+  --safe-area-top-large: 110px;
+  --safe-area-top-default: 55px;
+  --safe-area-bottom-large: 160px;
+  --safe-area-bottom-default: 20px;
+  --page-main-max-width: 768px;
+  --page-header-max-width: 1024px;
+  --page-header-z-index: 4000;
+  --page-other-z-index: 5000;
 }

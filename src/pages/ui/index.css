@@ -1,62 +1,45 @@
-@import 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap';
-
-@import './config.css';
-
-@import './page/page.css';
-@import './page/__main/page__main.css';
-@import './page/__header/page__header.css';
-@import './page/__heading/page__heading.css';
-@import './page/__nav/page__nav.css';
-@import './page/__flex-row-container/page__flex-row-container.css';
-@import './page/__flex-column-container/page__flex-column-container.css';
-@import './page/_safe-area-top_large/page_safe-area-top_large.css';
-@import './page/_safe-area-bottom_large/page_safe-area-bottom_large.css';
-@import './page/_horizontal-padding_zero/page_horizontal-padding_zero.css';
-
-@import './link/link.css';
-
-@import './button/button.css';
-@import './button/_align_right/button_align_right.css';
-
-@import './label/label.css';
-
-@import './text-input/text-input.css';
-
-@import './file-input/file-input.css';
-@import './file-input/__alternative-element/file-input__alternative-element.css';
-
-@import './input-container/input-container.css';
-
-@import './avatar/avatar.css';
-@import './avatar/__img/avatar__img.css';
-
-@import './avatar-input-container/avatar-input-container.css';
-
-@import './validation-message/validation-message.css';
-
-@import './chat-list/chat-list.css';
-@import './chat-list/__item/chat-list__item.css';
-
-@import './chat/chat.css';
-@import './chat/__link/chat__link.css';
-@import './chat/__container/chat__container.css';
-@import './chat/__heading/chat__heading.css';
-@import './chat/__sub-heading/chat__sub-heading.css';
-@import './chat/__text/chat__text.css';
-
-@import './message-form/message-form.css';
-@import './message-form/__flex-row-container/message-form__flex-row-container.css';
-
-@import './messages-date-list/messages-date-list.css';
-@import './messages-date-list/__item/messages-date-list__item.css';
-@import './messages-date-list/__text/messages-date-list__text.css';
-
-@import './messages-list/messages-list.css';
-@import './messages-list/__item/messages-list__item.css';
-
-@import './message/message.css';
-@import './message/__status/message__status.css';
-@import './message/_type_sent/message_type_sent.css';
-@import './message/_type_inbox/message_type_inbox.css';
-@import './message/__status_type_inbox/message__status_type_inbox.css';
-@import './message/__status_type_sent/message__status_type_sent.css';
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap";
+@import "./config.css";
+@import "./page/page.css";
+@import "./page/__main/page__main.css";
+@import "./page/__header/page__header.css";
+@import "./page/__heading/page__heading.css";
+@import "./page/__nav/page__nav.css";
+@import "./page/__flex-row-container/page__flex-row-container.css";
+@import "./page/__flex-column-container/page__flex-column-container.css";
+@import "./page/_safe-area-top_large/page_safe-area-top_large.css";
+@import "./page/_safe-area-bottom_large/page_safe-area-bottom_large.css";
+@import "./page/_horizontal-padding_zero/page_horizontal-padding_zero.css";
+@import "./link/link.css";
+@import "./button/button.css";
+@import "./button/_align_right/button_align_right.css";
+@import "./label/label.css";
+@import "./text-input/text-input.css";
+@import "./file-input/file-input.css";
+@import "./file-input/__alternative-element/file-input__alternative-element.css";
+@import "./input-container/input-container.css";
+@import "./avatar/avatar.css";
+@import "./avatar/__img/avatar__img.css";
+@import "./avatar-input-container/avatar-input-container.css";
+@import "./validation-message/validation-message.css";
+@import "./chat-list/chat-list.css";
+@import "./chat-list/__item/chat-list__item.css";
+@import "./chat/chat.css";
+@import "./chat/__link/chat__link.css";
+@import "./chat/__container/chat__container.css";
+@import "./chat/__heading/chat__heading.css";
+@import "./chat/__sub-heading/chat__sub-heading.css";
+@import "./chat/__text/chat__text.css";
+@import "./message-form/message-form.css";
+@import "./message-form/__flex-row-container/message-form__flex-row-container.css";
+@import "./messages-date-list/messages-date-list.css";
+@import "./messages-date-list/__item/messages-date-list__item.css";
+@import "./messages-date-list/__text/messages-date-list__text.css";
+@import "./messages-list/messages-list.css";
+@import "./messages-list/__item/messages-list__item.css";
+@import "./message/message.css";
+@import "./message/__status/message__status.css";
+@import "./message/_type_sent/message_type_sent.css";
+@import "./message/_type_inbox/message_type_inbox.css";
+@import "./message/__status_type_inbox/message__status_type_inbox.css";
+@import "./message/__status_type_sent/message__status_type_sent.css";

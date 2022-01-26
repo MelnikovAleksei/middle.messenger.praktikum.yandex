@@ -2,13 +2,11 @@
   box-sizing: border-box;
   padding: 6px;
   margin: 0;
-
-  font-family: var(--fontFamily-sansSerif);
+  font-family: var(--font-family-sans-serif);
   font-style: normal;
   font-size: 10px;
   font-weight: 300;
   line-height: 10px;
   text-align: center;
-
   color: var(--color-gray3);
 }
