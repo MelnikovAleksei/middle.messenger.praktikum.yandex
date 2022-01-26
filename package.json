@@ -5,12 +5,20 @@
   "scripts": {
     "build": "parcel build src/pages/*.pug",
     "server": "parcel build src/pages/*.pug && node server.js",
-    "start": "parcel src/pages/*.pug --port 3000 --open"
+    "start": "parcel src/pages/*.pug --port 3000 --open",
+    "eslint": "eslint src/**/*.ts --fix"
   },
   "author": "Melnikov Aleksei",
   "license": "ISC",
   "devDependencies": {
     "@parcel/transformer-pug": "^2.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.10.1",
+    "@typescript-eslint/parser": "^5.10.1",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
     "express": "^4.17.2",
     "parcel": "^2.0.1"
   }
