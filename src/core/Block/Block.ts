@@ -1,5 +1,4 @@
 import { EventBus } from '../EventBus/EventBus'
-import pug from 'pug'
 
 export class Block {
   static EVENTS = {
