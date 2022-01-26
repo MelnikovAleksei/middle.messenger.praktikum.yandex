@@ -1,30 +1,32 @@
-export class EventBus {
-  private listeners: Record<string, Function[]> = {};
+import { Events } from './types'
 
-  on (event: string, callback: Function): void {
-    if (!this.listeners[event]) {
-      this.listeners[event] = []
+export class EventBus {
+  private events: Events = {};
+
+  on (event: string, callback: (...args: any[]) => void): void {
+    if (!this.events[event]) {
+      this.events[event] = []
     }
 
-    this.listeners[event].push(callback)
+    this.events[event].push(callback)
   }
 
-  off (event: string, callback: Function): void {
-    if (!this.listeners[event]) {
+  off (event: string, callback: (...args: any[]) => void): void {
+    if (!this.events[event]) {
       throw new Error(`${event}: no event`)
     }
 
-    this.listeners[event] = this.listeners[event].filter(
+    this.events[event] = this.events[event].filter(
       listener => listener !== callback
     )
   }
 
   emit (event: string, ...args: any[]): void {
-    if (!this.listeners[event]) {
+    if (!this.events[event]) {
       throw new Error(`${event}: no event`)
     }
 
-    this.listeners[event].forEach((listener) => {
+    this.events[event].forEach((listener) => {
       listener(...args)
     })
   }
