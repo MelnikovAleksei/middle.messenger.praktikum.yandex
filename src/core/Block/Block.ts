@@ -1,6 +1,8 @@
 import { EventBus } from '../EventBus/EventBus'
+import { Meta, Events } from './types'
+import { nanoid } from 'nanoid'
 
-export class Block {
+export class Block<P = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -8,32 +10,31 @@ export class Block {
     FLOW_RENDER: 'flow:render'
   } as const
 
+  public id = `id-${nanoid(6)}`
+
+  private _meta: Meta;
+
   private _element: HTMLElement | null = null;
-  private _meta: {
-    tagName: string,
-    className: string,
-    props: any
-  } | null = null;
 
-  props: any = null
+  protected readonly props: P;
 
-  eventBus: () => EventBus | null = null
+  eventBus: () => EventBus<Events>
 
-  constructor (tagName: string = 'div', props: any = {}, className: string = '') {
-    const eventBus = new EventBus()
+  public constructor (tagName: string, props?: P) {
+    const eventBus = new EventBus<Events>()
+
     this._meta = {
       tagName,
-      className,
       props
     }
 
-    this.props = this._makePropsProxy(props)
+    this.props = this._makePropsProxy(props || {} as P)
 
     this.eventBus = () => eventBus
 
     this._registerEvents(eventBus)
 
-    eventBus.emit(Block.EVENTS.INIT)
+    eventBus.emit(Block.EVENTS.INIT, this.props)
   }
 
   _registerEvents (eventBus: EventBus) {
@@ -50,29 +51,29 @@ export class Block {
 
   init () {
     this._createResources()
-    this.eventBus().emit(Block.EVENTS.FLOW_CDM)
+    this.eventBus().emit(Block.EVENTS.FLOW_CDM, this.props)
   }
 
-  _componentDidMount () {
-    this.componentDidMount()
+  _componentDidMount (props: P) {
+    this.componentDidMount(props)
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER)
   }
 
-  componentDidMount () {}
+  componentDidMount (props: P) {}
 
-  _componentDidUpdate () {
-    const response = this.componentDidUpdate()
+  _componentDidUpdate (oldProps: P, newProps: P) {
+    const response = this.componentDidUpdate(oldProps, newProps)
     if (!response) {
       return
     }
     this._render()
   }
 
-  componentDidUpdate () {
+  componentDidUpdate (oldProps: P, newProps: P) {
     return true
   }
 
-  setProps = nextProps => {
+  setProps = (nextProps: P) => {
     if (!nextProps) {
       return
     }
@@ -85,30 +86,45 @@ export class Block {
   }
 
   _render () {
-    const block = this.render()
-    // Этот небезопасный метод для упрощения логики
-    // Используйте шаблонизатор из npm или напиши свой безопасный
-    // Нужно не в строку компилировать (или делать это правильно),
-    // либо сразу в DOM-элементы превращать из возвращать из compile DOM-ноду
-    this._element.innerHTML = block
+    const documentFragment = this.render()
+
+    this._removeEvents()
+    this.element.innerHTML = ''
+
+    this._element.appendChild(documentFragment)
+    this._updateAttributes()
+    this._addEvents()
   }
 
-  render () {
+  protected render (): DocumentFragment {
+    return new DocumentFragment()
   }
 
-  getContent () {
+  _updateAttributes () {
+    const attributes: Record<string, string> = (this.props as any).attributes
+
+    if (!attributes) {
+      return
+    }
+
+    Object.entries(attributes).forEach(([name, value]) => {
+      this._element.setAttribute(name, value)
+    })
+  }
+
+  getContent (): HTMLElement {
     return this.element
   }
 
   _makePropsProxy (props) {
     const self = this
 
-    return new Proxy(props, {
-      get (target, prop) {
+    return new Proxy(props as unknown as object, {
+      get (target: Record<string, unknown>, prop: string) {
         const value = target[prop]
         return typeof value === 'function' ? value.bind(target) : value
       },
-      set (target, prop, value) {
+      set (target: Record<string, unknown>, prop: string, value: unknown) {
         target[prop] = value
 
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, { ...target }, target)
@@ -117,11 +133,35 @@ export class Block {
       deleteProperty () {
         throw new Error('Forbidden')
       }
+    }) as unknown as P
+  }
+
+  _createDocumentElement (tagName: string) {
+    return document.createElement(tagName)
+  }
+
+  _removeEvents () {
+    const events: Record<string, () => void> = (this.props as any).events
+
+    if (!events || this._element) {
+      return
+    }
+
+    Object.entries(events).forEach(([event, listener]) => {
+      this._element.removeEventListener(event, listener)
     })
   }
 
-  _createDocumentElement (tagName) {
-    return document.createElement(tagName)
+  _addEvents () {
+    const events: Record<string, () => void> = (this.props as any).events
+
+    if (!events) {
+      return
+    }
+
+    Object.entries(events).forEach(([event, listener]) => {
+      this._element.addEventListener(event, listener)
+    })
   }
 
   show () {

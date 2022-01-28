@@ -1,3 +1,5 @@
+export { Block } from './Block/Block'
+export { compile } from './compile/compile'
 export { EventBus } from './EventBus/EventBus'
 export { httpRequest } from './HTTPTransport/HTTPTransport'
-export { Block } from './Block/Block'
+export { render } from './render/render'

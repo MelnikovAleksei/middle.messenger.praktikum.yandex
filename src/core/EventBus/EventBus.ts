@@ -1,9 +1,9 @@
-import { Events } from './types'
+import { Event } from './types'
 
-export class EventBus {
-  private events: Events = {};
+export class EventBus<E extends string = string, M extends { [K in E]: unknown[] } = Record<E, any[]>> {
+  private events: { [key in E]?: Event<M[E]>[] } = {};
 
-  on (event: string, callback: (...args: any[]) => void): void {
+  on (event: E, callback: Event<M[E]>): void {
     if (!this.events[event]) {
       this.events[event] = []
     }
@@ -11,7 +11,7 @@ export class EventBus {
     this.events[event].push(callback)
   }
 
-  off (event: string, callback: (...args: any[]) => void): void {
+  off (event: E, callback: Event<M[E]>): void {
     if (!this.events[event]) {
       throw new Error(`${event}: no event`)
     }
@@ -21,7 +21,7 @@ export class EventBus {
     )
   }
 
-  emit (event: string, ...args: any[]): void {
+  emit (event: E, ...args: M[E]): void {
     if (!this.events[event]) {
       throw new Error(`${event}: no event`)
     }
