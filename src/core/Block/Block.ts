@@ -92,12 +92,27 @@ export class Block<P = any> {
     this.element.innerHTML = ''
 
     this._element.appendChild(documentFragment)
+    this._updateChildren()
     this._updateAttributes()
     this._addEvents()
   }
 
   protected render (): DocumentFragment {
     return new DocumentFragment()
+  }
+
+  _updateChildren () {
+    const children: DocumentFragment[] = (this.props as any).children
+
+    if (!children) {
+      return
+    }
+
+    this._element.innerHTML = ''
+
+    children.forEach((child) => {
+      this._element.appendChild(child)
+    })
   }
 
   _updateAttributes () {
