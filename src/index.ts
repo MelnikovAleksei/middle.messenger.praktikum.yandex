@@ -22,7 +22,8 @@ setTimeout(() => {
   avatarContainer.setProps({
     imgProps: {
       attributes: {
-        alt: 'doggo'
+        alt: 'doggo',
+        src: 'https://images.unsplash.com/photo-1615042987670-679845d7f890?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'
       }
     }
   })

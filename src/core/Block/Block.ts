@@ -19,6 +19,7 @@ export class Block<P = any> {
   protected readonly props: P;
 
   eventBus: () => EventBus<Events>
+  children: Block[] | null = null
 
   public constructor (tagName: string, props?: P) {
     const eventBus = new EventBus<Events>()
@@ -29,6 +30,8 @@ export class Block<P = any> {
     }
 
     this.props = this._makePropsProxy(props || {} as P)
+
+    this.children = (this.props as any).children
 
     this.eventBus = () => eventBus
 
@@ -102,16 +105,14 @@ export class Block<P = any> {
   }
 
   _updateChildren () {
-    const children: DocumentFragment[] = (this.props as any).children
-
-    if (!children) {
+    if (!this.children) {
       return
     }
 
     this._element.innerHTML = ''
 
-    children.forEach((child) => {
-      this._element.appendChild(child)
+    this.children.forEach((child) => {
+      this._element.appendChild(child.getContent())
     })
   }
 

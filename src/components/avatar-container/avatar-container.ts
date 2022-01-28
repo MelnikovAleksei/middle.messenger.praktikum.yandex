@@ -9,10 +9,16 @@ export class AvatarContainer extends Block {
 
     super('div', {
       ...props.containerProps,
-      children: [
-        avatarImg.getContent()
-      ]
+      children: [avatarImg]
     })
+  }
+
+  componentDidUpdate (oldProps: IAvatarProps, newProps: IAvatarProps): boolean {
+    this.children.forEach((child) => {
+      child.setProps(newProps.imgProps)
+    })
+
+    return super.componentDidUpdate(oldProps.containerProps, newProps.containerProps)
   }
 
   setProps: (nextProps: IAvatarProps) => {
