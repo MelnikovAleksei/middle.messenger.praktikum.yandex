@@ -26,7 +26,7 @@
 
 .text-input:invalid {
   color: var(--color-purple2);
-  border-color: var(--color-purple2);
+  border-color: var(--color-yellow);
 }
 
 .text-input:disabled::placeholder {
@@ -37,15 +37,4 @@
   color: var(--color-gray4);
   background-color: var(--color-gray5);
   border-color: var(--color-gray5);
-}
-
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
-  appearance: none;
-}
-
-textarea {
-  resize: none;
 }

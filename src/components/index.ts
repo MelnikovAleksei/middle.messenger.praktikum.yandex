@@ -1,3 +1,7 @@
 export { AvatarContainer } from './avatar-container/avatar-container'
 export { AvatarImg } from './avatar-img/avatar-img'
 export { Button } from './button/button'
+export { Label } from './label/label'
+export { Link } from './link/link'
+export { TextInput } from './text-input/text-input'
+export { ValidationMessage } from './validation-message/validation-message'

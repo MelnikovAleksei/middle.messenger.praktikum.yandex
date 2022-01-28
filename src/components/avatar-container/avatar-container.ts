@@ -1,7 +1,6 @@
-import { Block, compile } from '../../core'
+import { Block } from '../../core'
 import { IAvatarProps } from './avatar-container.types'
 import { AvatarImg } from '../index'
-import template from './avatar-container.hbs'
 
 export class AvatarContainer extends Block {
   constructor (props: IAvatarProps) {
@@ -26,6 +25,6 @@ export class AvatarContainer extends Block {
   };
 
   render () {
-    return compile(template, { ...this.props })
+    return new DocumentFragment()
   }
 }
