@@ -1,30 +1,12 @@
-import { Block } from './core'
+import {
+  AvatarContainer
+} from './components'
+import { render } from './core'
 
-class Button extends Block {
-  constructor (props) {
-    super('button', props)
+const avatarContainer = new AvatarContainer({
+  attributes: {
+    class: 'avatar-container'
   }
-
-  render () {
-    return `<div>${this.props.text}</div>`
-  }
-}
-
-function render (query, block) {
-  const root = document.querySelector(query)
-  root.appendChild(block.getContent())
-  return root
-}
-
-const button = new Button({
-  text: 'Click me'
 })
 
-// app — это class дива в корне DOM
-render('body', button)
-
-setTimeout(() => {
-  button.setProps({
-    text: 'Click me, please'
-  })
-}, 1000)
+render('#root', avatarContainer)

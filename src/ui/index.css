@@ -18,8 +18,8 @@
 @import "./file-input/file-input.css";
 @import "./file-input/__alternative-element/file-input__alternative-element.css";
 @import "./input-container/input-container.css";
-@import "./avatar/avatar.css";
-@import "./avatar/__img/avatar__img.css";
+@import "./avatar-img/avatar-img.css";
+@import "./avatar-container/avatar-container.css";
 @import "./avatar-input-container/avatar-input-container.css";
 @import "./validation-message/validation-message.css";
 @import "./chat-list/chat-list.css";
