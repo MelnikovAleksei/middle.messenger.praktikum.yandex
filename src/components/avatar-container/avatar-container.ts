@@ -1,13 +1,21 @@
 import { Block, compile } from '../../core'
-import { IAvatarContainerProps } from './avatar-container.types'
+import { IAvatarProps } from './avatar-container.types'
+import { AvatarImg } from '../index'
 import template from './avatar-container.hbs'
 
 export class AvatarContainer extends Block {
-  constructor (props: IAvatarContainerProps) {
-    super('div', props)
+  constructor (props: IAvatarProps) {
+    const avatarImg = new AvatarImg(props.imgProps)
+
+    super('div', {
+      ...props.containerProps,
+      children: [
+        avatarImg.getContent()
+      ]
+    })
   }
 
-  setProps: (nextProps: IAvatarContainerProps) => {
+  setProps: (nextProps: IAvatarProps) => {
     super(nextProps)
   };
 
