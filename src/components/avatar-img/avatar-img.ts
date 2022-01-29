@@ -1,5 +1,5 @@
 import { Block } from '../../core'
-import { IAvatarImgProps } from './avatar-img.types'
+import { IAvatarImgProps } from './index'
 
 export class AvatarImg extends Block {
   constructor (props: IAvatarImgProps) {

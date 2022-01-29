@@ -1,6 +1,6 @@
 export interface IValidationMessageProps {
-  text?: string
-  attributes?: {
-    class?: 'validation-message'
+  text: string
+  attributes: {
+    class: 'validation-message'
   }
 }

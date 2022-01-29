@@ -1,13 +1,13 @@
 export interface IButtonProps {
-  title?: string;
-  events?: {
+  title: string;
+  events: {
     click: () => void,
   };
-  attributes?: {
+  attributes: {
     id?: string,
-    class?: 'button' | 'button button_align_right',
+    class: 'button' | 'button button_align_right',
     disabled?: 'true',
     form?: string,
-    type?: 'submit' | 'reset' | 'button',
+    type: 'submit' | 'reset' | 'button',
   }
 }

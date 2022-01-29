@@ -1,8 +1,8 @@
 import { Block } from '../../core'
-import { ITextInputProps } from './text-input.types'
+import { ITextInputProps } from './index'
 
 export class TextInput extends Block {
-  constructor ({ tagName = 'input', ...rest }: ITextInputProps) {
+  constructor ({ tagName, ...rest }: ITextInputProps) {
     super(tagName, rest)
   }
 

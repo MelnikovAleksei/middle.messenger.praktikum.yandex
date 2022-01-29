@@ -1,5 +1,5 @@
 import { Block, compile } from '../../core'
-import { IButtonProps } from './button.types'
+import { IButtonProps } from './index'
 import template from './button.hbs'
 
 export class Button extends Block {

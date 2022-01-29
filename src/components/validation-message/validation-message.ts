@@ -1,5 +1,5 @@
 import { Block, compile } from '../../core'
-import { IValidationMessageProps } from './validation-message.types'
+import { IValidationMessageProps } from './index'
 import template from './validation-message.hbs'
 
 export class ValidationMessage extends Block {

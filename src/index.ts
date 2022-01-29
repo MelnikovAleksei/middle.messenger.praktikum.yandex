@@ -1,23 +1,24 @@
 import {
-  AvatarContainer,
+  Avatar,
   AvatarImg,
   Button,
   Label,
   Link,
   TextInput,
+  TextInputField,
   ValidationMessage
 } from './components'
 import { render } from './core'
 
-const avatarContainer = new AvatarContainer({
-  imgProps: {
+const avatar = new Avatar({
+  img: {
     attributes: {
       class: 'avatar-img',
       alt: 'spaniel',
       src: 'https://images.unsplash.com/photo-1514134952839-71312e5b823f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80'
     }
   },
-  containerProps: {
+  container: {
     attributes: {
       class: 'avatar-container'
     }
@@ -47,7 +48,8 @@ const button = new Button({
 const label = new Label({
   title: 'label',
   attributes: {
-    class: 'label'
+    class: 'label',
+    for: 'text'
   }
 })
 
@@ -63,6 +65,7 @@ const textInput = new TextInput({
   tagName: 'input',
   attributes: {
     class: 'text-input',
+    id: 'text',
     type: 'text',
     minLength: '1',
     maxLength: '50',
@@ -77,6 +80,7 @@ const telInput = new TextInput({
   tagName: 'input',
   attributes: {
     class: 'text-input',
+    id: 'tel',
     type: 'tel',
     name: 'tel',
     pattern: '[0-9]+',
@@ -89,11 +93,73 @@ const textareaInput = new TextInput({
   tagName: 'textarea',
   attributes: {
     class: 'text-input',
+    id: 'textarea',
     name: 'textarea',
     placeholder: 'input (textarea)',
     required: 'true'
   }
 })
+
+const textInutField = new TextInputField({
+  container: {
+    attributes: {
+      class: 'input-container'
+    }
+  },
+  label: {
+    title: 'label',
+    attributes: {
+      class: 'label',
+      for: 'name'
+    }
+  },
+  textInput: {
+    tagName: 'input',
+    attributes: {
+      class: 'text-input',
+      type: 'text',
+      minLength: '1',
+      maxLength: '50',
+      name: 'name',
+      id: 'name',
+      pattern: '[A-Za-z]+',
+      placeholder: 'input (text)',
+      required: 'true'
+    }
+  }
+})
+
+setTimeout(() => {
+  textInutField.setProps({
+    container: {
+      attributes: {
+        class: 'input-container'
+      }
+    },
+    label: {
+      title: 'name',
+      attributes: {
+        class: 'label',
+        for: 'name'
+      }
+    },
+    textInput: {
+      tagName: 'input',
+      attributes: {
+        class: 'text-input',
+        type: 'text',
+        minLength: '1',
+        maxLength: '50',
+        name: 'name',
+        id: 'name',
+        pattern: '[A-Za-z]+',
+        placeholder: 'input (text)',
+        required: 'true',
+        value: 'abc'
+      }
+    }
+  })
+}, 1000)
 
 const validationMessage = new ValidationMessage({
   text: 'validation-message',
@@ -103,7 +169,7 @@ const validationMessage = new ValidationMessage({
 })
 
 render('#root', [
-  avatarContainer,
+  avatar,
   avatarImg,
   button,
   label,
@@ -111,5 +177,6 @@ render('#root', [
   textInput,
   telInput,
   textareaInput,
+  textInutField,
   validationMessage
 ])

@@ -1,5 +1,5 @@
 import { Block, compile } from '../../core'
-import { ILinkProps } from './link.types'
+import { ILinkProps } from './index'
 import template from './link.hbs'
 
 export class Link extends Block {

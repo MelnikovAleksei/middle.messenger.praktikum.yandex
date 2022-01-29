@@ -18,8 +18,8 @@ export class Block<P = any> {
 
   protected readonly props: P;
 
-  eventBus: () => EventBus<Events>
-  children: Block[] | null = null
+  public eventBus: () => EventBus<Events>
+  public children: Block[] | null = null
 
   public constructor (tagName: string, props?: P) {
     const eventBus = new EventBus<Events>()
@@ -40,31 +40,31 @@ export class Block<P = any> {
     eventBus.emit(Block.EVENTS.INIT, this.props)
   }
 
-  _registerEvents (eventBus: EventBus) {
+  private _registerEvents (eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this))
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this))
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this))
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this))
   }
 
-  _createResources () {
+  private _createResources () {
     const { tagName } = this._meta
     this._element = this._createDocumentElement(tagName)
   }
 
-  init () {
+  public init () {
     this._createResources()
     this.eventBus().emit(Block.EVENTS.FLOW_CDM, this.props)
   }
 
-  _componentDidMount (props: P) {
+  private _componentDidMount (props: P) {
     this.componentDidMount(props)
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER)
   }
 
-  componentDidMount (props: P) {}
+  public componentDidMount (props: P) {}
 
-  _componentDidUpdate (oldProps: P, newProps: P) {
+  private _componentDidUpdate (oldProps: P, newProps: P) {
     const response = this.componentDidUpdate(oldProps, newProps)
     if (!response) {
       return
@@ -72,11 +72,11 @@ export class Block<P = any> {
     this._render()
   }
 
-  componentDidUpdate (oldProps: P, newProps: P) {
+  public componentDidUpdate (oldProps: P, newProps: P) {
     return true
   }
 
-  setProps = (nextProps: P) => {
+  public setProps = (nextProps: P) => {
     if (!nextProps) {
       return
     }
@@ -88,7 +88,7 @@ export class Block<P = any> {
     return this._element
   }
 
-  _render () {
+  private _render () {
     const documentFragment = this.render()
 
     this._removeEvents()
@@ -104,7 +104,7 @@ export class Block<P = any> {
     return new DocumentFragment()
   }
 
-  _updateChildren () {
+  private _updateChildren () {
     if (!this.children) {
       return
     }
@@ -116,7 +116,7 @@ export class Block<P = any> {
     })
   }
 
-  _updateAttributes () {
+  private _updateAttributes () {
     const attributes: Record<string, string> = (this.props as any).attributes
 
     if (!attributes) {
@@ -128,11 +128,11 @@ export class Block<P = any> {
     })
   }
 
-  getContent (): HTMLElement {
+  public getContent (): HTMLElement {
     return this.element
   }
 
-  _makePropsProxy (props) {
+  private _makePropsProxy (props) {
     const self = this
 
     return new Proxy(props as unknown as object, {
@@ -152,11 +152,11 @@ export class Block<P = any> {
     }) as unknown as P
   }
 
-  _createDocumentElement (tagName: string) {
+  private _createDocumentElement (tagName: string) {
     return document.createElement(tagName)
   }
 
-  _removeEvents () {
+  private _removeEvents () {
     const events: Record<string, () => void> = (this.props as any).events
 
     if (!events || this._element) {
@@ -168,7 +168,7 @@ export class Block<P = any> {
     })
   }
 
-  _addEvents () {
+  private _addEvents () {
     const events: Record<string, () => void> = (this.props as any).events
 
     if (!events) {
@@ -180,11 +180,11 @@ export class Block<P = any> {
     })
   }
 
-  show () {
+  public show () {
     this.getContent().style.display = 'block'
   }
 
-  hide () {
+  public hide () {
     this.getContent().style.display = 'none'
   }
 }
