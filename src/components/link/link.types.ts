@@ -3,6 +3,6 @@ export interface ILinkProps {
   attributes: {
     href: string,
     target?: string,
-    class: 'link'
+    class?: 'link'
   }
 }

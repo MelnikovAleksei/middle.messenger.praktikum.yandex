@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "parcel build src/pages/*.pug",
-    "server": "parcel build src/pages/*.pug && node server.js",
+    "build": "parcel build src/index.html",
+    "server": "parcel build src/index.html && node server.js",
     "start": "parcel src/index.html --no-source-maps --port 3000 --open",
     "eslint": "eslint 'src/**/*.ts' --fix",
     "stylelint": "stylelint 'src/**/*.css' --fix"
@@ -23,11 +23,11 @@
     "eslint-plugin-promise": "^5.2.0",
     "express": "^4.17.2",
     "parcel-bundler": "^1.12.5",
-    "parcel-plugin-handlebars-precompile": "^1.0.2",
     "stylelint": "^14.3.0",
     "stylelint-config-standard": "^24.0.0"
   },
   "dependencies": {
+    "handlebars": "^4.7.7",
     "nanoid": "^3.2.0"
   }
 }

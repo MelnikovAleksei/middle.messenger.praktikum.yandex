@@ -1,9 +1,9 @@
 export interface ITextInputProps {
   tagName: 'input' | 'textarea',
   attributes: {
-    class: 'text-input',
+    class?: string,
     id: string,
-    type?: 'email' | 'file' | 'password' | 'search' | 'tel' | 'text',
+    type?: 'email' | 'password' | 'search' | 'tel' | 'text',
     disabled?: 'true',
     form?: string,
     min?: string,

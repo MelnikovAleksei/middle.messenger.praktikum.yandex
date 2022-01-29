@@ -1,10 +1,16 @@
 import { Block, compile } from '../../core'
 import { IButtonProps } from './index'
-import template from './button.hbs'
+import { compile as HBSCompile } from 'handlebars'
 
 export class Button extends Block {
   constructor (props: IButtonProps) {
-    super('button', props)
+    super('button', {
+      ...props,
+      attributes: {
+        class: 'button',
+        ...props.attributes
+      }
+    })
   }
 
   setProps: (nextProps: IButtonProps) => {
@@ -12,6 +18,8 @@ export class Button extends Block {
   };
 
   render () {
+    const template = HBSCompile('{{{title}}}')
+
     return compile(template, { ...this.props })
   }
 }

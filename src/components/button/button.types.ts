@@ -5,7 +5,7 @@ export interface IButtonProps {
   };
   attributes: {
     id?: string,
-    class: 'button' | 'button button_align_right',
+    class?: string,
     disabled?: 'true',
     form?: string,
     type: 'submit' | 'reset' | 'button',

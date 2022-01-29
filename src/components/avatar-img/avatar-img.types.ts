@@ -1,6 +1,6 @@
 export interface IAvatarImgProps {
   attributes: {
-    class: 'avatar-img',
+    class?: string,
     src: string,
     alt: string
   },

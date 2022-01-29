@@ -1,12 +1,12 @@
 import { IAvatarImgProps } from '../avatar-img/avatar-img.types'
 
 export interface IAvatarContainerProps {
-  attributes: {
-    class: 'avatar-container'
+  attributes?: {
+    class?: string
   },
 }
 
 export interface IAvatarProps {
-  container: IAvatarContainerProps,
+  container?: IAvatarContainerProps,
   img: IAvatarImgProps,
 }

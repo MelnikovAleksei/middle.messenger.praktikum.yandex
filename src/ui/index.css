@@ -15,8 +15,9 @@
 @import "./button/_align_right/button_align_right.css";
 @import "./label/label.css";
 @import "./text-input/text-input.css";
+@import "./file-input/file-input-alternative-element.css";
+@import "./file-input/file-input-container.css";
 @import "./file-input/file-input.css";
-@import "./file-input/__alternative-element/file-input__alternative-element.css";
 @import "./input-container/input-container.css";
 @import "./avatar-img/avatar-img.css";
 @import "./avatar-container/avatar-container.css";

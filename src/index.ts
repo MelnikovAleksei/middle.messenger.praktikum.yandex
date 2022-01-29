@@ -2,32 +2,25 @@ import {
   Avatar,
   AvatarImg,
   Button,
-  Label,
+  FileInput,
+  FileInputField,
   Link,
   TextInput,
-  TextInputField,
-  ValidationMessage
+  TextInputField
 } from './components'
 import { render } from './core'
 
 const avatar = new Avatar({
   img: {
     attributes: {
-      class: 'avatar-img',
       alt: 'spaniel',
       src: 'https://images.unsplash.com/photo-1514134952839-71312e5b823f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80'
-    }
-  },
-  container: {
-    attributes: {
-      class: 'avatar-container'
     }
   }
 })
 
 const avatarImg = new AvatarImg({
   attributes: {
-    class: 'avatar-img',
     alt: 'spaniel',
     src: 'https://images.unsplash.com/photo-1514134952839-71312e5b823f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80'
   }
@@ -37,7 +30,6 @@ const button = new Button({
   title: 'button',
   attributes: {
     type: 'button',
-    class: 'button',
     id: 'id-button'
   },
   events: {
@@ -45,26 +37,16 @@ const button = new Button({
   }
 })
 
-const label = new Label({
-  title: 'label',
-  attributes: {
-    class: 'label',
-    for: 'text'
-  }
-})
-
 const link = new Link({
   title: 'link',
   attributes: {
-    href: '#',
-    class: 'link'
+    href: '#'
   }
 })
 
 const textInput = new TextInput({
   tagName: 'input',
   attributes: {
-    class: 'text-input',
     id: 'text',
     type: 'text',
     minLength: '1',
@@ -79,7 +61,6 @@ const textInput = new TextInput({
 const telInput = new TextInput({
   tagName: 'input',
   attributes: {
-    class: 'text-input',
     id: 'tel',
     type: 'tel',
     name: 'tel',
@@ -92,7 +73,6 @@ const telInput = new TextInput({
 const textareaInput = new TextInput({
   tagName: 'textarea',
   attributes: {
-    class: 'text-input',
     id: 'textarea',
     name: 'textarea',
     placeholder: 'input (textarea)',
@@ -100,23 +80,16 @@ const textareaInput = new TextInput({
   }
 })
 
-const textInutField = new TextInputField({
-  container: {
-    attributes: {
-      class: 'input-container'
-    }
-  },
+const textInputField = new TextInputField({
   label: {
     title: 'label',
     attributes: {
-      class: 'label',
       for: 'name'
     }
   },
   textInput: {
     tagName: 'input',
     attributes: {
-      class: 'text-input',
       type: 'text',
       minLength: '1',
       maxLength: '50',
@@ -126,57 +99,60 @@ const textInutField = new TextInputField({
       placeholder: 'input (text)',
       required: 'true'
     }
+  },
+  validationMessage: {
+    text: 'validation message'
   }
+})
+
+const fileInput = new FileInput({
+  attributes: {
+    accept: 'image/png, image/jpeg',
+    id: 'file-input'
+  }
+})
+
+const fileInputField = new FileInputField({
+  fileInput: {
+    attributes: {
+      accept: 'image/png, image/jpeg',
+      id: 'img-file-input',
+      name: 'avatar'
+    }
+  },
+  fileInputAlternativeElement: {
+    text: 'file input alternative label'
+  },
+  validationMessage: {}
 })
 
 setTimeout(() => {
-  textInutField.setProps({
-    container: {
+  fileInputField.setProps({
+    fileInput: {
       attributes: {
-        class: 'input-container'
+        accept: 'image/png, image/jpeg',
+        id: 'img-file-input',
+        name: 'avatar'
       }
     },
-    label: {
-      title: 'name',
-      attributes: {
-        class: 'label',
-        for: 'name'
-      }
+    fileInputAlternativeElement: {
+      text: 'file input alternative label'
     },
-    textInput: {
-      tagName: 'input',
-      attributes: {
-        class: 'text-input',
-        type: 'text',
-        minLength: '1',
-        maxLength: '50',
-        name: 'name',
-        id: 'name',
-        pattern: '[A-Za-z]+',
-        placeholder: 'input (text)',
-        required: 'true',
-        value: 'abc'
-      }
+    validationMessage: {
+      text: 'validation text'
     }
   })
-}, 1000)
-
-const validationMessage = new ValidationMessage({
-  text: 'validation-message',
-  attributes: {
-    class: 'validation-message'
-  }
-})
+}, 3000)
 
 render('#root', [
   avatar,
   avatarImg,
   button,
-  label,
+  fileInput,
+  fileInputField,
   link,
   textInput,
   telInput,
   textareaInput,
-  textInutField,
-  validationMessage
+  textInputField
 ])

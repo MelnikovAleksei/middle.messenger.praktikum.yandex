@@ -24,11 +24,6 @@
   border-color: var(--color-green);
 }
 
-.text-input:invalid {
-  color: var(--color-purple2);
-  border-color: var(--color-yellow);
-}
-
 .text-input:disabled::placeholder {
   color: var(--color-gray4);
 }

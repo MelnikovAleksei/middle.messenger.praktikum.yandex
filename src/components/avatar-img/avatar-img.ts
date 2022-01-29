@@ -3,7 +3,12 @@ import { IAvatarImgProps } from './index'
 
 export class AvatarImg extends Block {
   constructor (props: IAvatarImgProps) {
-    super('img', props)
+    super('img', {
+      attributes: {
+        class: 'avatar-img',
+        ...props.attributes
+      }
+    })
   }
 
   setProps: (nextProps: IAvatarImgProps) => {

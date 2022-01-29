@@ -7,7 +7,10 @@ export class Avatar extends Block {
     const avatarImg = new AvatarImg(props.img)
 
     super('div', {
-      ...props.container,
+      attributes: {
+        class: 'avatar-container',
+        ...props.container
+      },
       children: [avatarImg]
     })
   }
@@ -15,7 +18,7 @@ export class Avatar extends Block {
   componentDidUpdate (oldProps: IAvatarProps, newProps: IAvatarProps): boolean {
     this.children[0].setProps(newProps.img)
 
-    return super.componentDidUpdate(oldProps.container, newProps.container)
+    return super.componentDidUpdate(oldProps, newProps)
   }
 
   setProps: (nextProps: IAvatarProps) => {

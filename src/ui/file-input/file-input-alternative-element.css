@@ -1,9 +1,9 @@
-.file-input__alternative-element {
+.file-input-alternative-element {
   box-sizing: border-box;
   padding: 7px 4px;
   margin: 0;
   display: block;
-  width: 169px;
+  width: 100%;
   font-family: var(--font-family-sans-serif);
   font-style: normal;
   font-size: 17px;
