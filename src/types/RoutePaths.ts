@@ -1,10 +1,10 @@
 export enum RoutePaths {
   Root = '/',
-  InternalError = '/internal-error.pug',
-  Messages = '/messages.pug',
-  SignIn = '/sign-in.pug',
-  SignUp = '/sign-up.pug',
-  SingleChat = '/single-chat.pug',
-  UserSettings = '/user-settings.pug',
-  NotFound = '/not-found.pug'
+  InternalError = '/internal-error',
+  Messages = '/messages',
+  SignIn = '/sign-in',
+  SignUp = '/sign-up',
+  SingleChat = '/single-chat',
+  UserSettings = '/user-settings',
+  NotFound = '/not-found'
 }

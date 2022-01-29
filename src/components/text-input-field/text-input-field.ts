@@ -10,8 +10,8 @@ export class TextInputField extends Block {
 
     super('div', {
       attributes: {
-        ...props.container,
-        class: 'input-container'
+        class: 'input-container',
+        ...props.container
       },
       children: [
         label,

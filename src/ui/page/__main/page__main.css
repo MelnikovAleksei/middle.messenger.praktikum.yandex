@@ -1,6 +1,0 @@
-.page__main {
-  box-sizing: border-box;
-  padding: var(--safe-area-top-default) 20px var(--safe-area-bottom-default);
-  margin: 0 auto;
-  max-width: var(--page-main-max-width);
-}

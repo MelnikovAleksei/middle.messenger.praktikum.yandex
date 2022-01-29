@@ -20,6 +20,10 @@
   --page-other-z-index: 5000;
 }
 
+body {
+  background-color: var(--color-gray6);
+}
+
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,

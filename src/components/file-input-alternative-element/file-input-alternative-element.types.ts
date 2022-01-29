@@ -1,4 +1,4 @@
-export interface IFileInputAlternativeElement {
+export interface IFileInputAlternativeElementProps {
   text: string,
   attributes?: {
     class?: string

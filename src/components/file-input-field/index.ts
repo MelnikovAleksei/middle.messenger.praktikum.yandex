@@ -1,2 +1,2 @@
 export { FileInputField } from './file-input-field'
-export { IFileInputField } from './file-input-field.types'
+export { IFileInputFieldProps } from './file-input-field.types'

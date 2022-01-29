@@ -1,9 +1,9 @@
 import { FileInput, ValidationMessage, FileInputAlternativeElement } from '../index'
 import { Block } from '../../core'
-import { IFileInputField } from './index'
+import { IFileInputFieldProps } from './index'
 
 export class FileInputField extends Block {
-  constructor (props: IFileInputField) {
+  constructor (props: IFileInputFieldProps) {
     const fileInput = new FileInput(props.fileInput)
     const alternativeElement = new FileInputAlternativeElement(props.fileInputAlternativeElement)
     const validationMessage = new ValidationMessage(props.validationMessage)
@@ -21,7 +21,7 @@ export class FileInputField extends Block {
     })
   }
 
-  componentDidUpdate (oldProps: IFileInputField, newProps: IFileInputField): boolean {
+  componentDidUpdate (oldProps: IFileInputFieldProps, newProps: IFileInputFieldProps): boolean {
     this.children[0].setProps(newProps.fileInput)
     this.children[1].setProps(newProps.fileInputAlternativeElement)
     this.children[2].setProps(newProps.validationMessage)
@@ -29,7 +29,7 @@ export class FileInputField extends Block {
     return super.componentDidUpdate(oldProps, newProps)
   }
 
-  setProps: (nextProps: IFileInputField) => {
+  setProps: (nextProps: IFileInputFieldProps) => {
     super(nextProps)
   };
 

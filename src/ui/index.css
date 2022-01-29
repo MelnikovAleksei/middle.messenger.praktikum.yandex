@@ -1,15 +1,16 @@
 @import "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap";
 @import "./config.css";
 @import "./page/page.css";
-@import "./page/__main/page__main.css";
-@import "./page/__header/page__header.css";
-@import "./page/__heading/page__heading.css";
+
+@import "./page/page-header/page-header.css";
+@import "./page/page-heading/page-heading.css";
+@import "./page/page-main/page-main.css";
+@import "./page/page-main/_horizontal-padding_zero/page-main_horizontal-padding_zero.css";
+
 @import "./page/__nav/page__nav.css";
-@import "./page/__flex-row-container/page__flex-row-container.css";
 @import "./page/__flex-column-container/page__flex-column-container.css";
 @import "./page/_safe-area-top_large/page_safe-area-top_large.css";
 @import "./page/_safe-area-bottom_large/page_safe-area-bottom_large.css";
-@import "./page/_horizontal-padding_zero/page_horizontal-padding_zero.css";
 @import "./link/link.css";
 @import "./button/button.css";
 @import "./button/_align_right/button_align_right.css";
@@ -25,12 +26,11 @@
 @import "./validation-message/validation-message.css";
 @import "./chat-list/chat-list.css";
 @import "./chat-list/__item/chat-list__item.css";
-@import "./chat/chat.css";
-@import "./chat/__link/chat__link.css";
-@import "./chat/__container/chat__container.css";
-@import "./chat/__heading/chat__heading.css";
-@import "./chat/__sub-heading/chat__sub-heading.css";
-@import "./chat/__text/chat__text.css";
+@import "./chat/chat/chat.css";
+@import "./chat/chat-link/chat-link.css";
+@import "./chat/chat-text-container/__heading/chat-text-container__heading.css";
+@import "./chat/chat-text-container/__sub-heading/chat-text-container__sub-heading.css";
+@import "./chat/chat-text-container/__text/chat-text-container__text.css";
 @import "./message-form/message-form.css";
 @import "./message-form/__flex-row-container/message-form__flex-row-container.css";
 @import "./messages-date-list/messages-date-list.css";
