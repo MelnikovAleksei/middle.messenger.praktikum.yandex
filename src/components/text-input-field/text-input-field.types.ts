@@ -1,4 +1,4 @@
-import { ILabelProps, ITextInputProps, IValidationMessageProps } from '../index'
+import { ILabelProps, ITextInputProps } from '../index'
 
 export interface ITextInputFieldContainerProps {
   attributes?: {
@@ -9,6 +9,5 @@ export interface ITextInputFieldContainerProps {
 export interface ITextInputFieldProps {
   container?: ITextInputFieldContainerProps,
   label: ILabelProps,
-  textInput: ITextInputProps,
-  validationMessage: IValidationMessageProps,
+  textInput: ITextInputProps
 }

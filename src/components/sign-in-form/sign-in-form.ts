@@ -18,12 +18,12 @@ export class SignInForm extends Block {
           id: 'login',
           placeholder: 'login',
           required: 'true',
-          pattern: '^(?![0-9]+$)[A-Za-z0-9_-]$',
+          pattern: '^(?![0-9]+$)[A-Za-z0-9_-]+$',
           minLength: '3',
           maxLength: '20'
-        }
-      },
-      validationMessage: {}
+        },
+        customValidity: 'From 3 to 20 characters, Latin, can contain numbers, but not consist of them, no spaces, no special characters (hyphens and underscores are allowed).'
+      }
     })
 
     const passwordInputField = new TextInputField({
@@ -44,9 +44,9 @@ export class SignInForm extends Block {
           pattern: '^(?:(?=.*d)(?=.*[a-z])(?=.*[A-Z]).*)$',
           minLength: '8',
           maxLength: '40'
-        }
-      },
-      validationMessage: {}
+        },
+        customValidity: '8 to 40 characters, at least one capital letter and a number are required.'
+      }
     })
 
     const singInButton = new Button({

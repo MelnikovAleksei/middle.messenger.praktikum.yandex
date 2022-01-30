@@ -1,4 +1,5 @@
 export interface IFileInputProps {
+  customValidity?: string,
   attributes: {
     class?: 'file-input',
     accept: 'image/png, image/jpeg' | '.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',

@@ -18,9 +18,9 @@ export class MessageForm extends Block {
           placeholder: 'message',
           required: 'true',
           minLength: '1'
-        }
-      },
-      validationMessage: {}
+        },
+        customValidity: 'Must not be empty.'
+      }
     })
 
     const sendMessageButton = new Button({

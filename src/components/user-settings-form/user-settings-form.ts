@@ -19,9 +19,9 @@ export class UserSettingsForm extends Block {
           placeholder: 'first_name',
           required: 'true',
           pattern: '[А-ЯA-Z][а-яa-z_]*'
-        }
-      },
-      validationMessage: {}
+        },
+        customValidity: 'Latin or Cyrillic, the first letter must be capital, no spaces and no numbers, no special characters (only a hyphen is allowed).'
+      }
     })
 
     const secondNameInputField = new TextInputField({
@@ -40,9 +40,9 @@ export class UserSettingsForm extends Block {
           placeholder: 'second_name',
           required: 'true',
           pattern: '[А-ЯA-Z][а-яa-z_]*'
-        }
-      },
-      validationMessage: {}
+        },
+        customValidity: 'Latin or Cyrillic, the first letter must be capital, no spaces and no numbers, no special characters (only a hyphen is allowed).'
+      }
     })
 
     const displayNameInputField = new TextInputField({
@@ -61,9 +61,9 @@ export class UserSettingsForm extends Block {
           placeholder: 'display_name',
           required: 'true',
           pattern: '[А-ЯA-Z][а-яa-z_]*'
-        }
-      },
-      validationMessage: {}
+        },
+        customValidity: 'Latin or Cyrillic, the first letter must be capital, no spaces and no numbers, no special characters (only a hyphen is allowed).'
+      }
     })
 
     const loginInputField = new TextInputField({
@@ -81,12 +81,12 @@ export class UserSettingsForm extends Block {
           id: 'login',
           placeholder: 'login',
           required: 'true',
-          pattern: '^(?![0-9]+$)[A-Za-z0-9_-]$',
+          pattern: '^(?![0-9]+$)[A-Za-z0-9_-]+$',
           minLength: '3',
           maxLength: '20'
-        }
-      },
-      validationMessage: {}
+        },
+        customValidity: 'From 3 to 20 characters, Latin, can contain numbers, but not consist of them, no spaces, no special characters (hyphens and underscores are allowed).'
+      }
     })
 
     const emailInputField = new TextInputField({
@@ -105,9 +105,9 @@ export class UserSettingsForm extends Block {
           placeholder: 'email',
           required: 'true',
           pattern: '[A-Za-z_-]+[@][A-Za-z_-]+[.][A-Za-z_-]+'
-        }
-      },
-      validationMessage: {}
+        },
+        customValidity: 'Latin, can include numbers and special characters like a hyphen, there must be a “dog” (@) and a dot after it, but there must be letters before the dot.'
+      }
     })
 
     const phoneInputField = new TextInputField({
@@ -128,9 +128,9 @@ export class UserSettingsForm extends Block {
           pattern: '[+]?[0-9]+',
           minLength: '10',
           maxLength: '15'
-        }
-      },
-      validationMessage: {}
+        },
+        customValidity: 'From 10 to 15 characters, consists of numbers, may start with a plus sign.'
+      }
     })
 
     const avatarInputField = new FileInputField({
@@ -138,13 +138,14 @@ export class UserSettingsForm extends Block {
         attributes: {
           accept: 'image/png, image/jpeg',
           id: 'avatar',
-          name: 'avatar'
-        }
+          name: 'avatar',
+          required: 'true'
+        },
+        customValidity: 'Required. (image/png and image/jpeg are allowed)'
       },
       fileInputAlternativeElement: {
         text: 'avatar'
-      },
-      validationMessage: {}
+      }
     })
 
     const newPasswordInputField = new TextInputField({
@@ -165,9 +166,9 @@ export class UserSettingsForm extends Block {
           pattern: '^(?:(?=.*d)(?=.*[a-z])(?=.*[A-Z]).*)$',
           minLength: '8',
           maxLength: '40'
-        }
-      },
-      validationMessage: {}
+        },
+        customValidity: '8 to 40 characters, at least one capital letter and a number are required.'
+      }
     })
 
     const oldPasswordInputField = new TextInputField({
@@ -188,9 +189,9 @@ export class UserSettingsForm extends Block {
           pattern: '^(?:(?=.*d)(?=.*[a-z])(?=.*[A-Z]).*)$',
           minLength: '8',
           maxLength: '40'
-        }
-      },
-      validationMessage: {}
+        },
+        customValidity: '8 to 40 characters, at least one capital letter and a number are required.'
+      }
     })
 
     const saveButton = new Button({

@@ -1,5 +1,6 @@
 export interface ITextInputProps {
   tagName: 'input' | 'textarea',
+  customValidity: string,
   attributes: {
     class?: string,
     id: string,
