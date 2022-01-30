@@ -17,7 +17,10 @@ export class SignInForm extends Block {
           name: 'login',
           id: 'login',
           placeholder: 'login',
-          required: 'true'
+          required: 'true',
+          pattern: '^(?![0-9]+$)[A-Za-z0-9_-]$',
+          minLength: '3',
+          maxLength: '20'
         }
       },
       validationMessage: {}
@@ -37,7 +40,10 @@ export class SignInForm extends Block {
           name: 'password',
           id: 'password',
           placeholder: 'password',
-          required: 'true'
+          required: 'true',
+          pattern: '^(?:(?=.*d)(?=.*[a-z])(?=.*[A-Z]).*)$',
+          minLength: '8',
+          maxLength: '40'
         }
       },
       validationMessage: {}

@@ -17,7 +17,8 @@ export class UserSettingsForm extends Block {
           name: 'first_name',
           id: 'first_name',
           placeholder: 'first_name',
-          required: 'true'
+          required: 'true',
+          pattern: '[А-ЯA-Z][а-яa-z_]*'
         }
       },
       validationMessage: {}
@@ -37,7 +38,8 @@ export class UserSettingsForm extends Block {
           name: 'second_name',
           id: 'second_name',
           placeholder: 'second_name',
-          required: 'true'
+          required: 'true',
+          pattern: '[А-ЯA-Z][а-яa-z_]*'
         }
       },
       validationMessage: {}
@@ -57,7 +59,8 @@ export class UserSettingsForm extends Block {
           name: 'display_name',
           id: 'display_name',
           placeholder: 'display_name',
-          required: 'true'
+          required: 'true',
+          pattern: '[А-ЯA-Z][а-яa-z_]*'
         }
       },
       validationMessage: {}
@@ -77,7 +80,10 @@ export class UserSettingsForm extends Block {
           name: 'login',
           id: 'login',
           placeholder: 'login',
-          required: 'true'
+          required: 'true',
+          pattern: '^(?![0-9]+$)[A-Za-z0-9_-]$',
+          minLength: '3',
+          maxLength: '20'
         }
       },
       validationMessage: {}
@@ -97,7 +103,8 @@ export class UserSettingsForm extends Block {
           name: 'email',
           id: 'email',
           placeholder: 'email',
-          required: 'true'
+          required: 'true',
+          pattern: '[A-Za-z_-]+[@][A-Za-z_-]+[.][A-Za-z_-]+'
         }
       },
       validationMessage: {}
@@ -117,7 +124,10 @@ export class UserSettingsForm extends Block {
           name: 'phone',
           id: 'phone',
           placeholder: 'phone',
-          required: 'true'
+          required: 'true',
+          pattern: '[+]?[0-9]+',
+          minLength: '10',
+          maxLength: '15'
         }
       },
       validationMessage: {}
@@ -151,7 +161,10 @@ export class UserSettingsForm extends Block {
           name: 'newPassword',
           id: 'newPassword',
           placeholder: 'newPassword',
-          required: 'true'
+          required: 'true',
+          pattern: '^(?:(?=.*d)(?=.*[a-z])(?=.*[A-Z]).*)$',
+          minLength: '8',
+          maxLength: '40'
         }
       },
       validationMessage: {}
@@ -171,7 +184,10 @@ export class UserSettingsForm extends Block {
           name: 'oldPassword',
           id: 'oldPassword',
           placeholder: 'oldPassword',
-          required: 'true'
+          required: 'true',
+          pattern: '^(?:(?=.*d)(?=.*[a-z])(?=.*[A-Z]).*)$',
+          minLength: '8',
+          maxLength: '40'
         }
       },
       validationMessage: {}

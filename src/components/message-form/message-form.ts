@@ -16,7 +16,8 @@ export class MessageForm extends Block {
           name: 'message',
           id: 'message',
           placeholder: 'message',
-          required: 'true'
+          required: 'true',
+          minLength: '1'
         }
       },
       validationMessage: {}
