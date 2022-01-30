@@ -1,6 +1,41 @@
 import { Block } from '../../core'
-import { PageHeader, PageMain, MessageForm } from '../../components'
+import { PageHeader, PageMain, MessageForm, MessagesList, IMessagesListProps } from '../../components'
 import { RoutePaths } from '../../types'
+
+const MESSAGES: IMessagesListProps['messages'] = [
+  {
+    id: '1',
+    text: {
+      text: 'message-text',
+      type: 'sent'
+    },
+    status: {
+      text: 'message-status',
+      type: 'sent'
+    },
+    date: {
+      text: 'message-date',
+      type: 'sent'
+    },
+    type: 'sent'
+  },
+  {
+    id: '2',
+    text: {
+      text: 'message-text',
+      type: 'inbox'
+    },
+    status: {
+      text: 'message-status',
+      type: 'inbox'
+    },
+    date: {
+      text: 'message-date',
+      type: 'inbox'
+    },
+    type: 'inbox'
+  }
+]
 
 export class SingleChatPage extends Block {
   constructor () {
@@ -22,10 +57,14 @@ export class SingleChatPage extends Block {
       }
     })
 
+    const messagesList = new MessagesList({
+      messages: MESSAGES
+    })
+
     const messageForm = new MessageForm()
 
     const singleChatPageMain = new PageMain({
-      children: [messageForm]
+      children: [messagesList, messageForm]
     })
 
     super('div', {
