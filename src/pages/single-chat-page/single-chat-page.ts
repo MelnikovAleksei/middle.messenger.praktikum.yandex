@@ -1,5 +1,6 @@
 import { Block } from '../../core'
 import { PageHeader, PageMain, MessageForm } from '../../components'
+import { RoutePaths } from '../../types'
 
 export class SingleChatPage extends Block {
   constructor () {
@@ -9,11 +10,15 @@ export class SingleChatPage extends Block {
       heading: {
         text: 'Chat with Cosmo Kramer'
       },
-      link: {
-        title: 'Messages',
-        attributes: {
-          href: '/messages'
-        }
+      nav: {
+        links: [
+          {
+            title: 'Messages',
+            attributes: {
+              href: RoutePaths.Messages
+            }
+          }
+        ]
       }
     })
 

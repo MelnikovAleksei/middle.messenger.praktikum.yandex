@@ -1,5 +1,6 @@
 import { Block } from '../../core'
 import { PageHeader } from '../../components'
+import { RoutePaths } from '../../types'
 
 export class NotFoundPage extends Block {
   constructor () {
@@ -9,11 +10,15 @@ export class NotFoundPage extends Block {
       heading: {
         text: 'Not found'
       },
-      link: {
-        title: 'Messages',
-        attributes: {
-          href: '/messages'
-        }
+      nav: {
+        links: [
+          {
+            title: 'Messages',
+            attributes: {
+              href: RoutePaths.Messages
+            }
+          }
+        ]
       }
     })
 

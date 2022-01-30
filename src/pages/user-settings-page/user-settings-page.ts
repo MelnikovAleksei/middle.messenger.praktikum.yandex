@@ -1,5 +1,6 @@
 import { Block } from '../../core'
 import { PageHeader, PageMain, UserSettingsForm } from '../../components'
+import { RoutePaths } from '../../types'
 
 export class UserSettingsPage extends Block {
   constructor () {
@@ -9,11 +10,15 @@ export class UserSettingsPage extends Block {
       heading: {
         text: 'User settings'
       },
-      link: {
-        title: 'Messages',
-        attributes: {
-          href: '/messages'
-        }
+      nav: {
+        links: [
+          {
+            title: 'Messages',
+            attributes: {
+              href: RoutePaths.Messages
+            }
+          }
+        ]
       }
     })
 

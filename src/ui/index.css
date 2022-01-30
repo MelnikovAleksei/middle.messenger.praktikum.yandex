@@ -4,10 +4,10 @@
 
 @import "./page/page-header/page-header.css";
 @import "./page/page-heading/page-heading.css";
+@import "./page/page-header-nav/page-header-nav.css";
 @import "./page/page-main/page-main.css";
 @import "./page/page-main/_horizontal-padding_zero/page-main_horizontal-padding_zero.css";
 
-@import "./page/__nav/page__nav.css";
 @import "./page/__flex-column-container/page__flex-column-container.css";
 @import "./page/_safe-area-top_large/page_safe-area-top_large.css";
 @import "./page/_safe-area-bottom_large/page_safe-area-bottom_large.css";

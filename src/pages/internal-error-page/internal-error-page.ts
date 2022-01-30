@@ -1,5 +1,6 @@
 import { Block } from '../../core'
 import { PageHeader } from '../../components'
+import { RoutePaths } from '../../types'
 
 export class InternalErrorPage extends Block {
   constructor () {
@@ -9,11 +10,15 @@ export class InternalErrorPage extends Block {
       heading: {
         text: 'Internal error'
       },
-      link: {
-        title: 'Messages',
-        attributes: {
-          href: '/messages'
-        }
+      nav: {
+        links: [
+          {
+            title: 'Messages',
+            attributes: {
+              href: RoutePaths.Messages
+            }
+          }
+        ]
       }
     })
 

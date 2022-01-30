@@ -1,12 +1,11 @@
 import { Block } from '../../core'
 import { IPageHeaderProps } from './index'
-import { Link, PageHeading } from '../index'
+import { PageHeading, PageHeaderNav } from '../index'
 
 export class PageHeader extends Block {
   constructor (props: IPageHeaderProps) {
     const heading = new PageHeading(props.heading)
-
-    const link = new Link(props.link)
+    const nav = new PageHeaderNav(props.nav)
 
     super('header', {
       ...props,
@@ -16,14 +15,14 @@ export class PageHeader extends Block {
       },
       children: [
         heading,
-        link
+        nav
       ]
     })
   }
 
   componentDidUpdate (oldProps: IPageHeaderProps, newProps: IPageHeaderProps): boolean {
     this.children[0].setProps(newProps.heading)
-    this.children[1].setProps(newProps.link)
+    this.children[1].setProps(newProps.nav)
 
     return super.componentDidUpdate(oldProps, newProps)
   }

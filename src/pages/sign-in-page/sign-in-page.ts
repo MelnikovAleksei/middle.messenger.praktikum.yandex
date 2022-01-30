@@ -1,5 +1,6 @@
 import { Block } from '../../core'
 import { PageHeader, PageMain, SignInForm } from '../../components'
+import { RoutePaths } from '../../types'
 
 export class SignInPage extends Block {
   constructor () {
@@ -9,11 +10,15 @@ export class SignInPage extends Block {
       heading: {
         text: 'Sign in'
       },
-      link: {
-        title: 'Sign up',
-        attributes: {
-          href: '/sign-up'
-        }
+      nav: {
+        links: [
+          {
+            title: 'Sign up',
+            attributes: {
+              href: RoutePaths.SignUp
+            }
+          }
+        ]
       }
     })
 

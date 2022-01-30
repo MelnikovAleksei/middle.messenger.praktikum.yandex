@@ -8,7 +8,7 @@ export class Chat extends Block {
     const chatTextContainer = new ChatTextContainer(props.textContainer)
     const chatLink = new ChatLink(props.link)
 
-    super('div', {
+    super('li', {
       ...props,
       attributes: {
         class: 'chat'

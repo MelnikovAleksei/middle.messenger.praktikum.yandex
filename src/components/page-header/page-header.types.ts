@@ -1,9 +1,9 @@
-import { IPageHeadingProps, ILinkProps } from '../index'
+import { IPageHeadingProps, IPageHeaderNavProps } from '../index'
 
 export interface IPageHeaderProps {
   attributes?: {
     class?: string
   },
   heading: IPageHeadingProps,
-  link: ILinkProps
+  nav: IPageHeaderNavProps
 }
