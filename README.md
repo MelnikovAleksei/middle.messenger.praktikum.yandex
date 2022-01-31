@@ -15,3 +15,21 @@
 `npm run server`
 
 `npm run start`
+
+## Functional:
+
+### Implementation of blocks and components using:
+
+* template engine
+* Event Bus
+* Proxy
+* DOM API
+
+### Each object has a life cycle:
+
+* creation
+* the component is rendered (created)
+* adding to the DOM
+* change in response to external signals
+* hiding from the DOM
+* removal from the DOM
