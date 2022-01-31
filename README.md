@@ -2,7 +2,7 @@
 
 ## Links:
 
-* [pull request into **main** from **sprint\_1**](https://github.com/MelnikovAleksei/middle.messenger.praktikum.yandex/pull/1)
+* [pull request into **main** from **sprint\_2**](https://github.com/MelnikovAleksei/middle.messenger.praktikum.yandex/pull/2)
 
 * [deploy on Netlify](https://practical-swartz-984b5f.netlify.app/)
 
