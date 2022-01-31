@@ -1,6 +1,5 @@
 export interface ITextInputProps {
   tagName: 'input' | 'textarea',
-  customValidity: string,
   attributes: {
     class?: string,
     id: string,
@@ -16,5 +15,11 @@ export interface ITextInputProps {
     placeholder?: string,
     required?: 'true',
     value?: string
-  }
+  },
+  events?: {
+    input: (event: Event) => void,
+    blur: (event: Event) => void,
+    focus: (event: Event) => void
+  },
+  invalid?: boolean
 }

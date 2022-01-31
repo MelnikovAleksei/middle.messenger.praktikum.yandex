@@ -1,7 +1,10 @@
-import { TextInputField, FileInputField, Button } from '../index'
+import { TextInputField, Button } from '../index'
 import { Block } from '../../core'
 
 export class UserSettingsForm extends Block {
+  private _formData: Record<string, string>
+  private _formInputsPatterns: Record<string, RegExp>
+
   constructor () {
     const firstNameInputField = new TextInputField({
       label: {
@@ -17,10 +20,22 @@ export class UserSettingsForm extends Block {
           name: 'first_name',
           id: 'first_name',
           placeholder: 'first_name',
-          required: 'true',
-          pattern: '[А-ЯA-Z][а-яa-z_]*'
+          required: 'true'
         },
-        customValidity: 'Latin or Cyrillic, the first letter must be capital, no spaces and no numbers, no special characters (only a hyphen is allowed).'
+        events: {
+          input: (event: Event) => {
+            this._handleInput(event)
+          },
+          blur: (event: Event) => {
+            this._handleBlur(event)
+          },
+          focus: (event: Event) => {
+            this._handleFocus(event)
+          }
+        }
+      },
+      validationMessage: {
+        text: 'Latin or Cyrillic, the first letter must be capital, no spaces and no numbers, no special characters (only a hyphen is allowed).'
       }
     })
 
@@ -38,10 +53,22 @@ export class UserSettingsForm extends Block {
           name: 'second_name',
           id: 'second_name',
           placeholder: 'second_name',
-          required: 'true',
-          pattern: '[А-ЯA-Z][а-яa-z_]*'
+          required: 'true'
         },
-        customValidity: 'Latin or Cyrillic, the first letter must be capital, no spaces and no numbers, no special characters (only a hyphen is allowed).'
+        events: {
+          input: (event: Event) => {
+            this._handleInput(event)
+          },
+          blur: (event: Event) => {
+            this._handleBlur(event)
+          },
+          focus: (event: Event) => {
+            this._handleFocus(event)
+          }
+        }
+      },
+      validationMessage: {
+        text: 'Latin or Cyrillic, the first letter must be capital, no spaces and no numbers, no special characters (only a hyphen is allowed).'
       }
     })
 
@@ -59,10 +86,22 @@ export class UserSettingsForm extends Block {
           name: 'display_name',
           id: 'display_name',
           placeholder: 'display_name',
-          required: 'true',
-          pattern: '[А-ЯA-Z][а-яa-z_]*'
+          required: 'true'
         },
-        customValidity: 'Latin or Cyrillic, the first letter must be capital, no spaces and no numbers, no special characters (only a hyphen is allowed).'
+        events: {
+          input: (event: Event) => {
+            this._handleInput(event)
+          },
+          blur: (event: Event) => {
+            this._handleBlur(event)
+          },
+          focus: (event: Event) => {
+            this._handleFocus(event)
+          }
+        }
+      },
+      validationMessage: {
+        text: 'Latin or Cyrillic, the first letter must be capital, no spaces and no numbers, no special characters (only a hyphen is allowed).'
       }
     })
 
@@ -85,7 +124,20 @@ export class UserSettingsForm extends Block {
           minLength: '3',
           maxLength: '20'
         },
-        customValidity: 'From 3 to 20 characters, Latin, can contain numbers, but not consist of them, no spaces, no special characters (hyphens and underscores are allowed).'
+        events: {
+          input: (event: Event) => {
+            this._handleInput(event)
+          },
+          blur: (event: Event) => {
+            this._handleBlur(event)
+          },
+          focus: (event: Event) => {
+            this._handleFocus(event)
+          }
+        }
+      },
+      validationMessage: {
+        text: 'From 3 to 20 characters, Latin, can contain numbers, but not consist of them, no spaces, no special characters (hyphens and underscores are allowed).'
       }
     })
 
@@ -106,7 +158,20 @@ export class UserSettingsForm extends Block {
           required: 'true',
           pattern: '[A-Za-z_-]+[@][A-Za-z_-]+[.][A-Za-z_-]+'
         },
-        customValidity: 'Latin, can include numbers and special characters like a hyphen, there must be a “dog” (@) and a dot after it, but there must be letters before the dot.'
+        events: {
+          input: (event: Event) => {
+            this._handleInput(event)
+          },
+          blur: (event: Event) => {
+            this._handleBlur(event)
+          },
+          focus: (event: Event) => {
+            this._handleFocus(event)
+          }
+        }
+      },
+      validationMessage: {
+        text: 'Latin, can include numbers and special characters like a hyphen, there must be a “dog” (@) and a dot after it, but there must be letters before the dot.'
       }
     })
 
@@ -124,27 +189,22 @@ export class UserSettingsForm extends Block {
           name: 'phone',
           id: 'phone',
           placeholder: 'phone',
-          required: 'true',
-          pattern: '[+]?[0-9]+',
-          minLength: '10',
-          maxLength: '15'
-        },
-        customValidity: 'From 10 to 15 characters, consists of numbers, may start with a plus sign.'
-      }
-    })
-
-    const avatarInputField = new FileInputField({
-      fileInput: {
-        attributes: {
-          accept: 'image/png, image/jpeg',
-          id: 'avatar',
-          name: 'avatar',
           required: 'true'
         },
-        customValidity: 'Required. (image/png and image/jpeg are allowed)'
+        events: {
+          input: (event: Event) => {
+            this._handleInput(event)
+          },
+          blur: (event: Event) => {
+            this._handleBlur(event)
+          },
+          focus: (event: Event) => {
+            this._handleFocus(event)
+          }
+        }
       },
-      fileInputAlternativeElement: {
-        text: 'avatar'
+      validationMessage: {
+        text: 'From 10 to 15 characters, consists of numbers, may start with a plus sign.'
       }
     })
 
@@ -162,12 +222,22 @@ export class UserSettingsForm extends Block {
           name: 'newPassword',
           id: 'newPassword',
           placeholder: 'newPassword',
-          required: 'true',
-          pattern: '^(?:(?=.*d)(?=.*[a-z])(?=.*[A-Z]).*)$',
-          minLength: '8',
-          maxLength: '40'
+          required: 'true'
         },
-        customValidity: '8 to 40 characters, at least one capital letter and a number are required.'
+        events: {
+          input: (event: Event) => {
+            this._handleInput(event)
+          },
+          blur: (event: Event) => {
+            this._handleBlur(event)
+          },
+          focus: (event: Event) => {
+            this._handleFocus(event)
+          }
+        }
+      },
+      validationMessage: {
+        text: '8 to 40 characters, at least one capital letter and a number are required.'
       }
     })
 
@@ -185,12 +255,22 @@ export class UserSettingsForm extends Block {
           name: 'oldPassword',
           id: 'oldPassword',
           placeholder: 'oldPassword',
-          required: 'true',
-          pattern: '^(?:(?=.*d)(?=.*[a-z])(?=.*[A-Z]).*)$',
-          minLength: '8',
-          maxLength: '40'
+          required: 'true'
         },
-        customValidity: '8 to 40 characters, at least one capital letter and a number are required.'
+        events: {
+          input: (event: Event) => {
+            this._handleInput(event)
+          },
+          blur: (event: Event) => {
+            this._handleBlur(event)
+          },
+          focus: (event: Event) => {
+            this._handleFocus(event)
+          }
+        }
+      },
+      validationMessage: {
+        text: '8 to 40 characters, at least one capital letter and a number are required.'
       }
     })
 
@@ -202,7 +282,7 @@ export class UserSettingsForm extends Block {
         class: 'button button_align_right'
       },
       events: {
-        click: () => console.log('Save user settings')
+        click: () => null
       }
     })
 
@@ -210,7 +290,8 @@ export class UserSettingsForm extends Block {
       attributes: {
         class: 'form',
         id: 'user-settings',
-        name: 'user-settings'
+        name: 'user-settings',
+        novalidate: 'true'
       },
       children: [
         firstNameInputField,
@@ -221,10 +302,128 @@ export class UserSettingsForm extends Block {
         phoneInputField,
         newPasswordInputField,
         oldPasswordInputField,
-        avatarInputField,
         saveButton
-      ]
+      ],
+      events: {
+        submit: (event: Event) => {
+          this._handleSubmit(event)
+        }
+      }
     })
+
+    this._formData = {
+      first_name: '',
+      second_name: '',
+      display_name: '',
+      login: '',
+      email: '',
+      newPassword: '',
+      oldPassword: '',
+      phone: ''
+    }
+
+    this._formInputsPatterns = {
+      first_name: /[А-ЯA-Z][а-яa-z_]*/,
+      second_name: /[А-ЯA-Z][а-яa-z_]*/,
+      display_name: /[А-ЯA-Z][а-яa-z_]*/,
+      login: /^(?![0-9]+$)[A-Za-z0-9_-]{3,20}$/,
+      email: /[A-Za-z_-]+[@][A-Za-z_-]+[.][A-Za-z_-]+/,
+      newPassword: /^(?=.*[A-Z])(?=.*[0-9]).{8,40}/,
+      oldPassword: /^(?=.*[A-Z])(?=.*[0-9]).{8,40}/,
+      phone: /[+]?[0-9]{10,15}/
+    }
+  }
+
+  private _handleSubmit (event: Event) {
+    event.preventDefault()
+
+    const formElements = Array.from((this.element as HTMLFormElement).elements)
+
+    let isAllFormElementsValid = true
+
+    formElements.forEach((element) => {
+      if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+        this._validator(
+          (element as HTMLInputElement).name,
+          (isValid) => {
+            isAllFormElementsValid = isValid
+          })
+      }
+    })
+
+    if (isAllFormElementsValid) {
+      console.table(this._formData)
+    } else {
+      console.error('Invalid form data')
+    }
+  }
+
+  private _setFormData (name: string, value: string) {
+    this._formData = {
+      ...this._formData,
+      [name]: value
+    }
+  }
+
+  private _checkInputValidity (name: string) {
+    return this._formInputsPatterns[name].test(this._formData[name])
+  }
+
+  private _validator (name: string, callback?: (isValid) => void) {
+    const isValid = this._checkInputValidity(name)
+
+    this._toggleInputValidationMessage(name, isValid)
+
+    callback?.(isValid)
+  }
+
+  private _handleInput (event: Event) {
+    const { name, value } = (event.target as HTMLInputElement)
+
+    this._setFormData(name, value)
+
+    this._validator(name)
+  }
+
+  private _handleFocus (event: Event) {
+    const { name } = (event.target as HTMLInputElement)
+
+    this._validator(name)
+  }
+
+  private _handleBlur (event: Event) {
+    const { name } = (event.target as HTMLInputElement)
+
+    this._validator(name)
+  }
+
+  private _toggleInputValidationMessage (name: string, isValid: boolean) {
+    switch (name) {
+      case 'first_name':
+        (this.children[0] as any).toggleValidationMessage(isValid)
+        break
+      case 'second_name':
+        (this.children[1] as any).toggleValidationMessage(isValid)
+        break
+      case 'display_name':
+        (this.children[2] as any).toggleValidationMessage(isValid)
+        break
+      case 'login':
+        (this.children[3] as any).toggleValidationMessage(isValid)
+        break
+      case 'email':
+        (this.children[4] as any).toggleValidationMessage(isValid)
+        break
+      case 'phone':
+        (this.children[5] as any).toggleValidationMessage(isValid)
+        break
+      case 'newPassword':
+        (this.children[6] as any).toggleValidationMessage(isValid)
+        break
+      case 'oldPassword':
+        (this.children[7] as any).toggleValidationMessage(isValid)
+        break
+    }
   }
 
   render (): DocumentFragment {

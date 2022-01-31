@@ -14,17 +14,21 @@ export class ValidationMessage extends Block {
   }
 
   componentDidUpdate (oldProps: IValidationMessageProps, newProps: IValidationMessageProps): boolean {
-    if (!newProps.text) {
-      this.hide()
-    } else {
+    if (newProps.show) {
       this.show()
+    } else {
+      this.hide()
     }
     return super.componentDidUpdate(oldProps, newProps)
   }
 
   render () {
-    const template = HBSCompile('{{{text}}}')
+    if (this.props.show) {
+      const template = HBSCompile('{{{text}}}')
 
-    return compile(template, { ...this.props })
+      return compile(template, { ...this.props })
+    } else {
+      return new DocumentFragment()
+    }
   }
 }

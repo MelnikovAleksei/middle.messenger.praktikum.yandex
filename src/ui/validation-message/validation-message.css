@@ -1,6 +1,7 @@
 .validation-message {
   box-sizing: border-box;
-  padding: 0 4px;
+  display: none;
+  padding: 4px;
   margin: 0;
   font-family: var(--font-family-sans-serif);
   font-style: normal;
@@ -8,7 +9,4 @@
   font-weight: 500;
   line-height: 11px;
   color: var(--color-purple2);
-  position: absolute;
-  bottom: 0;
-  left: 0;
 }
