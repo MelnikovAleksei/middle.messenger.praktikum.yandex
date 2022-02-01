@@ -34,9 +34,9 @@ export class ChatList extends Block {
       attributes: {
         class: 'chat-list'
       },
-      children: [
+      children: {
         ...chats
-      ]
+      }
     })
   }
 

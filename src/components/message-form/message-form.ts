@@ -57,10 +57,10 @@ export class MessageForm extends Block {
         name: 'message',
         novalidate: 'true'
       },
-      children: [
+      children: {
         messageInputField,
         sendMessageButton
-      ],
+      },
       events: {
         submit: (event: Event) => {
           this._handleSubmit(event)
@@ -143,7 +143,7 @@ export class MessageForm extends Block {
   private _toggleInputValidationMessage (name: string, isValid: boolean) {
     switch (name) {
       case 'message':
-        (this.children[0] as any).toggleValidationMessage(isValid)
+        (this.children.messageInputField as any).toggleValidationMessage(isValid)
         break
     }
   }

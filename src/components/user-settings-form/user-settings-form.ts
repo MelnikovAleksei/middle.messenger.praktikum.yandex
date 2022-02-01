@@ -293,7 +293,7 @@ export class UserSettingsForm extends Block {
         name: 'user-settings',
         novalidate: 'true'
       },
-      children: [
+      children: {
         firstNameInputField,
         secondNameInputField,
         displayNameInputField,
@@ -303,7 +303,7 @@ export class UserSettingsForm extends Block {
         newPasswordInputField,
         oldPasswordInputField,
         saveButton
-      ],
+      },
       events: {
         submit: (event: Event) => {
           this._handleSubmit(event)
@@ -400,28 +400,28 @@ export class UserSettingsForm extends Block {
   private _toggleInputValidationMessage (name: string, isValid: boolean) {
     switch (name) {
       case 'first_name':
-        (this.children[0] as any).toggleValidationMessage(isValid)
+        (this.children.firstNameInputField as any).toggleValidationMessage(isValid)
         break
       case 'second_name':
-        (this.children[1] as any).toggleValidationMessage(isValid)
+        (this.children.secondNameInputField as any).toggleValidationMessage(isValid)
         break
       case 'display_name':
-        (this.children[2] as any).toggleValidationMessage(isValid)
+        (this.children.displayNameInputField as any).toggleValidationMessage(isValid)
         break
       case 'login':
-        (this.children[3] as any).toggleValidationMessage(isValid)
+        (this.children.loginInputField as any).toggleValidationMessage(isValid)
         break
       case 'email':
-        (this.children[4] as any).toggleValidationMessage(isValid)
+        (this.children.emailInputField as any).toggleValidationMessage(isValid)
         break
       case 'phone':
-        (this.children[5] as any).toggleValidationMessage(isValid)
+        (this.children.phoneInputField as any).toggleValidationMessage(isValid)
         break
       case 'newPassword':
-        (this.children[6] as any).toggleValidationMessage(isValid)
+        (this.children.newPasswordInputField as any).toggleValidationMessage(isValid)
         break
       case 'oldPassword':
-        (this.children[7] as any).toggleValidationMessage(isValid)
+        (this.children.oldPasswordInputField as any).toggleValidationMessage(isValid)
         break
     }
   }

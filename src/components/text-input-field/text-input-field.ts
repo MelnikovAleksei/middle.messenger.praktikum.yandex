@@ -15,11 +15,11 @@ export class TextInputField extends Block {
         class: 'input-container',
         ...props.container
       },
-      children: [
-        label,
-        textInput,
-        validationMessage
-      ]
+      children: {
+        label: label,
+        textInput: textInput,
+        validationMessage: validationMessage
+      }
     })
   }
 
@@ -32,9 +32,9 @@ export class TextInputField extends Block {
   }
 
   componentDidUpdate (oldProps: ITextInputFieldProps, newProps: ITextInputFieldProps): boolean {
-    this.children[0].setProps(newProps.label)
-    this.children[1].setProps(newProps.textInput)
-    this.children[2].setProps(newProps.validationMessage)
+    this.children.label.setProps(newProps.label)
+    this.children.textInput.setProps(newProps.textInput)
+    this.children.validationMessage.setProps(newProps.validationMessage)
 
     return super.componentDidUpdate(oldProps, newProps)
   }

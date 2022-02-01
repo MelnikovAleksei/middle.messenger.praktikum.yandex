@@ -91,11 +91,11 @@ export class SignInForm extends Block {
         name: 'sign-in',
         novalidate: 'true'
       },
-      children: [
+      children: {
         loginInputField,
         passwordInputField,
         singInButton
-      ],
+      },
       events: {
         submit: (event: Event) => {
           this._handleSubmit(event)
@@ -180,10 +180,10 @@ export class SignInForm extends Block {
   private _toggleInputValidationMessage (name: string, isValid: boolean) {
     switch (name) {
       case 'login':
-        (this.children[0] as any).toggleValidationMessage(isValid)
+        (this.children.loginInputField as any).toggleValidationMessage(isValid)
         break
       case 'password':
-        (this.children[1] as any).toggleValidationMessage(isValid)
+        (this.children.passwordInputField as any).toggleValidationMessage(isValid)
         break
     }
   }

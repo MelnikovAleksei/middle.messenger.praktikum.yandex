@@ -11,12 +11,14 @@ export class Avatar extends Block {
         class: 'avatar-container',
         ...props.container
       },
-      children: [avatarImg]
+      children: {
+        avatarImg
+      }
     })
   }
 
   componentDidUpdate (oldProps: IAvatarProps, newProps: IAvatarProps): boolean {
-    this.children[0].setProps(newProps.img)
+    this.children.avatarImg.setProps(newProps.img)
 
     return super.componentDidUpdate(oldProps, newProps)
   }

@@ -14,18 +14,18 @@ export class Message extends Block {
         class: 'message',
         id: props.id
       },
-      children: [
+      children: {
         text,
         status,
         date
-      ]
+      }
     })
   }
 
   componentDidUpdate (oldProps: IMessageProps, newProps: IMessageProps): boolean {
-    this.children[0].setProps(newProps.text)
-    this.children[1].setProps(newProps.status)
-    this.children[2].setProps(newProps.date)
+    this.children.text.setProps(newProps.text)
+    this.children.status.setProps(newProps.status)
+    this.children.date.setProps(newProps.date)
 
     return super.componentDidUpdate(oldProps, newProps)
   }

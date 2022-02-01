@@ -13,16 +13,16 @@ export class PageHeader extends Block {
         class: 'page-header',
         ...props.attributes
       },
-      children: [
+      children: {
         heading,
         nav
-      ]
+      }
     })
   }
 
   componentDidUpdate (oldProps: IPageHeaderProps, newProps: IPageHeaderProps): boolean {
-    this.children[0].setProps(newProps.heading)
-    this.children[1].setProps(newProps.nav)
+    this.children.heading.setProps(newProps.heading)
+    this.children.nav.setProps(newProps.nav)
 
     return super.componentDidUpdate(oldProps, newProps)
   }

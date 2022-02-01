@@ -14,12 +14,12 @@ export class Block<P = any> {
 
   private _meta: Meta;
 
-  private _element: HTMLElement | null = null;
+  private _element: HTMLElement;
 
   protected readonly props: P;
 
   public eventBus: () => EventBus<Events>
-  public children: Block[] | null = null
+  public children: Record<string, Block> = {}
 
   public constructor (tagName: string, props?: P) {
     const eventBus = new EventBus<Events>()
@@ -105,15 +105,17 @@ export class Block<P = any> {
   }
 
   private _updateChildren () {
-    if (!this.children) {
-      return
+    if (this.children) {
+      this._element.innerHTML = ''
+
+      Object.keys(this.children).forEach((childName) => {
+        const child = this.children ? this.children[childName] : null
+
+        if (child) {
+          this._element?.appendChild(child.getContent())
+        }
+      })
     }
-
-    this._element.innerHTML = ''
-
-    this.children.forEach((child) => {
-      this._element.appendChild(child.getContent())
-    })
   }
 
   private _updateAttributes () {

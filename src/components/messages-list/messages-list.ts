@@ -16,16 +16,10 @@ export class MessagesList extends Block {
         class: 'messages-list',
         ...props.attributes
       },
-      children: [
+      children: {
         ...messages
-      ]
+      }
     })
-  }
-
-  componentDidUpdate (oldProps: IMessagesListProps, newProps: IMessagesListProps): boolean {
-    this.children[0].setProps(newProps.messages)
-
-    return super.componentDidUpdate(oldProps, newProps)
   }
 
   setProps: (nextProps: IMessagesListProps) => {

@@ -223,7 +223,7 @@ export class SignUpForm extends Block {
         name: 'sign-up',
         novalidate: 'true'
       },
-      children: [
+      children: {
         firstNameInputField,
         secondNameInputField,
         loginInputField,
@@ -231,7 +231,7 @@ export class SignUpForm extends Block {
         passwordInputField,
         phoneInputField,
         singUpButton
-      ],
+      },
       events: {
         submit: (event: Event) => {
           this._handleSubmit(event)
@@ -324,22 +324,22 @@ export class SignUpForm extends Block {
   private _toggleInputValidationMessage (name: string, isValid: boolean) {
     switch (name) {
       case 'first_name':
-        (this.children[0] as any).toggleValidationMessage(isValid)
+        (this.children.firstNameInputField as any).toggleValidationMessage(isValid)
         break
       case 'second_name':
-        (this.children[1] as any).toggleValidationMessage(isValid)
+        (this.children.secondNameInputField as any).toggleValidationMessage(isValid)
         break
       case 'login':
-        (this.children[2] as any).toggleValidationMessage(isValid)
+        (this.children.loginInputField as any).toggleValidationMessage(isValid)
         break
       case 'email':
-        (this.children[3] as any).toggleValidationMessage(isValid)
+        (this.children.emailInputField as any).toggleValidationMessage(isValid)
         break
       case 'password':
-        (this.children[4] as any).toggleValidationMessage(isValid)
+        (this.children.passwordInputField as any).toggleValidationMessage(isValid)
         break
       case 'phone':
-        (this.children[5] as any).toggleValidationMessage(isValid)
+        (this.children.phoneInputField as any).toggleValidationMessage(isValid)
         break
     }
   }

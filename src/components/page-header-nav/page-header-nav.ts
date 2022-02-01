@@ -15,9 +15,9 @@ export class PageHeaderNav extends Block {
         class: 'page-header-nav',
         ...props.attributes
       },
-      children: [
+      children: {
         ...links
-      ]
+      }
     })
   }
 

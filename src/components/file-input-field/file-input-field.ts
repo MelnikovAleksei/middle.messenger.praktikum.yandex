@@ -12,16 +12,16 @@ export class FileInputField extends Block {
         class: 'file-input-container',
         ...props.container
       },
-      children: [
+      children: {
         fileInput,
         alternativeElement
-      ]
+      }
     })
   }
 
   componentDidUpdate (oldProps: IFileInputFieldProps, newProps: IFileInputFieldProps): boolean {
-    this.children[0].setProps(newProps.fileInput)
-    this.children[1].setProps(newProps.fileInputAlternativeElement)
+    this.children.fileInput.setProps(newProps.fileInput)
+    this.children.alternativeElement.setProps(newProps.fileInputAlternativeElement)
 
     return super.componentDidUpdate(oldProps, newProps)
   }

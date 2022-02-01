@@ -13,18 +13,18 @@ export class Chat extends Block {
       attributes: {
         class: 'chat'
       },
-      children: [
+      children: {
         chatAvatar,
         chatTextContainer,
         chatLink
-      ]
+      }
     })
   }
 
   componentDidUpdate (oldProps: IChatProps, newProps: IChatProps): boolean {
-    this.children[0].setProps(newProps.avatar)
-    this.children[1].setProps(newProps.textContainer)
-    this.children[2].setProps(newProps.link)
+    this.children.chatAvatar.setProps(newProps.avatar)
+    this.children.chatTextContainer.setProps(newProps.textContainer)
+    this.children.chatLink.setProps(newProps.link)
 
     return super.componentDidUpdate(oldProps, newProps)
   }
