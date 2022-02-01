@@ -26,10 +26,6 @@ export class FileInputField extends Block {
     return super.componentDidUpdate(oldProps, newProps)
   }
 
-  setProps: (nextProps: IFileInputFieldProps) => {
-    super(nextProps)
-  };
-
   render (): DocumentFragment {
     return new DocumentFragment()
   }

@@ -30,10 +30,6 @@ export class Message extends Block {
     return super.componentDidUpdate(oldProps, newProps)
   }
 
-  setProps: (nextProps: IMessageProps) => {
-    super(nextProps)
-  };
-
   render () {
     return new DocumentFragment()
   }

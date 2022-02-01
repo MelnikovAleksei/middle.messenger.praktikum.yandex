@@ -13,10 +13,6 @@ export class Button extends Block {
     })
   }
 
-  setProps: (nextProps: IButtonProps) => {
-    super(nextProps)
-  };
-
   render () {
     const template = HBSCompile('{{{title}}}')
 

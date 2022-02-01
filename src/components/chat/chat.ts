@@ -29,10 +29,6 @@ export class Chat extends Block {
     return super.componentDidUpdate(oldProps, newProps)
   }
 
-  setProps: (nextProps: IChatProps) => {
-    super(nextProps)
-  };
-
   render () {
     return new DocumentFragment()
   }

@@ -13,10 +13,6 @@ export class FileInput extends Block {
     })
   }
 
-  setProps: (nextProps: IFileInputProps) => {
-    super(nextProps)
-  };
-
   render () {
     return new DocumentFragment()
   }

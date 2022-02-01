@@ -22,10 +22,6 @@ export class MessagesList extends Block {
     })
   }
 
-  setProps: (nextProps: IMessagesListProps) => {
-    super(nextProps)
-  };
-
   render () {
     return new DocumentFragment()
   }

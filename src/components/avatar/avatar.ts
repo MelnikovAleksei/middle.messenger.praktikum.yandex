@@ -23,10 +23,6 @@ export class Avatar extends Block {
     return super.componentDidUpdate(oldProps, newProps)
   }
 
-  setProps: (nextProps: IAvatarProps) => {
-    super(nextProps)
-  };
-
   render () {
     return new DocumentFragment()
   }

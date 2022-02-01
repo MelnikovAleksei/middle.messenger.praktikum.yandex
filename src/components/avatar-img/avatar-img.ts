@@ -11,10 +11,6 @@ export class AvatarImg extends Block {
     })
   }
 
-  setProps: (nextProps: IAvatarImgProps) => {
-    super(nextProps)
-  };
-
   render () {
     return new DocumentFragment()
   }

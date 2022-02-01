@@ -27,10 +27,6 @@ export class PageHeader extends Block {
     return super.componentDidUpdate(oldProps, newProps)
   }
 
-  setProps: (nextProps: IPageHeaderProps) => {
-    super(nextProps)
-  };
-
   render () {
     return new DocumentFragment()
   }

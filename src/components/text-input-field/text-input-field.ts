@@ -39,10 +39,6 @@ export class TextInputField extends Block {
     return super.componentDidUpdate(oldProps, newProps)
   }
 
-  setProps: (nextProps: ITextInputFieldProps) => {
-    super(nextProps)
-  };
-
   render (): DocumentFragment {
     return new DocumentFragment()
   }

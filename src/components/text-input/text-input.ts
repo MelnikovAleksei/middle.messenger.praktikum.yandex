@@ -12,10 +12,6 @@ export class TextInput extends Block {
     })
   }
 
-  setProps: (nextProps: ITextInputProps) => {
-    super(nextProps)
-  };
-
   render () {
     return new DocumentFragment()
   }

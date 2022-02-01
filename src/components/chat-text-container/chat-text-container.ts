@@ -12,10 +12,6 @@ export class ChatTextContainer extends Block {
     })
   }
 
-  setProps: (nextProps: IChatTextContainerProps) => {
-    super(nextProps)
-  };
-
   render () {
     const template = HBSCompile(
       `
