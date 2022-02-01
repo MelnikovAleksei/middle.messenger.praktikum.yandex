@@ -1,7 +1,7 @@
 export interface IMessageStatusProps {
-  text: string,
+  text: string;
   attributes?: {
-    class?: string,
+    class?: string;
   },
-  type: 'sent' | 'inbox'
+  type: 'sent' | 'inbox';
 }

@@ -1,7 +1,7 @@
 export interface IValidationMessageProps {
-  text?: string,
-  show?: boolean,
+  text?: string;
+  show?: boolean;
   attributes?: {
-    class?: string
+    class?: string;
   }
 }

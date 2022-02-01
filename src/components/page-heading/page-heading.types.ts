@@ -1,6 +1,6 @@
 export interface IPageHeadingProps {
-  text: string,
+  text: string;
   attributes?: {
-    class?: 'link'
+    class?: 'link';
   }
 }

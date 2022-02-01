@@ -1,8 +1,8 @@
 export interface ILinkProps {
-  title: string,
+  title: string;
   attributes: {
-    href: string,
-    target?: string,
-    class?: 'link'
+    href: string;
+    target?: string;
+    class?: 'link';
   }
 }

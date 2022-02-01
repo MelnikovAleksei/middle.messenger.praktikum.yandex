@@ -1,8 +1,8 @@
 import { IMessageProps } from '../index'
 
 export interface IMessagesListProps {
-  messages: IMessageProps[],
+  messages: IMessageProps[];
   attributes?: {
-    class?: 'string'
+    class?: 'string';
   }
 }

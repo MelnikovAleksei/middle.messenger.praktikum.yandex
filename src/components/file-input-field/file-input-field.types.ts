@@ -3,9 +3,9 @@ import { IFileInputProps, IFileInputAlternativeElementProps } from '../index'
 export interface IFileInputFieldProps {
   container?: {
     attributes?: {
-      class?: string
+      class?: string;
     }
   },
-  fileInput: IFileInputProps,
-  fileInputAlternativeElement: IFileInputAlternativeElementProps
+  fileInput: IFileInputProps;
+  fileInputAlternativeElement: IFileInputAlternativeElementProps;
 }

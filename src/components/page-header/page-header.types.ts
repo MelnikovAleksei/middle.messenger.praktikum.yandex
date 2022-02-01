@@ -2,8 +2,8 @@ import { IPageHeadingProps, IPageHeaderNavProps } from '../index'
 
 export interface IPageHeaderProps {
   attributes?: {
-    class?: string
+    class?: string;
   },
-  heading: IPageHeadingProps,
-  nav: IPageHeaderNavProps
+  heading: IPageHeadingProps;
+  nav: IPageHeaderNavProps;
 }

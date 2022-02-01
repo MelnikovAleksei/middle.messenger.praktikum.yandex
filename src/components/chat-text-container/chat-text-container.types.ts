@@ -1,5 +1,5 @@
 export interface IChatTextContainerProps {
-  heading: string,
-  subHeading: string,
-  text: string
+  heading: string;
+  subHeading: string;
+  text: string;
 }

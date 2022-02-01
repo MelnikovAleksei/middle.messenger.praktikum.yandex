@@ -1,8 +1,8 @@
 import { ILinkProps } from '../index'
 
 export interface IPageHeaderNavProps {
-  links: ILinkProps[],
+  links: ILinkProps[];
   attributes?: {
-    class?: string
+    class?: string;
   }
 }

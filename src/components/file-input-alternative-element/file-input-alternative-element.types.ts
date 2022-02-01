@@ -1,6 +1,6 @@
 export interface IFileInputAlternativeElementProps {
-  text: string,
+  text: string;
   attributes?: {
-    class?: string
+    class?: string;
   }
 }

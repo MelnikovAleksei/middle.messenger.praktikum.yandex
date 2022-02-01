@@ -1,7 +1,7 @@
 export interface ILabelProps {
-  title: string,
+  title: string;
   attributes: {
-    class?: string,
-    for: string,
+    class?: string;
+    for: string;
   }
 }
