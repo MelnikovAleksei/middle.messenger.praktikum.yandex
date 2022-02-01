@@ -54,7 +54,7 @@ export class Block<P = any> {
 
   public init () {
     this._createResources()
-    this.eventBus().emit(Block.EVENTS.FLOW_CDM, this.props)
+    this.eventBus().emit(Block.EVENTS.FLOW_RENDER, this.props)
   }
 
   private _componentDidMount (props: P) {
