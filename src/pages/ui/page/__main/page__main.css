@@ -1,7 +1,0 @@
-.page__main {
-  box-sizing: border-box;
-  padding: var(--safeAreaTop-default) 20px var(--safeAreaBottom-default);
-  margin: 0 auto;
-
-  max-width: var(--pageMain-maxWidth);
-}

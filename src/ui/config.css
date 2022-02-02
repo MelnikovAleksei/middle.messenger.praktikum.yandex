@@ -1,0 +1,36 @@
+:root {
+  --font-family-sans-serif: "Roboto", sans-serif;
+  --color-gray1: #333;
+  --color-gray2: #4f4f4f;
+  --color-gray3: #828282;
+  --color-gray4: #bdbdbd;
+  --color-gray5: #e0e0e0;
+  --color-gray6: #f2f2f2;
+  --color-green: #219653;
+  --color-purple1: #9b51e0;
+  --color-purple2: #bb6bd9;
+  --color-yellow: #f2c94c;
+  --safe-area-top-large: 110px;
+  --safe-area-top-default: 55px;
+  --safe-area-bottom-large: 160px;
+  --safe-area-bottom-default: 20px;
+  --page-main-max-width: 768px;
+  --page-header-max-width: 1024px;
+  --page-header-z-index: 4000;
+  --page-other-z-index: 5000;
+}
+
+body {
+  background-color: var(--color-gray6);
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  appearance: none;
+}
+
+textarea {
+  resize: none;
+}

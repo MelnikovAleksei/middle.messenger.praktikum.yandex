@@ -1,0 +1,26 @@
+.file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.file-input:active + .file-input-alternative-element,
+.file-input:focus + .file-input-alternative-element {
+  color: var(--color-gray1);
+  background-color: var(--color-gray6);
+  border: 1px solid var(--color-green);
+}
+
+.file-input:disabled + .file-input-alternative-element {
+  color: var(--color-gray4);
+  background-color: var(--color-gray5);
+  border: 1px solid var(--color-gray5);
+}
+
+.file-input:invalid + .file-input-alternative-element {
+  color: var(--color-purple2);
+  background-color: var(--color-gray6);
+  border: 1px solid var(--color-purple2);
+}

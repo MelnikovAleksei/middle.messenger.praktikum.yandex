@@ -1,0 +1,4 @@
+.message-form__flex-row-container {
+  display: flex;
+  justify-content: space-between;
+}

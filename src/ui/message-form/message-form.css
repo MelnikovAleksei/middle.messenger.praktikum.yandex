@@ -1,0 +1,13 @@
+.message-form {
+  box-sizing: border-box;
+  padding: 8px 16px;
+  margin: 0;
+  width: 100%;
+  max-width: var(--page-header-max-width);
+  z-index: var(--page-other-z-index);
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-gray6);
+}
