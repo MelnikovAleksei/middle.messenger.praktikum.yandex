@@ -8,45 +8,54 @@ import {
   UserSettingsPage
 } from './pages'
 
-import { Block, render } from './core'
+import { render, Router } from './core'
 
 import { RoutePaths } from './types'
 
 try {
-  let currPage: Block | null = null
+  const router = new Router()
 
-  const currPathName = window.location.pathname
-
-  switch (currPathName) {
-    case (RoutePaths.InternalError):
-      currPage = new InternalErrorPage()
-      break
-    case (RoutePaths.Messages):
-      currPage = new MessagesPage()
-      break
-    case (RoutePaths.SignIn):
-      currPage = new SignInPage()
-      break
-    case (RoutePaths.SignUp):
-      currPage = new SignUpPage()
-      break
-    case (RoutePaths.UserSettings):
-      currPage = new UserSettingsPage()
-      break
-    case (RoutePaths.SingleChat):
-      currPage = new SingleChatPage()
-      break
-    case (RoutePaths.NotFound):
-    default:
-      currPage = new NotFoundPage()
-      break
-  }
-
-  render('#root', [currPage])
+  router
+    .use(
+      RoutePaths.InternalError,
+      new InternalErrorPage(),
+      render
+    )
+    .use(
+      RoutePaths.Messages,
+      new MessagesPage(),
+      render
+    )
+    .use(
+      RoutePaths.SignIn,
+      new SignInPage(),
+      render
+    )
+    .use(
+      RoutePaths.SignUp,
+      new SignUpPage(),
+      render
+    )
+    .use(
+      RoutePaths.UserSettings,
+      new UserSettingsPage(),
+      render
+    )
+    .use(
+      RoutePaths.SingleChat,
+      new SingleChatPage(),
+      render
+    )
+    .use(
+      RoutePaths.NotFound,
+      new NotFoundPage(),
+      render
+    )
+    .start()
 } catch (error) {
   alert(error)
 
   const internalErrorPage = new InternalErrorPage()
 
-  render('#root', [internalErrorPage])
+  render([internalErrorPage])
 }

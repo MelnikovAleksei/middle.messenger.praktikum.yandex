@@ -1,7 +1,8 @@
 import { Block } from '../index'
+import { ROOT_QUERY } from '../consts'
 
-export function render (selector: string, blocks: Block[]): Element {
-  const root = document.querySelector(selector)
+export function render (blocks: Block[], rootQuery = ROOT_QUERY): Element | undefined {
+  const root = document.querySelector(rootQuery)
 
   if (!root) {
     return

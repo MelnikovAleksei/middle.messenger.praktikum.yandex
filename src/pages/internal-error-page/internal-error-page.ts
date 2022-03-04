@@ -4,8 +4,6 @@ import { RoutePaths } from '../../types'
 
 export class InternalErrorPage extends Block {
   constructor () {
-    window.document.title = 'Internal error'
-
     const internalErrorPageHeader = new PageHeader({
       heading: {
         text: 'Internal error'

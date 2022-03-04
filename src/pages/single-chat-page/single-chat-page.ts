@@ -39,8 +39,6 @@ const MESSAGES: IMessagesListProps['messages'] = [
 
 export class SingleChatPage extends Block {
   constructor () {
-    window.document.title = 'Chat with Cosmo Kramer'
-
     const singleChatPageHeader = new PageHeader({
       heading: {
         text: 'Chat with Cosmo Kramer'

@@ -4,8 +4,6 @@ import { RoutePaths } from '../../types'
 
 export class SignInPage extends Block {
   constructor () {
-    window.document.title = 'Sign in'
-
     const signInPageHeader = new PageHeader({
       heading: {
         text: 'Sign in'

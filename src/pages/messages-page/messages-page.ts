@@ -4,8 +4,6 @@ import { RoutePaths } from '../../types'
 
 export class MessagesPage extends Block {
   constructor () {
-    window.document.title = 'Messages'
-
     const messagesPageHeader = new PageHeader({
       heading: {
         text: 'Messages'

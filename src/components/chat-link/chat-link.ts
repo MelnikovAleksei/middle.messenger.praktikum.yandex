@@ -7,6 +7,19 @@ export class ChatLink extends Block {
       attributes: {
         class: 'chat-link',
         ...props.attributes
+      },
+      events: {
+        click: (event: Event | KeyboardEvent) => {
+          if ((event as KeyboardEvent).metaKey || (event as KeyboardEvent).ctrlKey) {
+            return
+          }
+
+          event.preventDefault()
+          window.history.pushState({}, '', props.attributes.href)
+
+          const popstateEvent = new PopStateEvent('popstate')
+          window.dispatchEvent(popstateEvent)
+        }
       }
     })
   }

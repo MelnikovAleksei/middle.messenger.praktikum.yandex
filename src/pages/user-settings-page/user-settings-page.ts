@@ -4,8 +4,6 @@ import { RoutePaths } from '../../types'
 
 export class UserSettingsPage extends Block {
   constructor () {
-    window.document.title = 'User settings'
-
     const userSettingsPageHeader = new PageHeader({
       heading: {
         text: 'User settings'
