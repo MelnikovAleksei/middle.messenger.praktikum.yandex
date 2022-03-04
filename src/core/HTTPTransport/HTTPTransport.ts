@@ -8,15 +8,9 @@ import {
   DEFAULT_REQUEST_OPTIONS
 } from './consts'
 
+import { queryString } from './utils'
+
 class HTTPTransport {
-  private getURLSearchParamsStr = (searchParamsObject: Record<string, string>): string => {
-    const searchParamsKeys = Object.keys(searchParamsObject)
-
-    return searchParamsKeys.reduce((result, key, index) => {
-      return `${result}${key}=${searchParamsObject[key]}${index < searchParamsKeys.length - 1 ? '&' : ''}`
-    }, '?')
-  }
-
   public get = (args: Pick<HTTPRequestArgs, 'url' | 'options'>) => {
     const {
       url,
@@ -86,7 +80,7 @@ class HTTPTransport {
       const isGetMetod = method === HTTPMethods.GET
 
       const searchParamsStr: string | null = searchQueryParams
-        ? this.getURLSearchParamsStr(searchQueryParams)
+        ? queryString(searchQueryParams)
         : null
 
       xhr.open(
