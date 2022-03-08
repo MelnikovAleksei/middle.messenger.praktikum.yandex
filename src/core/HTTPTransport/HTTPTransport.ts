@@ -10,41 +10,49 @@ import {
 
 import { queryString } from './utils'
 
-class HTTPTransport {
-  public get = (args: Pick<HTTPRequestArgs, 'url' | 'options'>) => {
-    const {
-      url,
-      options
-    } = args
+export class HTTPTransport {
+  static BASE_URL = 'https://ya-praktikum.tech/api/v2'
 
-    return this.request({ method: HTTPMethods.GET, url, options })
+  protected endpoint: string
+
+  constructor (endpoint: string) {
+    this.endpoint = `${HTTPTransport.BASE_URL}${endpoint}`
   }
 
-  public post = (args: Pick<HTTPRequestArgs, 'url' | 'options'>) => {
+  public get = (args: Pick<HTTPRequestArgs, 'url' | 'options'>): Promise<IHTTPRequestResult> => {
     const {
       url,
       options
     } = args
 
-    return this.request({ method: HTTPMethods.POST, url, options })
+    return this.request({ method: HTTPMethods.GET, url: `${this.endpoint}${url}`, options })
   }
 
-  public put = (args: Pick<HTTPRequestArgs, 'url' | 'options'>) => {
+  public post = (args: Pick<HTTPRequestArgs, 'url' | 'options'>): Promise<IHTTPRequestResult> => {
     const {
       url,
       options
     } = args
 
-    return this.request({ method: HTTPMethods.PUT, url, options })
+    return this.request({ method: HTTPMethods.POST, url: `${this.endpoint}${url}`, options })
   }
 
-  public delete = (args: Pick<HTTPRequestArgs, 'url' | 'options'>) => {
+  public put = (args: Pick<HTTPRequestArgs, 'url' | 'options'>): Promise<IHTTPRequestResult> => {
     const {
       url,
       options
     } = args
 
-    return this.request({ method: HTTPMethods.DELETE, url, options })
+    return this.request({ method: HTTPMethods.PUT, url: `${this.endpoint}${url}`, options })
+  }
+
+  public delete = (args: Pick<HTTPRequestArgs, 'url' | 'options'>): Promise<IHTTPRequestResult> => {
+    const {
+      url,
+      options
+    } = args
+
+    return this.request({ method: HTTPMethods.DELETE, url: `${this.endpoint}${url}`, options })
   }
 
   private getXHRHTTPRequestResult = (xhr: XMLHttpRequest): IHTTPRequestResult => {
@@ -60,19 +68,30 @@ class HTTPTransport {
     return result
   }
 
-  private request = (args: HTTPRequestArgs): Promise<IHTTPRequestResult> => {
-    const {
+  private getXHRHTTPRequestErrorResult = (xhr: XMLHttpRequest): IHTTPRequestResult => {
+    const errorResult: IHTTPRequestResult = {
+      ok: false,
+      status: xhr.status,
+      statusText: xhr.statusText,
+      headers: xhr.getAllResponseHeaders(),
+      data: xhr.statusText,
+      json: <T>() => JSON.parse(xhr.statusText) as T
+    }
+
+    return errorResult
+  }
+
+  private request = (
+    {
       url,
       method,
-      options
-    } = args
-
-    const {
-      body = DEFAULT_REQUEST_OPTIONS.body,
-      searchQueryParams = DEFAULT_REQUEST_OPTIONS.searchQueryParams,
-      headers = DEFAULT_REQUEST_OPTIONS.headers,
-      timeout = DEFAULT_REQUEST_OPTIONS.timeout
-    } = options
+      options = DEFAULT_REQUEST_OPTIONS
+    }: HTTPRequestArgs
+  ): Promise<IHTTPRequestResult> => {
+    const body = options.body || DEFAULT_REQUEST_OPTIONS.body
+    const headers = options.headers || DEFAULT_REQUEST_OPTIONS.headers
+    const timeout = options.timeout || DEFAULT_REQUEST_OPTIONS.timeout
+    const searchQueryParams = options.searchQueryParams
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
@@ -90,6 +109,8 @@ class HTTPTransport {
           : url
       )
 
+      xhr.withCredentials = true
+
       Object.keys(headers).forEach(key => {
         xhr.setRequestHeader(key, headers[key])
       })
@@ -100,19 +121,21 @@ class HTTPTransport {
 
       xhr.onabort = reject
 
-      xhr.onerror = reject
+      xhr.onerror = (progressEvent) => {
+        reject(this.getXHRHTTPRequestErrorResult(xhr))
+      }
 
       xhr.timeout = timeout
 
-      xhr.ontimeout = reject
+      xhr.ontimeout = (progressEvent) => {
+        reject(this.getXHRHTTPRequestErrorResult(xhr))
+      }
 
-      if (isGetMetod || !searchParamsStr) {
+      if (isGetMetod || !body) {
         xhr.send()
       } else {
-        xhr.send(body)
+        xhr.send(JSON.stringify(body))
       }
     })
   }
 }
-
-export const httpRequest = new HTTPTransport()

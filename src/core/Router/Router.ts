@@ -26,12 +26,17 @@ export class Router {
   public use (
     pathname: string,
     blockClass: Block,
-    onRenderBlock: (blocks: Block[]) => void
+    onRenderBlock: (blocks: Block[]) => void,
+    auth?: {
+      onRedirect: () => void,
+      protected: boolean
+    }
   ) {
     const route = new Route(
       pathname,
       blockClass,
-      onRenderBlock
+      onRenderBlock,
+      auth
     )
 
     this.routes.push(route)
@@ -76,6 +81,6 @@ export class Router {
 
     this._currentRoute = route
 
-    route.render()
+    route.navigate(pathname)
   }
 }

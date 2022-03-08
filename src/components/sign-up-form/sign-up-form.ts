@@ -1,8 +1,9 @@
 import { TextInputField, Button } from '../index'
-import { Block } from '../../core'
+import { Block, authAPIController } from '../../core'
+import { ISignUpRequestData } from '../../core/API/Auth/types'
 
 export class SignUpForm extends Block {
-  private _formData: Record<string, string>
+  private _formData: ISignUpRequestData
   private _formInputsPatterns: Record<string, RegExp>
 
   constructor () {
@@ -276,7 +277,7 @@ export class SignUpForm extends Block {
     })
 
     if (isAllFormElementsValid) {
-      console.table(this._formData)
+      authAPIController.signup(this._formData)
     } else {
       console.error('Invalid form data')
     }

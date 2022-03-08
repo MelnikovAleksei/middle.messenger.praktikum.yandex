@@ -21,6 +21,10 @@ export class Link extends Block {
 
           const popstateEvent = new PopStateEvent('popstate')
           window.dispatchEvent(popstateEvent)
+
+          if (props.onClick) {
+            props.onClick()
+          }
         }
       }
     })

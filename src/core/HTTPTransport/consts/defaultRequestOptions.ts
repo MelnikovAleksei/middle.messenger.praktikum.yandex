@@ -1,6 +1,4 @@
-import { IHTTPRequestOptions } from '../types'
-
-export const DEFAULT_REQUEST_OPTIONS: IHTTPRequestOptions = {
+export const DEFAULT_REQUEST_OPTIONS = {
   headers: {
     'Content-Type': 'application/json',
     'Cache-Control': 'no-cache'

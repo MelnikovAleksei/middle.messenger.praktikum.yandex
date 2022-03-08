@@ -1,8 +1,10 @@
 import { TextInputField, Button } from '../index'
-import { Block } from '../../core'
+import { Block, store, userAPIController } from '../../core'
+import { StoreEvents } from '../../core/Store/types'
+import { IUserRequestData } from '../../core/API/types'
 
-export class UserSettingsForm extends Block {
-  private _formData: Record<string, string>
+export class UserDataForm extends Block {
+  private _formData: IUserRequestData
   private _formInputsPatterns: Record<string, RegExp>
 
   constructor () {
@@ -208,77 +210,11 @@ export class UserSettingsForm extends Block {
       }
     })
 
-    const newPasswordInputField = new TextInputField({
-      label: {
-        title: 'New password',
-        attributes: {
-          for: 'newPassword'
-        }
-      },
-      textInput: {
-        tagName: 'input',
-        attributes: {
-          type: 'password',
-          name: 'newPassword',
-          id: 'newPassword',
-          placeholder: 'newPassword',
-          required: 'true'
-        },
-        events: {
-          input: (event: Event) => {
-            this._handleInput(event)
-          },
-          blur: (event: Event) => {
-            this._handleBlur(event)
-          },
-          focus: (event: Event) => {
-            this._handleFocus(event)
-          }
-        }
-      },
-      validationMessage: {
-        text: '8 to 40 characters, at least one capital letter and a number are required.'
-      }
-    })
-
-    const oldPasswordInputField = new TextInputField({
-      label: {
-        title: 'Old password',
-        attributes: {
-          for: 'oldPassword'
-        }
-      },
-      textInput: {
-        tagName: 'input',
-        attributes: {
-          type: 'password',
-          name: 'oldPassword',
-          id: 'oldPassword',
-          placeholder: 'oldPassword',
-          required: 'true'
-        },
-        events: {
-          input: (event: Event) => {
-            this._handleInput(event)
-          },
-          blur: (event: Event) => {
-            this._handleBlur(event)
-          },
-          focus: (event: Event) => {
-            this._handleFocus(event)
-          }
-        }
-      },
-      validationMessage: {
-        text: '8 to 40 characters, at least one capital letter and a number are required.'
-      }
-    })
-
     const saveButton = new Button({
       title: 'Save',
       attributes: {
         type: 'submit',
-        form: 'user-settings',
+        form: 'user-data',
         class: 'button button_align_right'
       },
       events: {
@@ -289,8 +225,8 @@ export class UserSettingsForm extends Block {
     super('form', {
       attributes: {
         class: 'form',
-        id: 'user-settings',
-        name: 'user-settings',
+        id: 'user-data',
+        name: 'user-data',
         novalidate: 'true'
       },
       children: {
@@ -300,8 +236,6 @@ export class UserSettingsForm extends Block {
         loginInputField,
         emailInputField,
         phoneInputField,
-        newPasswordInputField,
-        oldPasswordInputField,
         saveButton
       },
       events: {
@@ -317,8 +251,6 @@ export class UserSettingsForm extends Block {
       display_name: '',
       login: '',
       email: '',
-      newPassword: '',
-      oldPassword: '',
       phone: ''
     }
 
@@ -328,10 +260,92 @@ export class UserSettingsForm extends Block {
       display_name: /[А-ЯA-Z][а-яa-z_]*/,
       login: /^(?![0-9]+$)[A-Za-z0-9_-]{3,20}$/,
       email: /[A-Za-z_-]+[@][A-Za-z_-]+[.][A-Za-z_-]+/,
-      newPassword: /^(?=.*[A-Z])(?=.*[0-9]).{8,40}/,
-      oldPassword: /^(?=.*[A-Z])(?=.*[0-9]).{8,40}/,
       phone: /[+]?[0-9]{10,15}/
     }
+
+    store.on(StoreEvents.UPDATED, () => {
+      if (store.getState().state.user) {
+        this.setProps({ user: store.getState().state.user })
+
+        this.componentDidMount()
+      }
+    })
+  }
+
+  public componentDidMount () {
+    if (this.props.user) {
+      const user = this.props.user
+
+      user.first_name &&
+        this.children
+          .firstNameInputField
+          .children
+          .textInput
+          .setProps({
+            attributes: {
+              value: user.first_name
+            }
+          })
+      this._setFormData('first_name', user.first_name)
+
+      user.second_name && this.children
+        .secondNameInputField
+        .children
+        .textInput
+        .setProps({
+          attributes: {
+            value: user.second_name
+          }
+        })
+      this._setFormData('second_name', user.second_name)
+
+      user.display_name && this.children
+        .displayNameInputField
+        .children
+        .textInput
+        .setProps({
+          attributes: {
+            value: user.display_name
+          }
+        })
+      this._setFormData('display_name', user.display_name)
+
+      user.login && this.children
+        .loginInputField
+        .children
+        .textInput
+        .setProps({
+          attributes: {
+            value: user.login
+          }
+        })
+      this._setFormData('login', user.login)
+
+      user.phone && this.children
+        .phoneInputField
+        .children
+        .textInput
+        .setProps({
+          attributes: {
+            value: user.phone
+          }
+        })
+      this._setFormData('phone', user.phone)
+
+      user.email && this.children
+        .emailInputField
+        .children
+        .textInput
+        .setProps({
+          attributes: {
+            value: user.email
+          }
+        })
+
+      this._setFormData('email', user.email)
+    }
+
+    return super.componentDidUpdate()
   }
 
   private _handleSubmit (event: Event) {
@@ -352,16 +366,18 @@ export class UserSettingsForm extends Block {
     })
 
     if (isAllFormElementsValid) {
-      console.table(this._formData)
+      userAPIController.user(this._formData)
     } else {
       console.error('Invalid form data')
     }
   }
 
   private _setFormData (name: string, value: string) {
-    this._formData = {
-      ...this._formData,
-      [name]: value
+    if (value) {
+      this._formData = {
+        ...this._formData,
+        [name]: value
+      }
     }
   }
 
@@ -416,12 +432,6 @@ export class UserSettingsForm extends Block {
         break
       case 'phone':
         (this.children.phoneInputField as any).toggleValidationMessage(isValid)
-        break
-      case 'newPassword':
-        (this.children.newPasswordInputField as any).toggleValidationMessage(isValid)
-        break
-      case 'oldPassword':
-        (this.children.oldPasswordInputField as any).toggleValidationMessage(isValid)
         break
     }
   }

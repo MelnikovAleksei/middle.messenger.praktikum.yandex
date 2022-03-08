@@ -1,25 +1,47 @@
-import { Block } from '../index'
+import { Block, store } from '../index'
 
 export class Route {
   private _pathname: string
   private _block: Block
   private _blockClass: Block
   private _onRenderBlock: (blocks: Block[]) => void
+  private _auth?: {
+    onRedirect: () => void,
+    protected: boolean
+  }
 
   constructor (
     pathname: string,
     blockClass: Block,
-    onRenderBlock: (blocks: Block[], selector?: string) => void
+    onRenderBlock: (blocks: Block[], selector?: string) => void,
+    auth?: {
+      onRedirect: () => void,
+      protected: boolean
+    }
   ) {
     this._pathname = pathname
     this._blockClass = blockClass
     this._onRenderBlock = onRenderBlock
+    this._auth = auth
+  }
+
+  private _authProtect () {
+    if (store.getState().state.signin) {
+      this.render()
+    } else {
+      this._auth?.onRedirect()
+    }
   }
 
   public navigate (pathname: string) {
     if (this.match(pathname)) {
       this._pathname = pathname
-      this.render()
+
+      if (this._auth?.protected) {
+        this._authProtect()
+      } else {
+        this.render()
+      }
     }
   }
 

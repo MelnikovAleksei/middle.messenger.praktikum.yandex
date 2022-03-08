@@ -1,6 +1,8 @@
-import { Block } from '../../core'
+import { Block, store } from '../../core'
 import { PageHeader } from '../../components'
 import { RoutePaths } from '../../types'
+import { StoreEvents } from '../../core/Store/types'
+import { BlockEvents } from '../../core/Block/types'
 
 export class InternalErrorPage extends Block {
   constructor () {
@@ -28,6 +30,8 @@ export class InternalErrorPage extends Block {
         internalErrorPageHeader
       ]
     })
+
+    store.on(StoreEvents.UPDATED, () => this.eventBus().emit(BlockEvents.FLOW_CDU))
   }
 
   render () {

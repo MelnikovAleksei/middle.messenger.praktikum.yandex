@@ -8,54 +8,73 @@ import {
   UserSettingsPage
 } from './pages'
 
-import { render, Router } from './core'
+import { render, Router, authAPIController } from './core'
 
 import { RoutePaths } from './types'
 
-try {
-  const router = new Router()
+async function start () {
+  try {
+    const router = new Router()
 
-  router
-    .use(
-      RoutePaths.InternalError,
-      new InternalErrorPage(),
-      render
-    )
-    .use(
-      RoutePaths.Messages,
-      new MessagesPage(),
-      render
-    )
-    .use(
-      RoutePaths.SignIn,
-      new SignInPage(),
-      render
-    )
-    .use(
-      RoutePaths.SignUp,
-      new SignUpPage(),
-      render
-    )
-    .use(
-      RoutePaths.UserSettings,
-      new UserSettingsPage(),
-      render
-    )
-    .use(
-      RoutePaths.SingleChat,
-      new SingleChatPage(),
-      render
-    )
-    .use(
-      RoutePaths.NotFound,
-      new NotFoundPage(),
-      render
-    )
-    .start()
-} catch (error) {
-  alert(error)
+    const handleRedirectToSignIn = () => {
+      router.go(RoutePaths.SignIn)
+    }
 
-  const internalErrorPage = new InternalErrorPage()
+    router
+      .use(
+        RoutePaths.InternalError,
+        new InternalErrorPage(),
+        render
+      )
+      .use(
+        RoutePaths.Messages,
+        new MessagesPage(),
+        render,
+        {
+          protected: true,
+          onRedirect: handleRedirectToSignIn
+        }
+      )
+      .use(
+        RoutePaths.SignIn,
+        new SignInPage(),
+        render
+      )
+      .use(
+        RoutePaths.SignUp,
+        new SignUpPage(),
+        render
+      )
+      .use(
+        RoutePaths.UserSettings,
+        new UserSettingsPage(),
+        render,
+        {
+          protected: true,
+          onRedirect: handleRedirectToSignIn
+        }
+      )
+      .use(
+        RoutePaths.SingleChat,
+        new SingleChatPage(),
+        render,
+        {
+          protected: true,
+          onRedirect: handleRedirectToSignIn
+        }
+      )
+      .use(
+        RoutePaths.NotFound,
+        new NotFoundPage(),
+        render
+      )
 
-  render([internalErrorPage])
+    await authAPIController.user()
+
+    router.start()
+  } catch (error) {
+    alert(error)
+  }
 }
+
+start()

@@ -1,2 +1,2 @@
-export { Events } from './Events'
-export { Meta } from './Meta'
+export { BlockEvents } from './BlockEvents'
+export { BlockMeta } from './BlockMeta'

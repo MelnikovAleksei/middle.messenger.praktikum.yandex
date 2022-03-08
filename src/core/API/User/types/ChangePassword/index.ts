@@ -1,0 +1,1 @@
+export { IChangePasswordRequestData } from './IChangePasswordRequestData'
