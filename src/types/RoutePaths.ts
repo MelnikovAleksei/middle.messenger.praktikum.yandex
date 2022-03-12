@@ -1,6 +1,6 @@
 export enum RoutePaths {
   InternalError = '/internal-error',
-  Messages = '/messages',
+  Chats = '/chats',
   SignIn = '/',
   SignUp = '/sign-up',
   SingleChat = '/single-chat',

@@ -15,7 +15,7 @@ export class InternalErrorPage extends Block {
           {
             title: 'Messages',
             attributes: {
-              href: RoutePaths.Messages
+              href: RoutePaths.Chats
             }
           }
         ]

@@ -1,6 +1,6 @@
 import {
   InternalErrorPage,
-  MessagesPage,
+  ChatsPage,
   NotFoundPage,
   SignInPage,
   SignUpPage,
@@ -27,8 +27,8 @@ async function start () {
         render
       )
       .use(
-        RoutePaths.Messages,
-        new MessagesPage(),
+        RoutePaths.Chats,
+        new ChatsPage(),
         render,
         {
           protected: true,
@@ -69,7 +69,7 @@ async function start () {
         render
       )
 
-    await authAPIController.user()
+    await authAPIController.getUser()
 
     router.start()
   } catch (error) {

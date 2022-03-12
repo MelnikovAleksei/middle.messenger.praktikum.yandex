@@ -6,7 +6,7 @@ import {
 import { IUserResponseData, IBadRequestData } from '../types'
 import { store, Router } from '../../index'
 import { RoutePaths } from '../../../types'
-import { getUserProfileAvatarSrc } from '../../utils'
+import { getAvatarSrc } from '../../utils'
 
 class AuthAPIController {
   private _authAPI: AuthAPI
@@ -16,10 +16,10 @@ class AuthAPIController {
   }
 
   private _getUserProfileAvatarSrc (avatarRelativePath: string) {
-    return getUserProfileAvatarSrc(avatarRelativePath)
+    return getAvatarSrc(avatarRelativePath)
   }
 
-  private async _signup (data: ISignInRequestData) {
+  private async _signup (data: ISignUpRequestData) {
     store.set('state', {
       loading: true,
       error: null,
@@ -29,9 +29,9 @@ class AuthAPIController {
     const response = await this._authAPI.signup(data)
 
     if (response.ok) {
-      this.user()
+      this.getUser()
         .then(() => {
-          Router.getInstance().go(RoutePaths.Messages)
+          Router.getInstance().go(RoutePaths.Chats)
         })
     } else {
       const badRequestData = response.json<IBadRequestData>()
@@ -50,9 +50,9 @@ class AuthAPIController {
     const response = await this._authAPI.signin(data)
 
     if (response.ok) {
-      this.user()
+      this.getUser()
         .then(() => {
-          Router.getInstance().go(RoutePaths.Messages)
+          Router.getInstance().go(RoutePaths.Chats)
         })
     } else {
       const badRequestData = response.json<IBadRequestData>()
@@ -141,7 +141,7 @@ class AuthAPIController {
     }
   }
 
-  public async user () {
+  public async getUser () {
     try {
       store.set('state', {
         loading: true,

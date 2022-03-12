@@ -2,7 +2,7 @@ import { UserAPI } from './UserAPI'
 import { IChangePasswordRequestData } from './types'
 import { IUserRequestData, IUserResponseData, IBadRequestData } from '../types'
 import { store } from '../../index'
-import { getUserProfileAvatarSrc } from '../../utils'
+import { getAvatarSrc } from '../../utils'
 
 class UserAPIController {
   private _userAPI: UserAPI
@@ -12,10 +12,10 @@ class UserAPIController {
   }
 
   private _getUserProfileAvatarSrc (avatarRelativePath: string) {
-    return getUserProfileAvatarSrc(avatarRelativePath)
+    return getAvatarSrc(avatarRelativePath)
   }
 
-  public async avatar (data: FormData) {
+  public async editAvatar (data: FormData) {
     try {
       store.set('state', {
         loading: true,
@@ -51,7 +51,7 @@ class UserAPIController {
     }
   }
 
-  public async password (data: IChangePasswordRequestData) {
+  public async editPassword (data: IChangePasswordRequestData) {
     try {
       store.set('state', {
         loading: true,
@@ -81,7 +81,7 @@ class UserAPIController {
     }
   }
 
-  public async user (data: IUserRequestData) {
+  public async editUser (data: IUserRequestData) {
     try {
       store.set('state', {
         loading: true,

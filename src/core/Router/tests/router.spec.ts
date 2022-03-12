@@ -34,7 +34,7 @@ describe('Router', () => {
         render
       )
       .use(
-        RoutePaths.Messages,
+        RoutePaths.Chats,
         new MessagesPage(),
         render
       )
@@ -91,11 +91,11 @@ describe('Router', () => {
   })
 
   it('when calling the "back" method, a transition to the previous page should occur', () => {
-    router.go(RoutePaths.Messages)
+    router.go(RoutePaths.Chats)
 
     router.back()
 
-    expect(window.location.pathname === RoutePaths.Messages).to.be.eq(true)
+    expect(window.location.pathname === RoutePaths.Chats).to.be.eq(true)
   })
 
   it('when calling the "forward" method, the transition to the next page should occur', () => {

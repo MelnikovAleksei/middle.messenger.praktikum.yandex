@@ -1,5 +1,5 @@
 export { InternalErrorPage } from './internal-error-page'
-export { MessagesPage } from './messages-page'
+export { ChatsPage } from './chats-page'
 export { NotFoundPage } from './not-found-page'
 export { SignInPage } from './sign-in-page'
 export { SignUpPage } from './sign-up-page'

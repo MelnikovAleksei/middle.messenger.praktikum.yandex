@@ -2,11 +2,11 @@ import { Block } from '../../core'
 import { ChatList, PageHeader, PageMain } from '../../components'
 import { RoutePaths } from '../../types'
 
-export class MessagesPage extends Block {
+export class ChatsPage extends Block {
   constructor () {
-    const messagesPageHeader = new PageHeader({
+    const chatsPageHeader = new PageHeader({
       heading: {
-        text: 'Messages'
+        text: 'Chats'
       },
       nav: {
         links: [
@@ -22,7 +22,7 @@ export class MessagesPage extends Block {
 
     const chatList = new ChatList()
 
-    const messagesPageMain = new PageMain({
+    const chatsPageMain = new PageMain({
       attributes: {
         class: 'page-main page-main_horizontal-padding_zero'
       },
@@ -34,8 +34,8 @@ export class MessagesPage extends Block {
         class: 'page'
       },
       children: [
-        messagesPageHeader,
-        messagesPageMain
+        chatsPageHeader,
+        chatsPageMain
       ]
     })
   }

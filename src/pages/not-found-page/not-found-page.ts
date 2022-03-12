@@ -15,7 +15,7 @@ export class NotFoundPage extends Block {
           {
             title: 'Messages',
             attributes: {
-              href: RoutePaths.Messages
+              href: RoutePaths.Chats
             }
           }
         ]

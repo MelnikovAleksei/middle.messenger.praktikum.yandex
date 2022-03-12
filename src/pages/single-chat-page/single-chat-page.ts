@@ -46,9 +46,9 @@ export class SingleChatPage extends Block {
       nav: {
         links: [
           {
-            title: 'Messages',
+            title: 'Chats',
             attributes: {
-              href: RoutePaths.Messages
+              href: RoutePaths.Chats
             }
           }
         ]

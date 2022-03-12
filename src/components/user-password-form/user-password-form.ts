@@ -139,7 +139,7 @@ export class UserPasswordForm extends Block {
     })
 
     if (isAllFormElementsValid) {
-      userAPIController.password(this._formData)
+      userAPIController.editPassword(this._formData)
         .then(() => {
           (form as HTMLFormElement).reset()
         })

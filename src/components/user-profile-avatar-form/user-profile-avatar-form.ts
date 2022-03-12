@@ -115,7 +115,7 @@ export class UserProfileAvatarForm extends Block {
         })
 
       if (isFormFileInputValid) {
-        userAPIController.avatar(formData);
+        userAPIController.editAvatar(formData);
 
         (userProfileAvatarForm as HTMLFormElement).reset()
       }

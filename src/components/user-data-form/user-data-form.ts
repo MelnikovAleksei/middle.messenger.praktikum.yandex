@@ -369,7 +369,7 @@ export class UserDataForm extends Block {
     })
 
     if (isAllFormElementsValid) {
-      userAPIController.user(this._formData)
+      userAPIController.editUser(this._formData)
     } else {
       alert('Invalid form data')
     }
