@@ -1,12 +1,12 @@
 import { AuthAPI } from './AuthAPI'
 import {
   ISignUpRequestData,
-  ISignUpResponseData,
   ISignInRequestData
 } from './types'
-import { IUserResponseData } from '../types'
+import { IUserResponseData, IBadRequestData } from '../types'
 import { store, Router } from '../../index'
 import { RoutePaths } from '../../../types'
+import { getUserProfileAvatarSrc } from '../../utils'
 
 class AuthAPIController {
   private _authAPI: AuthAPI
@@ -15,30 +15,61 @@ class AuthAPIController {
     this._authAPI = new AuthAPI()
   }
 
+  private _getUserProfileAvatarSrc (avatarRelativePath: string) {
+    return getUserProfileAvatarSrc(avatarRelativePath)
+  }
+
+  private async _signup (data: ISignInRequestData) {
+    store.set('state', {
+      loading: true,
+      error: null,
+      signin: false
+    })
+
+    const response = await this._authAPI.signup(data)
+
+    if (response.ok) {
+      this.user()
+        .then(() => {
+          Router.getInstance().go(RoutePaths.Messages)
+        })
+    } else {
+      const badRequestData = response.json<IBadRequestData>()
+
+      throw new Error(badRequestData.reason)
+    }
+  }
+
+  private async _signin (data: ISignInRequestData) {
+    store.set('state', {
+      loading: true,
+      error: null,
+      signin: false
+    })
+
+    const response = await this._authAPI.signin(data)
+
+    if (response.ok) {
+      this.user()
+        .then(() => {
+          Router.getInstance().go(RoutePaths.Messages)
+        })
+    } else {
+      const badRequestData = response.json<IBadRequestData>()
+
+      throw new Error(badRequestData.reason)
+    }
+  }
+
   public async signup (data: ISignUpRequestData) {
     try {
       if (store.getState().state.signin) {
         this.logout()
-      }
-
-      store.set('state', {
-        loading: true,
-        error: null,
-        signin: false
-      })
-
-      const response = await this._authAPI.signup(data)
-
-      if (response.ok) {
-        store.set('state', {
-          loading: false,
-          signin: true,
-          id: response.json<ISignUpResponseData>()
-        })
-
-        Router.getInstance().go(RoutePaths.Messages)
+          .then(() => {
+            this._signup(data)
+          })
       } else {
-        console.error(`AuthAPIController: ${response.status}. '/auth/signup'`)
+        this._signup(data)
       }
     } catch (error) {
       store.set('state', {
@@ -46,28 +77,22 @@ class AuthAPIController {
         error,
         signin: false
       })
+
+      if (error.message) {
+        alert(error.message)
+      }
     }
   }
 
   public async signin (data: ISignInRequestData) {
     try {
-      store.set('state', {
-        loading: true,
-        error: null,
-        signin: false
-      })
-
-      const response = await this._authAPI.signin(data)
-
-      if (response.ok) {
-        store.set('state', {
-          loading: false,
-          signin: true
-        })
-
-        Router.getInstance().go(RoutePaths.Messages)
+      if (store.getState().state.signin) {
+        this.logout()
+          .then(() => {
+            this._signin(data)
+          })
       } else {
-        console.error(`AuthAPIController: ${response.status}. '/auth/signin'`)
+        this._signin(data)
       }
     } catch (error) {
       store.set('state', {
@@ -75,6 +100,10 @@ class AuthAPIController {
         error,
         signin: false
       })
+
+      if (error.message) {
+        alert(error.message)
+      }
     }
   }
 
@@ -96,13 +125,19 @@ class AuthAPIController {
 
         onRedirect?.()
       } else {
-        console.error(`AuthAPIController: ${response.status}. '/auth/logout'`)
+        const badRequestData = response.json<IBadRequestData>()
+
+        throw new Error(badRequestData.reason)
       }
     } catch (error) {
       store.set('state', {
         loading: false,
         error
       })
+
+      if (error.message) {
+        alert(error.message)
+      }
     }
   }
 
@@ -122,16 +157,16 @@ class AuthAPIController {
 
         store.set('state', {
           loading: false,
-          user,
+          user: {
+            ...user,
+            avatar: this._getUserProfileAvatarSrc(user.avatar)
+          },
           signin: true
         })
       } else {
-        console.error(`AuthAPIController: ${response.status}. '/auth/user'`)
+        const badRequestData = response.json<IBadRequestData>()
 
-        store.set('state', {
-          loading: false,
-          signin: false
-        })
+        throw new Error(badRequestData.reason)
       }
     } catch (error) {
       store.set('state', {
@@ -139,6 +174,10 @@ class AuthAPIController {
         error,
         signin: false
       })
+
+      if (error.message) {
+        alert(error.message)
+      }
     }
   }
 }

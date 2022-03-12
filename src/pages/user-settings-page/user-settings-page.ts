@@ -1,5 +1,5 @@
 import { Block } from '../../core'
-import { PageHeader, PageMain, UserDataForm, UserPasswordForm } from '../../components'
+import { PageHeader, PageMain, UserDataForm, UserPasswordForm, UserProfileAvatarForm } from '../../components'
 import { RoutePaths } from '../../types'
 
 export class UserSettingsPage extends Block {
@@ -20,12 +20,15 @@ export class UserSettingsPage extends Block {
       }
     })
 
+    const userProfileAvatarForm = new UserProfileAvatarForm()
+
     const userDataForm = new UserDataForm()
 
     const userPasswordForm = new UserPasswordForm()
 
     const userSettingsPageMain = new PageMain({
       children: [
+        userProfileAvatarForm,
         userDataForm,
         userPasswordForm
       ]

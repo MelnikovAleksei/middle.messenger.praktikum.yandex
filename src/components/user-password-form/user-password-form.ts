@@ -118,12 +118,18 @@ export class UserPasswordForm extends Block {
   private _handleSubmit (event: Event) {
     event.preventDefault()
 
-    const formElements = Array.from((this.element as HTMLFormElement).elements)
+    const form = this.element as HTMLFormElement
+
+    const formElements = Array.from(form.elements)
 
     let isAllFormElementsValid = true
 
     formElements.forEach((element) => {
       if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+        if (!isAllFormElementsValid) {
+          return
+        }
+
         this._validator(
           (element as HTMLInputElement).name,
           (isValid) => {
@@ -134,17 +140,18 @@ export class UserPasswordForm extends Block {
 
     if (isAllFormElementsValid) {
       userAPIController.password(this._formData)
+        .then(() => {
+          (form as HTMLFormElement).reset()
+        })
     } else {
-      console.error('Invalid form data')
+      alert('Invalid form data')
     }
   }
 
   private _setFormData (name: string, value: string) {
-    if (value) {
-      this._formData = {
-        ...this._formData,
-        [name]: value
-      }
+    this._formData = {
+      ...this._formData,
+      [name]: value
     }
   }
 

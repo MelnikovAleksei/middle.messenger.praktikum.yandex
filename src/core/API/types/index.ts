@@ -3,3 +3,5 @@ export {
   IUserBadRequestData,
   IUserResponseData
 } from './User'
+
+export { IBadRequestData } from './IBadRequestData'

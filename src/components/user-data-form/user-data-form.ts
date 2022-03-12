@@ -276,19 +276,18 @@ export class UserDataForm extends Block {
     if (this.props.user) {
       const user = this.props.user
 
-      user.first_name &&
-        this.children
-          .firstNameInputField
-          .children
-          .textInput
-          .setProps({
-            attributes: {
-              value: user.first_name
-            }
-          })
+      this.children
+        .firstNameInputField
+        .children
+        .textInput
+        .setProps({
+          attributes: {
+            value: user.first_name || ''
+          }
+        })
       this._setFormData('first_name', user.first_name)
 
-      user.second_name && this.children
+      this.children
         .secondNameInputField
         .children
         .textInput
@@ -299,46 +298,46 @@ export class UserDataForm extends Block {
         })
       this._setFormData('second_name', user.second_name)
 
-      user.display_name && this.children
+      this.children
         .displayNameInputField
         .children
         .textInput
         .setProps({
           attributes: {
-            value: user.display_name
+            value: user.display_name || ''
           }
         })
       this._setFormData('display_name', user.display_name)
 
-      user.login && this.children
+      this.children
         .loginInputField
         .children
         .textInput
         .setProps({
           attributes: {
-            value: user.login
+            value: user.login || ''
           }
         })
       this._setFormData('login', user.login)
 
-      user.phone && this.children
+      this.children
         .phoneInputField
         .children
         .textInput
         .setProps({
           attributes: {
-            value: user.phone
+            value: user.phone || ''
           }
         })
       this._setFormData('phone', user.phone)
 
-      user.email && this.children
+      this.children
         .emailInputField
         .children
         .textInput
         .setProps({
           attributes: {
-            value: user.email
+            value: user.email || ''
           }
         })
 
@@ -357,6 +356,10 @@ export class UserDataForm extends Block {
 
     formElements.forEach((element) => {
       if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+        if (!isAllFormElementsValid) {
+          return
+        }
+
         this._validator(
           (element as HTMLInputElement).name,
           (isValid) => {
@@ -368,16 +371,14 @@ export class UserDataForm extends Block {
     if (isAllFormElementsValid) {
       userAPIController.user(this._formData)
     } else {
-      console.error('Invalid form data')
+      alert('Invalid form data')
     }
   }
 
   private _setFormData (name: string, value: string) {
-    if (value) {
-      this._formData = {
-        ...this._formData,
-        [name]: value
-      }
+    this._formData = {
+      ...this._formData,
+      [name]: value
     }
   }
 

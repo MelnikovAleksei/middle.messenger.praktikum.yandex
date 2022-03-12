@@ -262,12 +262,18 @@ export class SignUpForm extends Block {
   private _handleSubmit (event: Event) {
     event.preventDefault()
 
-    const formElements = Array.from((this.element as HTMLFormElement).elements)
+    const form = this.element as HTMLFormElement
+
+    const formElements = Array.from(form.elements)
 
     let isAllFormElementsValid = true
 
     formElements.forEach((element) => {
       if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+        if (!isAllFormElementsValid) {
+          return
+        }
+
         this._validator(
           (element as HTMLInputElement).name,
           (isValid) => {
@@ -278,8 +284,11 @@ export class SignUpForm extends Block {
 
     if (isAllFormElementsValid) {
       authAPIController.signup(this._formData)
+        .then(() => {
+          (form as HTMLFormElement).reset()
+        })
     } else {
-      console.error('Invalid form data')
+      alert('Invalid form data')
     }
   }
 

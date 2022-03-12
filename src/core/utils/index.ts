@@ -1,3 +1,4 @@
+export { getUserProfileAvatarSrc } from './getUserProfileAvatarSrc'
 export { isArray } from './isArray'
 export { isArrayOrPlainObject } from './isArrayOrPlainObject'
 export { isPlainObject } from './isPlainObject'

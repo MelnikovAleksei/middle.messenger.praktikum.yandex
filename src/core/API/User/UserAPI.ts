@@ -7,6 +7,15 @@ export class UserAPI extends BaseAPI {
     super('/user')
   }
 
+  public avatar (data: FormData) {
+    return this.HTTPTransport.put({
+      url: '/profile/avatar',
+      options: {
+        body: data
+      }
+    })
+  }
+
   public password (data: IChangePasswordRequestData) {
     return this.HTTPTransport.put({
       url: '/password',

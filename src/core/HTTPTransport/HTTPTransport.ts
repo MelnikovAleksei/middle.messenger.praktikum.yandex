@@ -5,13 +5,14 @@ import {
 } from './types'
 
 import {
-  DEFAULT_REQUEST_OPTIONS
+  DEFAULT_REQUEST_OPTIONS,
+  BASE_URL
 } from './consts'
 
 import { queryString } from './utils'
 
 export class HTTPTransport {
-  static BASE_URL = 'https://ya-praktikum.tech/api/v2'
+  static BASE_URL = BASE_URL
 
   protected endpoint: string
 
@@ -111,9 +112,11 @@ export class HTTPTransport {
 
       xhr.withCredentials = true
 
-      Object.keys(headers).forEach(key => {
-        xhr.setRequestHeader(key, headers[key])
-      })
+      if (headers) {
+        Object.keys(headers).forEach(key => {
+          xhr.setRequestHeader(key, headers[key])
+        })
+      }
 
       xhr.onload = () => {
         resolve(this.getXHRHTTPRequestResult(xhr))
@@ -133,7 +136,10 @@ export class HTTPTransport {
 
       if (isGetMetod || !body) {
         xhr.send()
+      } else if (body instanceof FormData) {
+        xhr.send(body)
       } else {
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8')
         xhr.send(JSON.stringify(body))
       }
     })
