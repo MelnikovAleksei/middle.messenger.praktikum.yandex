@@ -1,8 +1,6 @@
-import { Block, store } from '../../core'
+import { Block } from '../../core'
 import { PageHeader, PageMain, SignInForm } from '../../components'
 import { RoutePaths } from '../../types'
-import { StoreEvents } from '../../core/Store/types'
-import { BlockEvents } from '../../core/Block/types'
 
 export class SignInPage extends Block {
   constructor () {
@@ -25,7 +23,7 @@ export class SignInPage extends Block {
     const signInForm = new SignInForm()
 
     const signInPageMain = new PageMain({
-      children: [signInForm]
+      children: { signInForm }
     })
 
     super('div', {
@@ -37,8 +35,6 @@ export class SignInPage extends Block {
         signInPageMain
       ]
     })
-
-    store.on(StoreEvents.UPDATED, () => this.eventBus().emit(BlockEvents.FLOW_CDU))
   }
 
   render () {

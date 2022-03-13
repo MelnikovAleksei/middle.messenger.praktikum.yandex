@@ -9,5 +9,5 @@ export interface IGetChatResponseData {
     user: Omit<IUserResponseData, 'display_name' | 'id'>,
     time: string,
     content: string
-  }
+  } | null
 }

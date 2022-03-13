@@ -3,12 +3,19 @@ import { URLParamsPlainObject } from '../../HTTPTransport/types'
 import {
   IAddOrDeleteUsersToChatResponseData,
   IChatsAPIChatsMethodParameters,
-  ICreateChatRequestData
+  ICreateChatRequestData,
+  IGetChatTokenResponseData
 } from './types'
 
 export class ChatsAPI extends BaseAPI {
   constructor () {
     super('/chats')
+  }
+
+  public getChatToken (data: IGetChatTokenResponseData) {
+    return this.HTTPTransport.post({
+      url: `/token/${data.id}`
+    })
   }
 
   public deleteUsersFromChat (data: IAddOrDeleteUsersToChatResponseData) {

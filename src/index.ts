@@ -8,7 +8,7 @@ import {
   UserSettingsPage
 } from './pages'
 
-import { render, Router, authAPIController } from './core'
+import { render, store, Router, authAPIController, chatsAPIController } from './core'
 
 import { RoutePaths } from './types'
 
@@ -70,6 +70,7 @@ async function start () {
       )
 
     await authAPIController.getUser()
+    await chatsAPIController.getChats()
 
     router.start()
   } catch (error) {

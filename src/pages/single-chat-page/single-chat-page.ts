@@ -62,7 +62,7 @@ export class SingleChatPage extends Block {
     const messageForm = new MessageForm()
 
     const singleChatPageMain = new PageMain({
-      children: [messagesList, messageForm]
+      children: { messagesList, messageForm }
     })
 
     super('div', {

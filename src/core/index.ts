@@ -1,6 +1,8 @@
 export {
   AuthAPI,
   authAPIController,
+  ChatsAPI,
+  chatsAPIController,
   UserAPI,
   userAPIController
 } from './API'

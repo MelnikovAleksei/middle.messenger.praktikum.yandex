@@ -1,3 +1,4 @@
+import { Block } from '../../core'
 import { IPageHeadingProps, IPageHeaderNavProps } from '../index'
 
 export interface IPageHeaderProps {
@@ -6,4 +7,5 @@ export interface IPageHeaderProps {
   },
   heading: IPageHeadingProps;
   nav: IPageHeaderNavProps;
+  childrens?: Block[];
 }

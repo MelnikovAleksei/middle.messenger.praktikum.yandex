@@ -1,4 +1,6 @@
 export { AuthAPI } from './Auth/AuthAPI'
 export { authAPIController } from './Auth/AuthAPIController'
+export { ChatsAPI } from './Chats/ChatsAPI'
+export { chatsAPIController } from './Chats/ChatsAPIController'
 export { UserAPI } from './User/UserAPI'
 export { userAPIController } from './User/UserAPIController'

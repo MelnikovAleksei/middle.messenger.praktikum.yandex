@@ -23,7 +23,7 @@ export class SignUpPage extends Block {
     const signUpForm = new SignUpForm()
 
     const signUpPageMain = new PageMain({
-      children: [signUpForm]
+      children: { signUpForm }
     })
 
     super('div', {

@@ -27,11 +27,11 @@ export class UserSettingsPage extends Block {
     const userPasswordForm = new UserPasswordForm()
 
     const userSettingsPageMain = new PageMain({
-      children: [
+      children: {
         userProfileAvatarForm,
         userDataForm,
         userPasswordForm
-      ]
+      }
     })
 
     super('div', {

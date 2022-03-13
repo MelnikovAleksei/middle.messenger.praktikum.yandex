@@ -343,8 +343,6 @@ export class UserDataForm extends Block {
 
       this._setFormData('email', user.email)
     }
-
-    return super.componentDidUpdate()
   }
 
   private _handleSubmit (event: Event) {

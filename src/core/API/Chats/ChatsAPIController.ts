@@ -4,16 +4,35 @@ import {
   IChatsAPIChatsMethodParameters,
   IGetChatResponseData,
   ICreateChatRequestData,
-  IAddOrDeleteUsersToChatResponseData
+  IAddOrDeleteUsersToChatResponseData,
+  IGetChatTokenResponseData,
+  IChatsTokensMap
 } from './types'
 import { IBadRequestData } from '../types'
 import { IHTTPRequestResult } from '../../HTTPTransport/types'
+import { IGetChatTokenRequestData } from './types/IGetChatTokenRequestData'
 
 class ChatsAPIController {
   private _chatsAPI: ChatsAPI
 
   constructor () {
     this._chatsAPI = new ChatsAPI()
+  }
+
+  public async getChatToken (data: IGetChatTokenResponseData) {
+    try {
+      const response = await this._chatsAPI.getChatToken(data)
+
+      if (response.ok) {
+        const tokenData = response.json<IGetChatTokenRequestData>()
+
+        return tokenData.token
+      }
+    } catch (error) {
+      if (error.message) {
+        alert(error.message)
+      }
+    }
   }
 
   public async manipulateUsersInChat (
@@ -96,9 +115,20 @@ class ChatsAPIController {
       if (response.ok) {
         const chats = response.json<IGetChatResponseData[]>()
 
+        const chatsTokensMap: IChatsTokensMap = {}
+
+        for (let i = 0; i < chats.length; i++) {
+          const token = await this.getChatToken({ id: chats[i].id })
+
+          if (typeof token === 'string') {
+            chatsTokensMap[chats[i].id] = token
+          }
+        }
+
         store.set('state', {
           loading: false,
-          chats
+          chats,
+          chatsTokensMap
         })
       }
     } catch (error) {
