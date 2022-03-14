@@ -1,7 +1,7 @@
 export { InternalErrorPage } from './internal-error-page'
+export { ChatPage } from './chat-page'
 export { ChatsPage } from './chats-page'
 export { NotFoundPage } from './not-found-page'
 export { SignInPage } from './sign-in-page'
 export { SignUpPage } from './sign-up-page'
-export { SingleChatPage } from './single-chat-page'
 export { UserSettingsPage } from './user-settings-page'

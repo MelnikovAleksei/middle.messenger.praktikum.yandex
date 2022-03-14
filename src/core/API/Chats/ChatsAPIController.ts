@@ -6,11 +6,12 @@ import {
   ICreateChatRequestData,
   IAddOrDeleteUsersToChatResponseData,
   IGetChatTokenResponseData,
-  IChatsTokensMap
+  IChatsMap
 } from './types'
 import { IBadRequestData } from '../types'
 import { IHTTPRequestResult } from '../../HTTPTransport/types'
 import { IGetChatTokenRequestData } from './types/IGetChatTokenRequestData'
+import { StoreEvents } from '../../Store/types'
 
 class ChatsAPIController {
   private _chatsAPI: ChatsAPI
@@ -115,21 +116,25 @@ class ChatsAPIController {
       if (response.ok) {
         const chats = response.json<IGetChatResponseData[]>()
 
-        const chatsTokensMap: IChatsTokensMap = {}
+        const chatsMap: IChatsMap = {}
 
         for (let i = 0; i < chats.length; i++) {
           const token = await this.getChatToken({ id: chats[i].id })
+          const chat = chats[i]
 
           if (typeof token === 'string') {
-            chatsTokensMap[chats[i].id] = token
+            chatsMap[chat.id] = {
+              token,
+              chat
+            }
           }
         }
 
         store.set('state', {
           loading: false,
           chats,
-          chatsTokensMap
-        })
+          chatsMap
+        }, StoreEvents.CHATS_DATA_LOADED)
       }
     } catch (error) {
       store.set('state', {

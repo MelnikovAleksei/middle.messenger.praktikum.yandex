@@ -69,12 +69,14 @@ export class Block<P = any> {
     return true
   }
 
-  public setProps = (nextProps: P) => {
+  public setProps = (nextProps: any) => {
     if (!nextProps) {
       return
     }
 
     Object.assign(this.props, nextProps)
+
+    this.eventBus().emit(BlockEvents.FLOW_CDU, { ...nextProps }, nextProps)
   };
 
   get element () {

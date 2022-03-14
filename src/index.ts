@@ -1,14 +1,14 @@
 import {
   InternalErrorPage,
+  ChatPage,
   ChatsPage,
   NotFoundPage,
   SignInPage,
   SignUpPage,
-  SingleChatPage,
   UserSettingsPage
 } from './pages'
 
-import { render, store, Router, authAPIController, chatsAPIController } from './core'
+import { render, storeChatController, Router, authAPIController, chatsAPIController } from './core'
 
 import { RoutePaths } from './types'
 
@@ -25,6 +25,18 @@ async function start () {
         RoutePaths.InternalError,
         new InternalErrorPage(),
         render
+      )
+      .use(
+        RoutePaths.Chat,
+        new ChatPage(),
+        render,
+        {
+          protected: true,
+          onRedirect: handleRedirectToSignIn
+        },
+        () => {
+          storeChatController.resetCurrentChat()
+        }
       )
       .use(
         RoutePaths.Chats,
@@ -48,15 +60,6 @@ async function start () {
       .use(
         RoutePaths.UserSettings,
         new UserSettingsPage(),
-        render,
-        {
-          protected: true,
-          onRedirect: handleRedirectToSignIn
-        }
-      )
-      .use(
-        RoutePaths.SingleChat,
-        new SingleChatPage(),
         render,
         {
           protected: true,

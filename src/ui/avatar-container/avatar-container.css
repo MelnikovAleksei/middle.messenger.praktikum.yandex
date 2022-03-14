@@ -4,4 +4,6 @@
   margin: 0;
   width: 57px;
   height: 57px;
+
+  overflow: hidden;
 }

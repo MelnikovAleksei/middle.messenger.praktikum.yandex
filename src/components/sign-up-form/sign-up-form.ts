@@ -285,11 +285,21 @@ export class SignUpForm extends Block {
     if (isAllFormElementsValid) {
       authAPIController.signup(this._formData)
         .then(() => {
-          (form as HTMLFormElement).reset()
+          this._resetForm()
         })
     } else {
       alert('Invalid form data')
     }
+  }
+
+  private _resetForm () {
+    const form = this.element as HTMLFormElement
+
+    form.reset()
+
+    Object.keys(this._formData).forEach((key) => {
+      this._setFormData(key, '')
+    })
   }
 
   private _setFormData (name: string, value: string) {

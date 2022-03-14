@@ -1,3 +1,4 @@
+import { RoutePaths } from '../../types'
 import { Route, Block } from '../index'
 
 export class Router {
@@ -30,13 +31,15 @@ export class Router {
     auth?: {
       onRedirect: () => void,
       protected: boolean
-    }
+    },
+    onLeave?: () => void
   ) {
     const route = new Route(
       pathname,
       blockClass,
       onRenderBlock,
-      auth
+      auth,
+      onLeave
     )
 
     this.routes.push(route)
@@ -72,6 +75,12 @@ export class Router {
     const route = this.getRoute(pathname)
 
     if (!route) {
+      const notFoundRoute = this.getRoute(RoutePaths.NotFound)
+
+      if (notFoundRoute) {
+        notFoundRoute.render()
+      }
+
       return
     }
 

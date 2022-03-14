@@ -1,11 +1,10 @@
-import { Block, chatsAPIController } from '../../core'
-import { ChatList, CreateChatForm, PageHeader, PageMain } from '../../components'
+import { Block } from '../../core'
+import { Chats, PageHeader } from '../../components'
 import { RoutePaths } from '../../types'
 
 export class ChatsPage extends Block {
   constructor () {
-    chatsAPIController.getChats()
-    const chatsPageHeader = new PageHeader({
+    const pageHeader = new PageHeader({
       heading: {
         text: 'Chats'
       },
@@ -21,27 +20,15 @@ export class ChatsPage extends Block {
       }
     })
 
-    const createChatForm = new CreateChatForm()
-
-    const chatList = new ChatList()
-
-    const chatsPageMain = new PageMain({
-      attributes: {
-        class: 'page-main page-main_horizontal-padding_zero'
-      },
-      children: {
-        createChatForm,
-        chatList
-      }
-    })
+    const chats = new Chats()
 
     super('div', {
       attributes: {
         class: 'page'
       },
       children: {
-        chatsPageHeader,
-        chatsPageMain
+        pageHeader,
+        chats
       }
     })
   }

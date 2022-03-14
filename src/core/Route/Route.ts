@@ -5,10 +5,13 @@ export class Route {
   private _block: Block
   private _blockClass: Block
   private _onRenderBlock: (blocks: Block[]) => void
+
   private _auth?: {
     onRedirect: () => void,
     protected: boolean
   }
+
+  private _onLeave?: () => void
 
   constructor (
     pathname: string,
@@ -17,12 +20,14 @@ export class Route {
     auth?: {
       onRedirect: () => void,
       protected: boolean
-    }
+    },
+    onLeave?: () => void
   ) {
     this._pathname = pathname
     this._blockClass = blockClass
     this._onRenderBlock = onRenderBlock
     this._auth = auth
+    this._onLeave = onLeave
   }
 
   private _authProtect () {
@@ -48,6 +53,10 @@ export class Route {
   public leave () {
     if (this._block) {
       this._block.hide()
+
+      if (this._onLeave) {
+        this._onLeave()
+      }
     }
   }
 
