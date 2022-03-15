@@ -6,7 +6,9 @@ import {
   ICreateChatRequestData,
   IAddOrDeleteUsersToChatResponseData,
   IGetChatTokenResponseData,
-  IChatsMap
+  IChatsMap,
+  IDeleteChatResponseData,
+  IDeleteChatRequestData
 } from './types'
 import { IBadRequestData } from '../types'
 import { IHTTPRequestResult } from '../../HTTPTransport/types'
@@ -18,6 +20,22 @@ class ChatsAPIController {
 
   constructor () {
     this._chatsAPI = new ChatsAPI()
+  }
+
+  public async deleteChat (data: IDeleteChatResponseData) {
+    try {
+      const response = await this._chatsAPI.deleteChat(data)
+
+      if (response.ok) {
+        const deleteChatRequestData = response.json<IDeleteChatRequestData>()
+
+        return deleteChatRequestData
+      }
+    } catch (error) {
+      if (error.message) {
+        alert(error.message)
+      }
+    }
   }
 
   public async getChatToken (data: IGetChatTokenResponseData) {

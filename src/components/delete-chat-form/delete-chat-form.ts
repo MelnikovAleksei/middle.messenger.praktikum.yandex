@@ -1,27 +1,26 @@
 import { TextInputField, Button } from '../index'
-import { chatsAPIController, Block, Router } from '../../core'
-import { ICreateChatRequestData } from '../../core/API/Chats/types'
+import { Block, chatsAPIController, Router, store } from '../../core'
 import { RoutePaths } from '../../types'
 
-export class CreateChatForm extends Block {
-  private _formData: ICreateChatRequestData
+export class DeleteChatForm extends Block {
+  private _formData: Record<string, string>
   private _formInputsPatterns: Record<string, RegExp>
 
   constructor () {
-    const chatTitleInputField = new TextInputField({
+    const deleteChatInputField = new TextInputField({
       label: {
-        title: 'Chat title',
+        title: 'Write "delete" if you want to delete the chat',
         attributes: {
-          for: 'title'
+          for: 'delete_chat'
         }
       },
       textInput: {
         tagName: 'input',
         attributes: {
           type: 'text',
-          name: 'title',
-          id: 'title',
-          placeholder: 'chat title',
+          name: 'delete_chat',
+          id: 'delete_chat',
+          placeholder: 'write "delete" if you want to delete the chat',
           required: 'true'
         },
         events: {
@@ -37,15 +36,15 @@ export class CreateChatForm extends Block {
         }
       },
       validationMessage: {
-        text: 'Must not be empty.'
+        text: 'Latin. "delete"'
       }
     })
 
-    const createChatButton = new Button({
-      title: 'Create chat',
+    const deleteChatButton = new Button({
+      title: 'Delete',
       attributes: {
         type: 'submit',
-        form: 'create-chat',
+        form: 'delete-chat',
         class: 'button button_align_right'
       },
       events: {
@@ -56,13 +55,13 @@ export class CreateChatForm extends Block {
     super('form', {
       attributes: {
         class: 'form',
-        id: 'create-chat',
-        name: 'create-chat',
+        id: 'delete-chat',
+        name: 'delete-chat',
         novalidate: 'true'
       },
       children: {
-        chatTitleInputField,
-        createChatButton
+        deleteChatInputField,
+        deleteChatButton
       },
       events: {
         submit: (event: Event) => {
@@ -72,11 +71,11 @@ export class CreateChatForm extends Block {
     })
 
     this._formData = {
-      title: ''
+      delete_chat: ''
     }
 
     this._formInputsPatterns = {
-      title: /^[\S\s]{1,}$/
+      delete_chat: /\b(delete)\b/
     }
   }
 
@@ -88,6 +87,8 @@ export class CreateChatForm extends Block {
     const formElements = Array.from(form.elements)
 
     let isAllFormElementsValid = true
+
+    const currentChatId = store.getState().state.currentChatId
 
     formElements.forEach((element) => {
       if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
@@ -103,8 +104,8 @@ export class CreateChatForm extends Block {
       }
     })
 
-    if (isAllFormElementsValid) {
-      chatsAPIController.createChat(this._formData)
+    if (isAllFormElementsValid && currentChatId) {
+      chatsAPIController.deleteChat({ chatId: currentChatId })
         .then(() => {
           this._resetForm()
 
@@ -113,8 +114,10 @@ export class CreateChatForm extends Block {
               Router.getInstance().go(RoutePaths.Chats)
             })
         })
-    } else {
+    } else if (!isAllFormElementsValid) {
       alert('Invalid form data')
+    } else {
+      alert('Unknown "id" of the current chat')
     }
   }
 
@@ -169,8 +172,8 @@ export class CreateChatForm extends Block {
 
   private _toggleInputValidationMessage (name: string, isValid: boolean) {
     switch (name) {
-      case 'title':
-        (this.children.chatTitleInputField as any).toggleValidationMessage(isValid)
+      case 'delete_chat':
+        (this.children.deleteChatInputField as any).toggleValidationMessage(isValid)
         break
     }
   }

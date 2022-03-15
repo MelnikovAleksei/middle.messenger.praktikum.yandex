@@ -1,7 +1,8 @@
 import {
-  InternalErrorPage,
   ChatPage,
   ChatsPage,
+  InternalErrorPage,
+  NewChatPage,
   NotFoundPage,
   SignInPage,
   SignUpPage,
@@ -21,11 +22,6 @@ async function start () {
     }
 
     router
-      .use(
-        RoutePaths.InternalError,
-        new InternalErrorPage(),
-        render
-      )
       .use(
         RoutePaths.Chat,
         new ChatPage(),
@@ -48,6 +44,25 @@ async function start () {
         }
       )
       .use(
+        RoutePaths.InternalError,
+        new InternalErrorPage(),
+        render
+      )
+      .use(
+        RoutePaths.NewChat,
+        new NewChatPage(),
+        render,
+        {
+          protected: true,
+          onRedirect: handleRedirectToSignIn
+        }
+      )
+      .use(
+        RoutePaths.NotFound,
+        new NotFoundPage(),
+        render
+      )
+      .use(
         RoutePaths.SignIn,
         new SignInPage(),
         render
@@ -65,11 +80,6 @@ async function start () {
           protected: true,
           onRedirect: handleRedirectToSignIn
         }
-      )
-      .use(
-        RoutePaths.NotFound,
-        new NotFoundPage(),
-        render
       )
 
     await authAPIController.getUser()

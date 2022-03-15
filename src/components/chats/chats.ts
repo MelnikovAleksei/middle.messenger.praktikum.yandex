@@ -1,18 +1,14 @@
 import { Block, store } from '../../core'
-import { ChatList, CreateChatForm } from '../../components'
+import { ChatList } from '../../components'
 import { StoreEvents } from '../../core/Store/types'
 
 export class Chats extends Block {
   constructor () {
-    const createChatForm = new CreateChatForm()
-
     super('main', {
       attributes: {
         class: 'page-main page-main_horizontal-padding_zero'
       },
-      children: {
-        createChatForm
-      }
+      children: {}
     })
 
     store.on(StoreEvents.CHATS_DATA_LOADED, () => {

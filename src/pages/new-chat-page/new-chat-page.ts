@@ -1,34 +1,35 @@
 import { Block } from '../../core'
-import { Chats, PageHeader } from '../../components'
+import { PageHeader, PageMain, CreateChatForm } from '../../components'
 import { RoutePaths } from '../../types'
 
-export class ChatsPage extends Block {
+export class NewChatPage extends Block {
   constructor () {
     const pageHeader = new PageHeader({
       heading: {
-        text: 'Chats'
+        text: 'New chat'
       },
       nav: {
         links: [
           {
-            title: 'New',
+            title: 'Chats',
             attributes: {
-              href: RoutePaths.NewChat,
-              class: 'link link_indented_left'
-            }
-          },
-          {
-            title: 'User settings',
-            attributes: {
-              href: RoutePaths.UserSettings,
-              class: 'link link_indented_left'
+              href: RoutePaths.Chats
             }
           }
         ]
       }
     })
 
-    const chats = new Chats()
+    const createChatForm = new CreateChatForm()
+
+    const pageMain = new PageMain({
+      attributes: {
+        class: 'page-main'
+      },
+      children: {
+        createChatForm
+      }
+    })
 
     super('div', {
       attributes: {
@@ -36,7 +37,7 @@ export class ChatsPage extends Block {
       },
       children: {
         pageHeader,
-        chats
+        pageMain
       }
     })
   }

@@ -5,22 +5,6 @@ import { StoreEvents } from '../../core/Store/types'
 
 export class ChatPage extends Block {
   constructor () {
-    const pageHeader = new PageHeader({
-      heading: {
-        text: 'Chat'
-      },
-      nav: {
-        links: [
-          {
-            title: 'Chats',
-            attributes: {
-              href: RoutePaths.Chats
-            }
-          }
-        ]
-      }
-    })
-
     super('div', {
       attributes: {
         class: 'page'

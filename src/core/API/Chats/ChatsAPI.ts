@@ -4,12 +4,22 @@ import {
   IAddOrDeleteUsersToChatResponseData,
   IChatsAPIChatsMethodParameters,
   ICreateChatRequestData,
+  IDeleteChatResponseData,
   IGetChatTokenResponseData
 } from './types'
 
 export class ChatsAPI extends BaseAPI {
   constructor () {
     super('/chats')
+  }
+
+  public deleteChat (data: IDeleteChatResponseData) {
+    return this.HTTPTransport.delete({
+      url: '/',
+      options: {
+        body: data
+      }
+    })
   }
 
   public getChatToken (data: IGetChatTokenResponseData) {

@@ -11,14 +11,6 @@ export class ChatList extends Block {
       chats.forEach((chat) => {
         chatsBlocks.push(
           new Chat({
-            avatar: {
-              img: {
-                attributes: {
-                  src: chat.avatar ? getAvatarSrc(chat.avatar) || '' : '',
-                  alt: `Chat avatar ${chat.title}`
-                }
-              }
-            },
             textContainer: {
               heading: chat.title,
               subHeading: chat.last_message ? chat.last_message.time : '',
