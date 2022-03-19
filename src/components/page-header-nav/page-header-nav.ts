@@ -3,6 +3,7 @@ import { authAPIController, Block, store, Router } from '../../core'
 import { Link } from '..'
 import { RoutePaths } from '../../types'
 import { StoreEvents } from '../../core/Store/types'
+import { Button } from '../button'
 
 export class PageHeaderNav extends Block {
   constructor (props: IPageHeaderNavProps) {
@@ -11,6 +12,14 @@ export class PageHeaderNav extends Block {
     props.links.forEach((linkProps) => {
       links.push(new Link(linkProps))
     })
+
+    const buttons: Block[] = []
+
+    if (props.buttons) {
+      props.buttons.forEach((buttonProps) => {
+        buttons.push(new Button(buttonProps))
+      })
+    }
 
     const logoutLink = new Link({
       title: 'Logout',
@@ -31,6 +40,7 @@ export class PageHeaderNav extends Block {
         ...props.attributes
       },
       children: {
+        ...buttons,
         ...links,
         logoutLink: logoutLink
       }

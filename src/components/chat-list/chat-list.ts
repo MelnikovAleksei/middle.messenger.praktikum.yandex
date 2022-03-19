@@ -1,7 +1,6 @@
 import { Block, storeChatController } from '../../core'
 import { IGetChatResponseData } from '../../core/API/Chats/types'
-import { getAvatarSrc } from '../../core/utils'
-import { Chat } from '../chat/chat'
+import { ChatListItem } from '../chat-list-item/chat-list-item'
 
 export class ChatList extends Block {
   constructor (chats: IGetChatResponseData[] | null) {
@@ -10,18 +9,22 @@ export class ChatList extends Block {
     if (chats && chats.length) {
       chats.forEach((chat) => {
         chatsBlocks.push(
-          new Chat({
+          new ChatListItem({
             textContainer: {
               heading: chat.title,
               subHeading: chat.last_message ? chat.last_message.time : '',
               text: chat.last_message ? chat.last_message.content : ''
             },
-            link: {
+            button: {
               attributes: {
-                href: '/chat'
+                type: 'button',
+                class: 'button button_cover'
               },
-              onClick: () => {
-                storeChatController.setCurrentChat(chat.id)
+              title: '',
+              events: {
+                click: () => {
+                  storeChatController.setCurrentChatId(chat.id)
+                }
               }
             }
           })

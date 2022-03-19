@@ -1,4 +1,3 @@
-export { ChatPage } from './chat-page'
 export { ChatsPage } from './chats-page'
 export { InternalErrorPage } from './internal-error-page'
 export { NewChatPage } from './new-chat-page'

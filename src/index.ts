@@ -1,5 +1,4 @@
 import {
-  ChatPage,
   ChatsPage,
   InternalErrorPage,
   NewChatPage,
@@ -9,7 +8,7 @@ import {
   UserSettingsPage
 } from './pages'
 
-import { render, storeChatController, Router, authAPIController, chatsAPIController } from './core'
+import { render, Router, authAPIController, chatsAPIController } from './core'
 
 import { RoutePaths } from './types'
 
@@ -22,18 +21,6 @@ async function start () {
     }
 
     router
-      .use(
-        RoutePaths.Chat,
-        new ChatPage(),
-        render,
-        {
-          protected: true,
-          onRedirect: handleRedirectToSignIn
-        },
-        () => {
-          storeChatController.resetCurrentChat()
-        }
-      )
       .use(
         RoutePaths.Chats,
         new ChatsPage(),

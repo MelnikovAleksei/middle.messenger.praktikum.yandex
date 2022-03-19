@@ -1,5 +1,5 @@
 export interface IButtonProps {
-  title: string;
+  title?: string;
   events: {
     click: () => void;
   };

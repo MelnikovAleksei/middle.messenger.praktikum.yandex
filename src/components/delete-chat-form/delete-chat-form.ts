@@ -1,5 +1,5 @@
 import { TextInputField, Button } from '../index'
-import { Block, chatsAPIController, Router, store } from '../../core'
+import { Block, chatsAPIController, Router, store, storeChatController } from '../../core'
 import { RoutePaths } from '../../types'
 
 export class DeleteChatForm extends Block {
@@ -111,7 +111,7 @@ export class DeleteChatForm extends Block {
 
           chatsAPIController.getChats()
             .then(() => {
-              Router.getInstance().go(RoutePaths.Chats)
+              storeChatController.resetCurrentChatId()
             })
         })
     } else if (!isAllFormElementsValid) {

@@ -12,6 +12,7 @@
 @import "./link/link.css";
 @import "./button/button.css";
 @import "./button/_align_right/button_align_right.css";
+@import "./button/_cover/button_cover.css";
 @import "./label/label.css";
 @import "./text-input/text-input.css";
 @import "./file-input/file-input-alternative-element.css";
