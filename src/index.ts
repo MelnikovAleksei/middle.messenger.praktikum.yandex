@@ -8,9 +8,10 @@ import {
   UserSettingsPage
 } from './pages'
 
-import { render, Router, authAPIController, chatsAPIController } from './core'
+import { render, Router, authAPIController, chatsAPIController, storeChatController, store } from './core'
 
 import { RoutePaths } from './types'
+import { StoreEvents } from './core/Store/types'
 
 async function start () {
   try {
@@ -21,60 +22,62 @@ async function start () {
     }
 
     router
-      .use(
-        RoutePaths.Chats,
-        new ChatsPage(),
-        render,
-        {
-          protected: true,
-          onRedirect: handleRedirectToSignIn
+      .use({
+        pathname: RoutePaths.Chats,
+        blockClass: new ChatsPage(),
+        renderToDOM: render,
+        onAuthRedirectFromRoute: handleRedirectToSignIn,
+        onRenderRoute: () => {
+          chatsAPIController.getChats()
+        },
+        onLeaveRoute: storeChatController.resetCurrentChatId
+      })
+      .use({
+        pathname: RoutePaths.InternalError,
+        blockClass: new InternalErrorPage(),
+        renderToDOM: render
+      })
+      .use({
+        pathname: RoutePaths.NewChat,
+        blockClass: new NewChatPage(),
+        renderToDOM: render,
+        onAuthRedirectFromRoute: handleRedirectToSignIn
+      })
+      .use({
+        pathname: RoutePaths.NotFound,
+        blockClass: new NotFoundPage(),
+        renderToDOM: render
+      })
+      .use({
+        pathname: RoutePaths.SignIn,
+        blockClass: new SignInPage(),
+        renderToDOM: render
+      })
+      .use({
+        pathname: RoutePaths.SignUp,
+        blockClass: new SignUpPage(),
+        renderToDOM: render
+      })
+      .use({
+        pathname: RoutePaths.UserSettings,
+        blockClass: new UserSettingsPage(),
+        renderToDOM: render,
+        onAuthRedirectFromRoute: handleRedirectToSignIn,
+        onRenderRoute: () => {
+          authAPIController.getUser()
         }
-      )
-      .use(
-        RoutePaths.InternalError,
-        new InternalErrorPage(),
-        render
-      )
-      .use(
-        RoutePaths.NewChat,
-        new NewChatPage(),
-        render,
-        {
-          protected: true,
-          onRedirect: handleRedirectToSignIn
-        }
-      )
-      .use(
-        RoutePaths.NotFound,
-        new NotFoundPage(),
-        render
-      )
-      .use(
-        RoutePaths.SignIn,
-        new SignInPage(),
-        render
-      )
-      .use(
-        RoutePaths.SignUp,
-        new SignUpPage(),
-        render
-      )
-      .use(
-        RoutePaths.UserSettings,
-        new UserSettingsPage(),
-        render,
-        {
-          protected: true,
-          onRedirect: handleRedirectToSignIn
-        }
-      )
+      })
 
     await authAPIController.getUser()
-    await chatsAPIController.getChats()
 
     router.start()
+
+    store.on(StoreEvents.CHATS_DATA_LOADED, () => {
+      console.log(store.getState().state.chatsMap)
+    })
   } catch (error) {
     alert(error)
+    console.error(error)
   }
 }
 

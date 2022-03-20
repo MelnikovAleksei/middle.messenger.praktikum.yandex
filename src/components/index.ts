@@ -1,3 +1,4 @@
+export { AddUserToChatForm } from './add-user-to-chat-form'
 export { Avatar, IAvatarProps, IAvatarContainerProps } from './avatar'
 export { AvatarImg, IAvatarImgProps } from './avatar-img'
 export { Button, IButtonProps } from './button'
@@ -9,6 +10,7 @@ export { ChatTextContainer, IChatTextContainerProps } from './chat-text-containe
 export { Chats } from './chats'
 export { CreateChatForm } from './create-chat-form'
 export { DeleteChatForm } from './delete-chat-form'
+export { DeleteUserFromChatForm } from './delete-user-from-chat-form'
 export { FileInput, IFileInputProps } from './file-input'
 export { FileInputAlternativeElement, IFileInputAlternativeElementProps } from './file-input-alternative-element'
 export { FileInputField, IFileInputFieldProps } from './file-input-field'

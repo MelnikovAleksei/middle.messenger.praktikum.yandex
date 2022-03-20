@@ -48,6 +48,7 @@ class UserAPIController {
       if (error.message) {
         alert(error.message)
       }
+      console.error(error)
     }
   }
 
@@ -78,6 +79,7 @@ class UserAPIController {
       if (error.message) {
         alert(error.message)
       }
+      console.error(error)
     }
   }
 
@@ -115,6 +117,7 @@ class UserAPIController {
       if (error.message) {
         alert(error.message)
       }
+      console.error(error)
     }
   }
 }

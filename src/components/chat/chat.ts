@@ -1,11 +1,35 @@
 import { Block } from '../../core'
-import { MessageForm, DeleteChatForm } from '../index'
+import { ChatsWebSocketAPI } from '../../core/API/Chats/ChatsWebSocketAPI'
+import { ChatsMapItem } from '../../core/API/Chats/types'
+import { AddUserToChatForm } from '../add-user-to-chat-form'
+import { MessageForm, DeleteChatForm, DeleteUserFromChatForm } from '../index'
 
 export class Chat extends Block {
-  constructor () {
-    const messageForm = new MessageForm()
+  private _webSocketAPI: ChatsWebSocketAPI | null
+
+  constructor (chatMapItem: ChatsMapItem) {
+    const {
+      chat,
+      webSocketAPI
+    } = chatMapItem
+
+    const {
+      id
+    } = chat
+
+    const messageForm = new MessageForm({
+      onSubmit: (message) => {
+        if (this._webSocketAPI) {
+          this._webSocketAPI.send(message)
+        }
+      }
+    })
 
     const deleteChatForm = new DeleteChatForm()
+
+    const addUserToChatForm = new AddUserToChatForm({ chatId: id })
+
+    const deleteUserFromChatForm = new DeleteUserFromChatForm({ chatId: id })
 
     super('main', {
       attributes: {
@@ -13,8 +37,18 @@ export class Chat extends Block {
       },
       children: {
         messageForm,
-        deleteChatForm
+        deleteChatForm,
+        addUserToChatForm,
+        deleteUserFromChatForm
       }
+    })
+
+    this._webSocketAPI = webSocketAPI
+
+    this._webSocketAPI?.webSocket.addEventListener('message', (event: MessageEvent) => {
+      const data = JSON.parse(event.data)
+
+      console.log(data)
     })
   }
 

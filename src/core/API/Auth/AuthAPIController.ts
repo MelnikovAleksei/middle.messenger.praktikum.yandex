@@ -81,6 +81,7 @@ class AuthAPIController {
       if (error.message) {
         alert(error.message)
       }
+      console.error(error)
     }
   }
 
@@ -104,6 +105,7 @@ class AuthAPIController {
       if (error.message) {
         alert(error.message)
       }
+      console.error(error)
     }
   }
 
@@ -120,7 +122,9 @@ class AuthAPIController {
         store.set('state', {
           loading: false,
           signin: false,
-          user: null
+          user: null,
+          chats: null,
+          currentChatId: null
         })
 
         onRedirect?.()
@@ -138,6 +142,7 @@ class AuthAPIController {
       if (error.message) {
         alert(error.message)
       }
+      console.error(error)
     }
   }
 
@@ -178,6 +183,7 @@ class AuthAPIController {
       if (error.message) {
         alert(error.message)
       }
+      console.error(error)
     }
   }
 }

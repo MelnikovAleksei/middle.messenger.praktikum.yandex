@@ -4,6 +4,7 @@ export interface IButtonProps {
     click: () => void;
   };
   attributes: {
+    style?: string;
     id?: string;
     class?: string;
     disabled?: 'true';

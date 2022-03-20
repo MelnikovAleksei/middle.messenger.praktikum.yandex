@@ -1,40 +1,38 @@
 import { Block, store } from '../index'
 
+export interface IRouteProps {
+  pathname: string;
+  blockClass: Block;
+  renderToDOM: (blocks: Block[], selector?: string) => void;
+  onAuthRedirectFromRoute?: () => void;
+  onLeaveRoute?: () => void;
+  onRenderRoute?: () => void;
+}
+
 export class Route {
-  private _pathname: string
   private _block: Block
-  private _blockClass: Block
-  private _onRenderBlock: (blocks: Block[]) => void
 
-  private _auth?: {
-    onRedirect: () => void,
-    protected: boolean
-  }
+  private _pathname: IRouteProps['pathname']
+  private _blockClass: IRouteProps['blockClass']
+  private _renderToDOM: IRouteProps['renderToDOM']
+  private _onAuthRedirectFromRoute: IRouteProps['onAuthRedirectFromRoute']
+  private _onLeaveRoute: IRouteProps['onLeaveRoute']
+  private _onRenderRoute: IRouteProps['onRenderRoute']
 
-  private _onLeave?: () => void
-
-  constructor (
-    pathname: string,
-    blockClass: Block,
-    onRenderBlock: (blocks: Block[], selector?: string) => void,
-    auth?: {
-      onRedirect: () => void,
-      protected: boolean
-    },
-    onLeave?: () => void
-  ) {
-    this._pathname = pathname
-    this._blockClass = blockClass
-    this._onRenderBlock = onRenderBlock
-    this._auth = auth
-    this._onLeave = onLeave
+  constructor (props: IRouteProps) {
+    this._pathname = props.pathname
+    this._blockClass = props.blockClass
+    this._renderToDOM = props.renderToDOM
+    this._onAuthRedirectFromRoute = props.onAuthRedirectFromRoute
+    this._onLeaveRoute = props.onLeaveRoute
+    this._onRenderRoute = props.onRenderRoute
   }
 
   private _authProtect () {
     if (store.getState().state.signin) {
       this.render()
     } else {
-      this._auth?.onRedirect()
+      this._onAuthRedirectFromRoute?.()
     }
   }
 
@@ -42,7 +40,7 @@ export class Route {
     if (this.match(pathname)) {
       this._pathname = pathname
 
-      if (this._auth?.protected) {
+      if (this._onAuthRedirectFromRoute) {
         this._authProtect()
       } else {
         this.render()
@@ -54,17 +52,19 @@ export class Route {
     if (this._block) {
       this._block.hide()
 
-      if (this._onLeave) {
-        this._onLeave()
+      if (this._onLeaveRoute) {
+        this._onLeaveRoute()
       }
     }
   }
 
   public render () {
+    this._onRenderRoute?.()
+
     if (!this._block) {
       this._block = this._blockClass
 
-      this._onRenderBlock([this._block])
+      this._renderToDOM([this._block])
     } else {
       this._block.show()
     }

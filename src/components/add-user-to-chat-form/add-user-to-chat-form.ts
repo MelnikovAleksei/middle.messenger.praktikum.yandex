@@ -1,31 +1,25 @@
 import { TextInputField, Button } from '../index'
-import { Block } from '../../core'
+import { chatsAPIController, Block } from '../../core'
 
-export class MessageForm extends Block {
-  private _formData: {
-    message: string
-  }
+export class AddUserToChatForm extends Block {
+  private _formData: { chat_id: number, user_id: string }
+  private _formInputsPatterns: Record<string, RegExp>
 
-  private _formInputsPatterns: {
-    message: RegExp
-  }
-
-  private _onSubmit: (message: string) => void
-
-  constructor (props: { onSubmit: (message: string) => void }) {
-    const messageInputField = new TextInputField({
+  constructor (props: { chatId: number }) {
+    const userIdInputField = new TextInputField({
       label: {
-        title: 'Message',
+        title: 'User id',
         attributes: {
-          for: 'message'
+          for: 'user_id'
         }
       },
       textInput: {
-        tagName: 'textarea',
+        tagName: 'input',
         attributes: {
-          name: 'message',
-          id: 'message',
-          placeholder: 'message',
+          type: 'text',
+          name: 'user_id',
+          id: 'user_id',
+          placeholder: 'user_id',
           required: 'true'
         },
         events: {
@@ -41,15 +35,15 @@ export class MessageForm extends Block {
         }
       },
       validationMessage: {
-        text: 'Must not be empty.'
+        text: 'Must not be empty. Digit.'
       }
     })
 
-    const sendMessageButton = new Button({
-      title: 'Send',
+    const addUserToChatButton = new Button({
+      title: 'Add user to chat',
       attributes: {
         type: 'submit',
-        form: 'message',
+        form: 'add-user-to-chat',
         class: 'button button_align_right'
       },
       events: {
@@ -59,14 +53,14 @@ export class MessageForm extends Block {
 
     super('form', {
       attributes: {
-        class: 'message-form',
-        id: 'message',
-        name: 'message',
+        class: 'form',
+        id: 'add-user-to-chat',
+        name: 'add-user-to-chat',
         novalidate: 'true'
       },
       children: {
-        messageInputField,
-        sendMessageButton
+        userIdInputField,
+        addUserToChatButton
       },
       events: {
         submit: (event: Event) => {
@@ -76,25 +70,30 @@ export class MessageForm extends Block {
     })
 
     this._formData = {
-      message: ''
+      chat_id: props.chatId,
+      user_id: ''
     }
 
     this._formInputsPatterns = {
-      message: /^[\S\s]{1,}$/
+      user_id: /^[\d]{1,}/
     }
-
-    this._onSubmit = props.onSubmit
   }
 
   private _handleSubmit (event: Event) {
     event.preventDefault()
 
-    const formElements = Array.from((this.element as HTMLFormElement).elements)
+    const form = this.element as HTMLFormElement
+
+    const formElements = Array.from(form.elements)
 
     let isAllFormElementsValid = true
 
     formElements.forEach((element) => {
       if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+        if (!isAllFormElementsValid) {
+          return
+        }
+
         this._validator(
           (element as HTMLInputElement).name,
           (isValid) => {
@@ -104,11 +103,21 @@ export class MessageForm extends Block {
     })
 
     if (isAllFormElementsValid) {
-      this._onSubmit(this._formData.message)
+      chatsAPIController.manipulateUsersInChat(
+        'add',
+        {
+          chatId: this._formData.chat_id,
+          users: [parseInt(this._formData.user_id, 10)]
+        }
+      )
+        .then(() => {
+          form.reset()
+          this._setFormData('user_id', '')
 
-      this._resetForm()
+          chatsAPIController.getChats()
+        })
     } else {
-      console.error('Invalid form data')
+      alert('Invalid form data')
     }
   }
 
@@ -163,8 +172,8 @@ export class MessageForm extends Block {
 
   private _toggleInputValidationMessage (name: string, isValid: boolean) {
     switch (name) {
-      case 'message':
-        (this.children.messageInputField as any).toggleValidationMessage(isValid)
+      case 'user_id':
+        (this.children.userIdInputField as any).toggleValidationMessage(isValid)
         break
     }
   }

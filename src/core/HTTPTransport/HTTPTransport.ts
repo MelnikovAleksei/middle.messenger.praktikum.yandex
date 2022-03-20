@@ -12,7 +12,7 @@ import {
 import { queryString } from './utils'
 
 export class HTTPTransport {
-  static BASE_URL = BASE_URL
+  static BASE_URL = `https://${BASE_URL}/api/v2`
 
   protected endpoint: string
 

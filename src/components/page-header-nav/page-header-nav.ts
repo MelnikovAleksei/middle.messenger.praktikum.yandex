@@ -9,9 +9,11 @@ export class PageHeaderNav extends Block {
   constructor (props: IPageHeaderNavProps) {
     const links: Block[] = []
 
-    props.links.forEach((linkProps) => {
-      links.push(new Link(linkProps))
-    })
+    if (props.links) {
+      props.links.forEach((linkProps) => {
+        links.push(new Link(linkProps))
+      })
+    }
 
     const buttons: Block[] = []
 

@@ -13,7 +13,7 @@ export class NotFoundPage extends Block {
       nav: {
         links: [
           {
-            title: 'Messages',
+            title: 'Chats',
             attributes: {
               href: RoutePaths.Chats
             }

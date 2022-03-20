@@ -1,7 +1,6 @@
 import { ChatsAPI } from './ChatsAPI'
 import { store } from '../../index'
 import {
-  IChatsAPIChatsMethodParameters,
   IGetChatResponseData,
   ICreateChatRequestData,
   IAddOrDeleteUsersToChatResponseData,
@@ -14,6 +13,7 @@ import { IBadRequestData } from '../types'
 import { IHTTPRequestResult } from '../../HTTPTransport/types'
 import { IGetChatTokenRequestData } from './types/IGetChatTokenRequestData'
 import { StoreEvents } from '../../Store/types'
+import { ChatsWebSocketAPI } from './ChatsWebSocketAPI'
 
 class ChatsAPIController {
   private _chatsAPI: ChatsAPI
@@ -35,6 +35,7 @@ class ChatsAPIController {
       if (error.message) {
         alert(error.message)
       }
+      console.error(error)
     }
   }
 
@@ -51,6 +52,7 @@ class ChatsAPIController {
       if (error.message) {
         alert(error.message)
       }
+      console.error(error)
     }
   }
 
@@ -93,6 +95,7 @@ class ChatsAPIController {
       if (error.message) {
         alert(error.message)
       }
+      console.error(error)
     }
   }
 
@@ -119,17 +122,20 @@ class ChatsAPIController {
       if (error.message) {
         alert(error.message)
       }
+      console.error(error)
     }
   }
 
-  public async getChats (parameters?: IChatsAPIChatsMethodParameters) {
+  public async getChats () {
     try {
       store.set('state', {
         loading: true,
-        error: null
+        error: null,
+        chatsMap: null,
+        chats: null
       })
 
-      const response = await this._chatsAPI.getChats(parameters)
+      const response = await this._chatsAPI.getChats()
 
       if (response.ok) {
         const chats = response.json<IGetChatResponseData[]>()
@@ -137,13 +143,23 @@ class ChatsAPIController {
         const chatsMap: IChatsMap = {}
 
         for (let i = 0; i < chats.length; i++) {
-          const token = await this.getChatToken({ id: chats[i].id })
           const chat = chats[i]
+
+          const id = chat.id
+
+          const token = await this.getChatToken({ id })
+
+          let webSocketAPI: ChatsWebSocketAPI | null = null
+
+          if (token) {
+            webSocketAPI = new ChatsWebSocketAPI({ id, token, userId: store.getState().state.user.id })
+          }
 
           if (typeof token === 'string') {
             chatsMap[chat.id] = {
               token,
-              chat
+              chat,
+              webSocketAPI
             }
           }
         }
@@ -163,6 +179,7 @@ class ChatsAPIController {
       if (error.message) {
         alert(error.message)
       }
+      console.error(error)
     }
   }
 }

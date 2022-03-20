@@ -1,6 +1,6 @@
 export { IAddOrDeleteUsersToChatResponseData } from './IAddOrDeleteUsersToChatResponseData'
 export { IChatsAPIChatsMethodParameters } from './IChatsAPIChatsMethodParameters'
-export { IChatsMap } from './IChatsMap'
+export { ChatsMap, ChatsMapItem } from './ChatsMap'
 export { ICreateChatRequestData } from './ICreateChatRequestData'
 export { IDeleteChatRequestData } from './IDeleteChatRequestData'
 export { IDeleteChatResponseData } from './IDeleteChatResponseData'

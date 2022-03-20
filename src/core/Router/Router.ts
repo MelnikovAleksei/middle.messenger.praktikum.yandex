@@ -1,5 +1,5 @@
 import { RoutePaths } from '../../types'
-import { Route, Block } from '../index'
+import { Route, IRouteProps } from '../index'
 
 export class Router {
   public history: History;
@@ -24,23 +24,8 @@ export class Router {
     return this.__instance
   }
 
-  public use (
-    pathname: string,
-    blockClass: Block,
-    onRenderBlock: (blocks: Block[]) => void,
-    auth?: {
-      onRedirect: () => void,
-      protected: boolean
-    },
-    onLeave?: () => void
-  ) {
-    const route = new Route(
-      pathname,
-      blockClass,
-      onRenderBlock,
-      auth,
-      onLeave
-    )
+  public use (props: IRouteProps) {
+    const route = new Route(props)
 
     this.routes.push(route)
 
