@@ -6,11 +6,11 @@ import { Router } from '../Router'
 import { RoutePaths } from '../../../types'
 import {
   InternalErrorPage,
-  MessagesPage,
+  ChatsPage,
   NotFoundPage,
   SignInPage,
   SignUpPage,
-  SingleChatPage,
+  NewChatPage,
   UserSettingsPage
 } from '../../../pages'
 import { render } from '../..'
@@ -28,41 +28,41 @@ describe('Router', () => {
     router = new Router()
 
     router
-      .use(
-        RoutePaths.InternalError,
-        new InternalErrorPage(),
-        render
-      )
-      .use(
-        RoutePaths.Chats,
-        new MessagesPage(),
-        render
-      )
-      .use(
-        RoutePaths.SignIn,
-        new SignInPage(),
-        render
-      )
-      .use(
-        RoutePaths.SignUp,
-        new SignUpPage(),
-        render
-      )
-      .use(
-        RoutePaths.UserSettings,
-        new UserSettingsPage(),
-        render
-      )
-      .use(
-        RoutePaths.SingleChat,
-        new SingleChatPage(),
-        render
-      )
-      .use(
-        RoutePaths.NotFound,
-        new NotFoundPage(),
-        render
-      )
+      .use({
+        pathname: RoutePaths.Chats,
+        blockClass: new ChatsPage(),
+        renderToDOM: render
+      })
+      .use({
+        pathname: RoutePaths.InternalError,
+        blockClass: new InternalErrorPage(),
+        renderToDOM: render
+      })
+      .use({
+        pathname: RoutePaths.NewChat,
+        blockClass: new NewChatPage(),
+        renderToDOM: render
+      })
+      .use({
+        pathname: RoutePaths.NotFound,
+        blockClass: new NotFoundPage(),
+        renderToDOM: render
+      })
+      .use({
+        pathname: RoutePaths.SignIn,
+        blockClass: new SignInPage(),
+        renderToDOM: render
+      })
+      .use({
+        pathname: RoutePaths.SignUp,
+        blockClass: new SignUpPage(),
+        renderToDOM: render
+      })
+      .use({
+        pathname: RoutePaths.UserSettings,
+        blockClass: new UserSettingsPage(),
+        renderToDOM: render
+      })
       .start()
   })
 
@@ -99,12 +99,12 @@ describe('Router', () => {
   })
 
   it('when calling the "forward" method, the transition to the next page should occur', () => {
-    router.go(RoutePaths.SingleChat)
+    router.go(RoutePaths.NewChat)
 
     router.back()
 
     router.forward()
 
-    expect(window.location.pathname === RoutePaths.SingleChat).to.be.eq(true)
+    expect(window.location.pathname === RoutePaths.NewChat).to.be.eq(true)
   })
 })
