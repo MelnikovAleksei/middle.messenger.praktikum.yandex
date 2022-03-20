@@ -106,8 +106,8 @@ export class Block<P = any> {
       Object.keys(this.children).forEach((childName) => {
         const child = this.children ? this.children[childName] : null
 
-        if (child) {
-          this._element?.appendChild(child.getContent())
+        if (child && this._element) {
+          this._element.appendChild(child.getContent())
         }
       })
     }

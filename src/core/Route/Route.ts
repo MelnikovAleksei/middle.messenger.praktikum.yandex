@@ -32,7 +32,9 @@ export class Route {
     if (store.getState().state.signin) {
       this.render()
     } else {
-      this._onAuthRedirectFromRoute?.()
+      if (this._onAuthRedirectFromRoute) {
+        this._onAuthRedirectFromRoute()
+      }
     }
   }
 
@@ -59,7 +61,9 @@ export class Route {
   }
 
   public render () {
-    this._onRenderRoute?.()
+    if (this._onRenderRoute) {
+      this._onRenderRoute()
+    }
 
     if (!this._block) {
       this._block = this._blockClass

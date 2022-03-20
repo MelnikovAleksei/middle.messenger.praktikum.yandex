@@ -389,7 +389,9 @@ export class UserDataForm extends Block {
 
     this._toggleInputValidationMessage(name, isValid)
 
-    callback?.(isValid)
+    if (callback) {
+      callback(isValid)
+    }
   }
 
   private _handleInput (event: Event) {

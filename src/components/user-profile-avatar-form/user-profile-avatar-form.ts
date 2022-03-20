@@ -133,7 +133,9 @@ export class UserProfileAvatarForm extends Block {
 
     this._toggleInputValidationMessage(isValid)
 
-    callback?.(isValid)
+    if (callback) {
+      callback(isValid)
+    }
   }
 
   private _toggleInputValidationMessage (isValid: boolean) {

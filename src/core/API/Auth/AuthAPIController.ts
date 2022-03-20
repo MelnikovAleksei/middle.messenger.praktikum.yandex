@@ -127,7 +127,9 @@ class AuthAPIController {
           currentChatId: null
         })
 
-        onRedirect?.()
+        if (onRedirect) {
+          onRedirect()
+        }
       } else {
         const badRequestData = response.json<IBadRequestData>()
 
