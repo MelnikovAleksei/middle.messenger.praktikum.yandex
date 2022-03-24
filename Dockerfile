@@ -1,11 +1,12 @@
-FROM node:14-alpine
+FROM node:12-alpine
 
-COPY package.json ./
+WORKDIR /app
 
-RUN npm install
+COPY package.json ./package.json
+RUN npm i
 
-COPY . ./
-
+COPY . .
 RUN npm run build
 
+ENV PORT=3000
 CMD ["node", "server.js"]
