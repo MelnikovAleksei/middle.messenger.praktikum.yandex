@@ -2,7 +2,9 @@
 
 ## Links:
 
-* [pull request into **main** from **sprint\_3**](https://github.com/MelnikovAleksei/middle.messenger.praktikum.yandex/pull/3)
+* [pull request into **main** from **sprint\_4**](https://github.com/MelnikovAleksei/middle.messenger.praktikum.yandex/pull/4)
+
+* [deploy on Heroku](https://yp-messenger-study-app.herokuapp.com/)
 
 * [deploy on Netlify](https://practical-swartz-984b5f.netlify.app/)
 
@@ -12,9 +14,13 @@
 
 `npm run build`
 
-`npm run server`
+`npm run dev`
 
-`npm run start`
+`npm run eslint`
+
+`npm run stylelint`
+
+`npm run test`
 
 ## Functional:
 
