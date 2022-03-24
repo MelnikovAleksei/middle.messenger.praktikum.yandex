@@ -29,7 +29,7 @@ export class Router {
 
     this.routes.push(route)
 
-
+    return this
   }
 
   start () {

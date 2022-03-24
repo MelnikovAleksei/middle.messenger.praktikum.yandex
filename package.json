@@ -10,11 +10,12 @@
     "dev": "webpack serve --stats-error-details",
     "eslint": "eslint 'src/**/*.ts' --fix",
     "stylelint": "stylelint 'src/**/*.css' --fix",
-    "test": "mocha -r jsdom-global/register"
+    "test": "mocha -r jsdom-global/register",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm-run-all test eslint",
+      "pre-commit": "npm-run-all test",
       "pre-push": "npm run other command",
       "...": "..."
     }
