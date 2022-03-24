@@ -5,52 +5,55 @@ import {
 } from './types'
 
 import {
-  DEFAULT_REQUEST_OPTIONS
+  DEFAULT_REQUEST_OPTIONS,
+  BASE_URL
 } from './consts'
 
-class HTTPTransport {
-  private getURLSearchParamsStr = (searchParamsObject: Record<string, string>): string => {
-    const searchParamsKeys = Object.keys(searchParamsObject)
+import { queryString } from './utils'
 
-    return searchParamsKeys.reduce((result, key, index) => {
-      return `${result}${key}=${searchParamsObject[key]}${index < searchParamsKeys.length - 1 ? '&' : ''}`
-    }, '?')
+export class HTTPTransport {
+  static BASE_URL = `https://${BASE_URL}/api/v2`
+
+  protected endpoint: string
+
+  constructor (endpoint: string) {
+    this.endpoint = `${HTTPTransport.BASE_URL}${endpoint}`
   }
 
-  public get = (args: Pick<HTTPRequestArgs, 'url' | 'options'>) => {
+  public get = (args: Pick<HTTPRequestArgs, 'url' | 'options'>): Promise<IHTTPRequestResult> => {
     const {
       url,
       options
     } = args
 
-    return this.request({ method: HTTPMethods.GET, url, options })
+    return this.request({ method: HTTPMethods.GET, url: `${this.endpoint}${url}`, options })
   }
 
-  public post = (args: Pick<HTTPRequestArgs, 'url' | 'options'>) => {
+  public post = (args: Pick<HTTPRequestArgs, 'url' | 'options'>): Promise<IHTTPRequestResult> => {
     const {
       url,
       options
     } = args
 
-    return this.request({ method: HTTPMethods.POST, url, options })
+    return this.request({ method: HTTPMethods.POST, url: `${this.endpoint}${url}`, options })
   }
 
-  public put = (args: Pick<HTTPRequestArgs, 'url' | 'options'>) => {
+  public put = (args: Pick<HTTPRequestArgs, 'url' | 'options'>): Promise<IHTTPRequestResult> => {
     const {
       url,
       options
     } = args
 
-    return this.request({ method: HTTPMethods.PUT, url, options })
+    return this.request({ method: HTTPMethods.PUT, url: `${this.endpoint}${url}`, options })
   }
 
-  public delete = (args: Pick<HTTPRequestArgs, 'url' | 'options'>) => {
+  public delete = (args: Pick<HTTPRequestArgs, 'url' | 'options'>): Promise<IHTTPRequestResult> => {
     const {
       url,
       options
     } = args
 
-    return this.request({ method: HTTPMethods.DELETE, url, options })
+    return this.request({ method: HTTPMethods.DELETE, url: `${this.endpoint}${url}`, options })
   }
 
   private getXHRHTTPRequestResult = (xhr: XMLHttpRequest): IHTTPRequestResult => {
@@ -66,19 +69,30 @@ class HTTPTransport {
     return result
   }
 
-  private request = (args: HTTPRequestArgs): Promise<IHTTPRequestResult> => {
-    const {
+  private getXHRHTTPRequestErrorResult = (xhr: XMLHttpRequest): IHTTPRequestResult => {
+    const errorResult: IHTTPRequestResult = {
+      ok: false,
+      status: xhr.status,
+      statusText: xhr.statusText,
+      headers: xhr.getAllResponseHeaders(),
+      data: xhr.statusText,
+      json: <T>() => JSON.parse(xhr.statusText) as T
+    }
+
+    return errorResult
+  }
+
+  private request = (
+    {
       url,
       method,
-      options
-    } = args
-
-    const {
-      body = DEFAULT_REQUEST_OPTIONS.body,
-      searchQueryParams = DEFAULT_REQUEST_OPTIONS.searchQueryParams,
-      headers = DEFAULT_REQUEST_OPTIONS.headers,
-      timeout = DEFAULT_REQUEST_OPTIONS.timeout
-    } = options
+      options = DEFAULT_REQUEST_OPTIONS
+    }: HTTPRequestArgs
+  ): Promise<IHTTPRequestResult> => {
+    const body = options.body || DEFAULT_REQUEST_OPTIONS.body
+    const headers = options.headers || DEFAULT_REQUEST_OPTIONS.headers
+    const timeout = options.timeout || DEFAULT_REQUEST_OPTIONS.timeout
+    const searchQueryParams = options.searchQueryParams
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
@@ -86,7 +100,7 @@ class HTTPTransport {
       const isGetMetod = method === HTTPMethods.GET
 
       const searchParamsStr: string | null = searchQueryParams
-        ? this.getURLSearchParamsStr(searchQueryParams)
+        ? queryString(searchQueryParams)
         : null
 
       xhr.open(
@@ -96,9 +110,13 @@ class HTTPTransport {
           : url
       )
 
-      Object.keys(headers).forEach(key => {
-        xhr.setRequestHeader(key, headers[key])
-      })
+      xhr.withCredentials = true
+
+      if (headers) {
+        Object.keys(headers).forEach(key => {
+          xhr.setRequestHeader(key, headers[key])
+        })
+      }
 
       xhr.onload = () => {
         resolve(this.getXHRHTTPRequestResult(xhr))
@@ -106,19 +124,24 @@ class HTTPTransport {
 
       xhr.onabort = reject
 
-      xhr.onerror = reject
+      xhr.onerror = (progressEvent) => {
+        reject(this.getXHRHTTPRequestErrorResult(xhr))
+      }
 
       xhr.timeout = timeout
 
-      xhr.ontimeout = reject
+      xhr.ontimeout = (progressEvent) => {
+        reject(this.getXHRHTTPRequestErrorResult(xhr))
+      }
 
-      if (isGetMetod || !searchParamsStr) {
+      if (isGetMetod || !body) {
         xhr.send()
-      } else {
+      } else if (body instanceof FormData) {
         xhr.send(body)
+      } else {
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8')
+        xhr.send(JSON.stringify(body))
       }
     })
   }
 }
-
-export const httpRequest = new HTTPTransport()

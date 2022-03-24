@@ -6,9 +6,11 @@ export class MessagesList extends Block {
   constructor (props: IMessagesListProps) {
     const messages: Block[] = []
 
-    props.messages.forEach((messageProps) => {
-      messages.push(new Message(messageProps))
-    })
+    if (props.messages) {
+      props.messages.forEach((messageProps) => {
+        messages.push(new Message(messageProps))
+      })
+    }
 
     super('ul', {
       ...props,

@@ -1,4 +1,4 @@
-import { IFileInputProps, IFileInputAlternativeElementProps } from '../index'
+import { IFileInputProps, IFileInputAlternativeElementProps, IValidationMessageProps } from '../index'
 
 export interface IFileInputFieldProps {
   container?: {
@@ -8,4 +8,5 @@ export interface IFileInputFieldProps {
   },
   fileInput: IFileInputProps;
   fileInputAlternativeElement: IFileInputAlternativeElementProps;
+  validationMessage: IValidationMessageProps;
 }

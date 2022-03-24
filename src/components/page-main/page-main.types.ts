@@ -4,5 +4,5 @@ export interface IPageMainProps {
   attributes?: {
     class?: string;
   },
-  children?: Block[];
+  children?: Record<string, Block>;
 }

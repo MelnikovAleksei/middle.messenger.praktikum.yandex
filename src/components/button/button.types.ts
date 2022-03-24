@@ -1,9 +1,10 @@
 export interface IButtonProps {
-  title: string;
+  title?: string;
   events: {
     click: () => void;
   };
   attributes: {
+    style?: string;
     id?: string;
     class?: string;
     disabled?: 'true';

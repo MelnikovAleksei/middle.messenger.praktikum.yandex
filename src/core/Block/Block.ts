@@ -1,28 +1,21 @@
 import { EventBus } from '../EventBus/EventBus'
-import { Meta, Events } from './types'
+import { BlockEvents, BlockMeta } from './types'
 import { nanoid } from 'nanoid'
 
 export class Block<P = any> {
-  static EVENTS = {
-    INIT: 'init',
-    FLOW_CDM: 'flow:component-did-mount',
-    FLOW_CDU: 'flow:component-did-update',
-    FLOW_RENDER: 'flow:render'
-  } as const
-
   public id = `id-${nanoid(6)}`
 
-  private _meta: Meta;
+  private _meta: BlockMeta;
 
   private _element: HTMLElement;
 
   protected readonly props: P;
 
-  public eventBus: () => EventBus<Events>
+  public eventBus: () => EventBus
   public children: Record<string, Block> = {}
 
   public constructor (tagName: string, props?: P) {
-    const eventBus = new EventBus<Events>()
+    const eventBus = new EventBus()
 
     this._meta = {
       tagName,
@@ -37,14 +30,14 @@ export class Block<P = any> {
 
     this._registerEvents(eventBus)
 
-    eventBus.emit(Block.EVENTS.INIT, this.props)
+    eventBus.emit(BlockEvents.INIT, this.props)
   }
 
   private _registerEvents (eventBus: EventBus) {
-    eventBus.on(Block.EVENTS.INIT, this.init.bind(this))
-    eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this))
-    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this))
-    eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this))
+    eventBus.on(BlockEvents.INIT, this.init.bind(this))
+    eventBus.on(BlockEvents.FLOW_CDM, this._componentDidMount.bind(this))
+    eventBus.on(BlockEvents.FLOW_CDU, this._componentDidUpdate.bind(this))
+    eventBus.on(BlockEvents.FLOW_RENDER, this._render.bind(this))
   }
 
   private _createResources () {
@@ -54,15 +47,15 @@ export class Block<P = any> {
 
   public init () {
     this._createResources()
-    this.eventBus().emit(Block.EVENTS.FLOW_RENDER, this.props)
+    this.eventBus().emit(BlockEvents.FLOW_RENDER, this.props)
   }
 
   private _componentDidMount (props: P) {
     this.componentDidMount(props)
-    this.eventBus().emit(Block.EVENTS.FLOW_RENDER)
+    this.eventBus().emit(BlockEvents.FLOW_RENDER)
   }
 
-  public componentDidMount (props: P) {}
+  public componentDidMount (props?: P) {}
 
   private _componentDidUpdate (oldProps: P, newProps: P) {
     const response = this.componentDidUpdate(oldProps, newProps)
@@ -72,16 +65,18 @@ export class Block<P = any> {
     this._render()
   }
 
-  public componentDidUpdate (oldProps: P, newProps: P) {
+  public componentDidUpdate (oldProps?: P, newProps?: P) {
     return true
   }
 
-  public setProps = (nextProps: P) => {
+  public setProps = (nextProps: any) => {
     if (!nextProps) {
       return
     }
 
     Object.assign(this.props, nextProps)
+
+    this.eventBus().emit(BlockEvents.FLOW_CDU, { ...nextProps }, nextProps)
   };
 
   get element () {
@@ -111,8 +106,8 @@ export class Block<P = any> {
       Object.keys(this.children).forEach((childName) => {
         const child = this.children ? this.children[childName] : null
 
-        if (child) {
-          this._element?.appendChild(child.getContent())
+        if (child && this._element) {
+          this._element.appendChild(child.getContent())
         }
       })
     }
@@ -143,7 +138,7 @@ export class Block<P = any> {
       set: (target: Record<string, unknown>, prop: string, value: unknown) => {
         target[prop] = value
 
-        this.eventBus().emit(Block.EVENTS.FLOW_CDU, { ...target }, target)
+        this.eventBus().emit(BlockEvents.FLOW_CDU, { ...target }, target)
         return true
       },
       deleteProperty () {
@@ -180,8 +175,8 @@ export class Block<P = any> {
     })
   }
 
-  public show () {
-    this.getContent().style.display = 'block'
+  public show (display: 'block' | 'inline-block' | 'flex' = 'block') {
+    this.getContent().style.display = display
   }
 
   public hide () {

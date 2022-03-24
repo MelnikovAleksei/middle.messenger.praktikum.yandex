@@ -1,42 +1,42 @@
-import { Chat, IChatProps } from '..'
-import { Block } from '../../core'
-
-const CHAT_PROPS: IChatProps = {
-  avatar: {
-    img: {
-      attributes: {
-        src: 'https://images.unsplash.com/photo-1618921438889-d4bab3daa021?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=715&q=80',
-        alt: 'doggo'
-      }
-    }
-  },
-  textContainer: {
-    heading: 'chat-text-container__heading',
-    subHeading: 'chat-text-container__sub-heading',
-    text: 'chat-text-container__text'
-  },
-  link: {
-    attributes: {
-      href: '/single-chat'
-    }
-  }
-}
+import { Block, storeChatController } from '../../core'
+import { IGetChatResponseData } from '../../core/API/Chats/types'
+import { ChatListItem } from '../chat-list-item/chat-list-item'
 
 export class ChatList extends Block {
-  constructor () {
-    const chats: Block[] = []
+  constructor (chats: IGetChatResponseData[] | null) {
+    const chatsBlocks: Block[] = []
 
-    for (let i = 0; i < 16; i++) {
-      chats.push(new Chat(CHAT_PROPS))
+    if (chats && chats.length) {
+      chats.forEach((chat) => {
+        chatsBlocks.push(
+          new ChatListItem({
+            textContainer: {
+              heading: chat.title,
+              subHeading: chat.last_message ? chat.last_message.time : '',
+              text: chat.last_message ? chat.last_message.content : ''
+            },
+            button: {
+              attributes: {
+                type: 'button',
+                class: 'button button_cover'
+              },
+              title: '',
+              events: {
+                click: () => {
+                  storeChatController.setCurrentChatId(chat.id)
+                }
+              }
+            }
+          })
+        )
+      })
     }
 
     super('ul', {
       attributes: {
         class: 'chat-list'
       },
-      children: {
-        ...chats
-      }
+      children: { ...chatsBlocks }
     })
   }
 

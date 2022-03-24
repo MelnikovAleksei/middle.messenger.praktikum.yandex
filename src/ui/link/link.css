@@ -11,6 +11,10 @@
   color: var(--color-purple1);
 }
 
+.link_indented_left {
+  margin-left: 8px;
+}
+
 .link:active {
   color: var(--color-purple2);
 }

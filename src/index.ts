@@ -1,52 +1,84 @@
 import {
+  ChatsPage,
   InternalErrorPage,
-  MessagesPage,
+  NewChatPage,
   NotFoundPage,
   SignInPage,
   SignUpPage,
-  SingleChatPage,
   UserSettingsPage
 } from './pages'
 
-import { Block, render } from './core'
+import { render, Router, authAPIController, chatsAPIController, storeChatController, store } from './core'
 
 import { RoutePaths } from './types'
+import { StoreEvents } from './core/Store/types'
 
-try {
-  let currPage: Block | null = null
+async function start () {
+  try {
+    const router = new Router()
 
-  const currPathName = window.location.pathname
+    const handleRedirectToSignIn = () => {
+      router.go(RoutePaths.SignIn)
+    }
 
-  switch (currPathName) {
-    case (RoutePaths.InternalError):
-      currPage = new InternalErrorPage()
-      break
-    case (RoutePaths.Messages):
-      currPage = new MessagesPage()
-      break
-    case (RoutePaths.SignIn):
-      currPage = new SignInPage()
-      break
-    case (RoutePaths.SignUp):
-      currPage = new SignUpPage()
-      break
-    case (RoutePaths.UserSettings):
-      currPage = new UserSettingsPage()
-      break
-    case (RoutePaths.SingleChat):
-      currPage = new SingleChatPage()
-      break
-    case (RoutePaths.NotFound):
-    default:
-      currPage = new NotFoundPage()
-      break
+    router
+      .use({
+        pathname: RoutePaths.Chats,
+        blockClass: new ChatsPage(),
+        renderToDOM: render,
+        onAuthRedirectFromRoute: handleRedirectToSignIn,
+        onRenderRoute: () => {
+          chatsAPIController.getChats()
+        },
+        onLeaveRoute: storeChatController.resetCurrentChatId
+      })
+      .use({
+        pathname: RoutePaths.InternalError,
+        blockClass: new InternalErrorPage(),
+        renderToDOM: render
+      })
+      .use({
+        pathname: RoutePaths.NewChat,
+        blockClass: new NewChatPage(),
+        renderToDOM: render,
+        onAuthRedirectFromRoute: handleRedirectToSignIn
+      })
+      .use({
+        pathname: RoutePaths.NotFound,
+        blockClass: new NotFoundPage(),
+        renderToDOM: render
+      })
+      .use({
+        pathname: RoutePaths.SignIn,
+        blockClass: new SignInPage(),
+        renderToDOM: render
+      })
+      .use({
+        pathname: RoutePaths.SignUp,
+        blockClass: new SignUpPage(),
+        renderToDOM: render
+      })
+      .use({
+        pathname: RoutePaths.UserSettings,
+        blockClass: new UserSettingsPage(),
+        renderToDOM: render,
+        onAuthRedirectFromRoute: handleRedirectToSignIn,
+        onRenderRoute: () => {
+          authAPIController.getUser()
+        }
+      })
+
+    await authAPIController.getUser()
+
+    router.start()
+
+    store.on(StoreEvents.CHATS_DATA_LOADED, () => {
+      console.log(store.getState().state.chatsMap)
+    })
+  } catch (error) {
+    alert(error)
+    console.error(error)
   }
-
-  render('#root', [currPage])
-} catch (error) {
-  alert(error)
-
-  const internalErrorPage = new InternalErrorPage()
-
-  render('#root', [internalErrorPage])
 }
+
+start()

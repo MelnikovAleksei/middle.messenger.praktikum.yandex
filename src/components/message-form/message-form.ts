@@ -2,10 +2,17 @@ import { TextInputField, Button } from '../index'
 import { Block } from '../../core'
 
 export class MessageForm extends Block {
-  private _formData: Record<string, string>
-  private _formInputsPatterns: Record<string, RegExp>
+  private _formData: {
+    message: string
+  }
 
-  constructor () {
+  private _formInputsPatterns: {
+    message: RegExp
+  }
+
+  private _onSubmit: (message: string) => void
+
+  constructor (props: { onSubmit: (message: string) => void }) {
     const messageInputField = new TextInputField({
       label: {
         title: 'Message',
@@ -75,6 +82,8 @@ export class MessageForm extends Block {
     this._formInputsPatterns = {
       message: /^[\S\s]{1,}$/
     }
+
+    this._onSubmit = props.onSubmit
   }
 
   private _handleSubmit (event: Event) {
@@ -95,10 +104,22 @@ export class MessageForm extends Block {
     })
 
     if (isAllFormElementsValid) {
-      console.table(this._formData)
+      this._onSubmit(this._formData.message)
+
+      this._resetForm()
     } else {
       console.error('Invalid form data')
     }
+  }
+
+  private _resetForm () {
+    const form = this.element as HTMLFormElement
+
+    form.reset()
+
+    Object.keys(this._formData).forEach((key) => {
+      this._setFormData(key, '')
+    })
   }
 
   private _setFormData (name: string, value: string) {
@@ -117,7 +138,9 @@ export class MessageForm extends Block {
 
     this._toggleInputValidationMessage(name, isValid)
 
-    callback?.(isValid)
+    if (callback) {
+      callback(isValid)
+    }
   }
 
   private _handleInput (event: Event) {

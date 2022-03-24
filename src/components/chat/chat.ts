@@ -1,32 +1,57 @@
 import { Block } from '../../core'
-import { IChatProps } from './chat.types'
-import { Avatar, ChatTextContainer, ChatLink } from '../index'
+import { ChatsWebSocketAPI } from '../../core/API/Chats/ChatsWebSocketAPI'
+import { ChatsMapItem } from '../../core/API/Chats/types'
+import { AddUserToChatForm } from '../add-user-to-chat-form'
+import { MessageForm, DeleteChatForm, DeleteUserFromChatForm } from '../index'
 
 export class Chat extends Block {
-  constructor (props: IChatProps) {
-    const chatAvatar = new Avatar(props.avatar)
-    const chatTextContainer = new ChatTextContainer(props.textContainer)
-    const chatLink = new ChatLink(props.link)
+  private _webSocketAPI: ChatsWebSocketAPI | null
 
-    super('li', {
-      ...props,
-      attributes: {
-        class: 'chat'
-      },
-      children: {
-        chatAvatar,
-        chatTextContainer,
-        chatLink
+  constructor (chatMapItem: ChatsMapItem) {
+    const {
+      chat,
+      webSocketAPI
+    } = chatMapItem
+
+    const {
+      id
+    } = chat
+
+    const messageForm = new MessageForm({
+      onSubmit: (message) => {
+        if (this._webSocketAPI) {
+          this._webSocketAPI.send(message)
+        }
       }
     })
-  }
 
-  componentDidUpdate (oldProps: IChatProps, newProps: IChatProps): boolean {
-    this.children.chatAvatar.setProps(newProps.avatar)
-    this.children.chatTextContainer.setProps(newProps.textContainer)
-    this.children.chatLink.setProps(newProps.link)
+    const deleteChatForm = new DeleteChatForm()
 
-    return super.componentDidUpdate(oldProps, newProps)
+    const addUserToChatForm = new AddUserToChatForm({ chatId: id })
+
+    const deleteUserFromChatForm = new DeleteUserFromChatForm({ chatId: id })
+
+    super('main', {
+      attributes: {
+        class: 'page-main'
+      },
+      children: {
+        messageForm,
+        deleteChatForm,
+        addUserToChatForm,
+        deleteUserFromChatForm
+      }
+    })
+
+    this._webSocketAPI = webSocketAPI
+
+    if (this._webSocketAPI) {
+      this._webSocketAPI.webSocket.addEventListener('message', (event: MessageEvent) => {
+        const data = JSON.parse(event.data)
+
+        console.log(data)
+      })
+    }
   }
 
   render () {

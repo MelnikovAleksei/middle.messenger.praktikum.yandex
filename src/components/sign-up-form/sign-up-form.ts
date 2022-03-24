@@ -1,8 +1,9 @@
 import { TextInputField, Button } from '../index'
-import { Block } from '../../core'
+import { Block, authAPIController } from '../../core'
+import { ISignUpRequestData } from '../../core/API/Auth/types'
 
 export class SignUpForm extends Block {
-  private _formData: Record<string, string>
+  private _formData: ISignUpRequestData
   private _formInputsPatterns: Record<string, RegExp>
 
   constructor () {
@@ -261,12 +262,18 @@ export class SignUpForm extends Block {
   private _handleSubmit (event: Event) {
     event.preventDefault()
 
-    const formElements = Array.from((this.element as HTMLFormElement).elements)
+    const form = this.element as HTMLFormElement
+
+    const formElements = Array.from(form.elements)
 
     let isAllFormElementsValid = true
 
     formElements.forEach((element) => {
       if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+        if (!isAllFormElementsValid) {
+          return
+        }
+
         this._validator(
           (element as HTMLInputElement).name,
           (isValid) => {
@@ -276,10 +283,23 @@ export class SignUpForm extends Block {
     })
 
     if (isAllFormElementsValid) {
-      console.table(this._formData)
+      authAPIController.signup(this._formData)
+        .then(() => {
+          this._resetForm()
+        })
     } else {
-      console.error('Invalid form data')
+      alert('Invalid form data')
     }
+  }
+
+  private _resetForm () {
+    const form = this.element as HTMLFormElement
+
+    form.reset()
+
+    Object.keys(this._formData).forEach((key) => {
+      this._setFormData(key, '')
+    })
   }
 
   private _setFormData (name: string, value: string) {
@@ -298,7 +318,9 @@ export class SignUpForm extends Block {
 
     this._toggleInputValidationMessage(name, isValid)
 
-    callback?.(isValid)
+    if (callback) {
+      callback(isValid)
+    }
   }
 
   private _handleInput (event: Event) {

@@ -1,5 +1,7 @@
+import { URLParamsPlainObject } from '.'
+
 export interface IHTTPRequestOptions {
-  searchQueryParams?: Record<string, string>;
+  searchQueryParams?: URLParamsPlainObject;
   body?: any;
   headers?: Record<string, string>;
   timeout?: number;

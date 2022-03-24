@@ -1,11 +1,9 @@
 import { Block } from '../../core'
-import { PageHeader, PageMain, UserSettingsForm } from '../../components'
+import { PageHeader, PageMain, UserDataForm, UserPasswordForm, UserProfileAvatarForm } from '../../components'
 import { RoutePaths } from '../../types'
 
 export class UserSettingsPage extends Block {
   constructor () {
-    window.document.title = 'User settings'
-
     const userSettingsPageHeader = new PageHeader({
       heading: {
         text: 'User settings'
@@ -13,19 +11,27 @@ export class UserSettingsPage extends Block {
       nav: {
         links: [
           {
-            title: 'Messages',
+            title: 'Chats',
             attributes: {
-              href: RoutePaths.Messages
+              href: RoutePaths.Chats
             }
           }
         ]
       }
     })
 
-    const userSettingsForm = new UserSettingsForm()
+    const userProfileAvatarForm = new UserProfileAvatarForm()
+
+    const userDataForm = new UserDataForm()
+
+    const userPasswordForm = new UserPasswordForm()
 
     const userSettingsPageMain = new PageMain({
-      children: [userSettingsForm]
+      children: {
+        userProfileAvatarForm,
+        userDataForm,
+        userPasswordForm
+      }
     })
 
     super('div', {

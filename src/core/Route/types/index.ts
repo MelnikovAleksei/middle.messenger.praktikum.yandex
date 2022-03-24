@@ -1,0 +1,1 @@
+export { IRouteProps } from './IRouteProps'

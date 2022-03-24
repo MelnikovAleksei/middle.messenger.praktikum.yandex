@@ -1,10 +1,10 @@
 export enum RoutePaths {
-  Root = '/',
+  Chat = '/chat',
+  Chats = '/chats',
   InternalError = '/internal-error',
-  Messages = '/messages',
-  SignIn = '/sign-in',
+  NewChat = '/new-chat',
+  NotFound = '/not-found',
+  SignIn = '/',
   SignUp = '/sign-up',
-  SingleChat = '/single-chat',
   UserSettings = '/user-settings',
-  NotFound = '/not-found'
 }
