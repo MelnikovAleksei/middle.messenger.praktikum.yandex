@@ -5,7 +5,7 @@ import {
   ICreateChatRequestData,
   IAddOrDeleteUsersToChatResponseData,
   IGetChatTokenResponseData,
-  IChatsMap,
+  ChatsMap,
   IDeleteChatResponseData,
   IDeleteChatRequestData
 } from './types'
@@ -140,7 +140,7 @@ class ChatsAPIController {
       if (response.ok) {
         const chats = response.json<IGetChatResponseData[]>()
 
-        const chatsMap: IChatsMap = {}
+        const chatsMap: ChatsMap = {}
 
         for (let i = 0; i < chats.length; i++) {
           const chat = chats[i]
