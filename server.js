@@ -6,6 +6,6 @@ const PORT = 3000
 
 app.use(express.static(path.join(__dirname, 'dist')))
 
-app.listen(PORT, function () {
-  console.log(`Messenger app listening on port ${PORT}!`)
+app.listen(process.env.PORT || 3000, '0.0.0.0', function () {
+  console.log(`Messenger app listening on port ${PORT}!`);
 })
