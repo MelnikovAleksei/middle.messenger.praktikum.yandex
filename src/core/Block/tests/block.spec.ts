@@ -1,4 +1,4 @@
-import { Block } from "../Block"
+import { Block } from '../Block'
 
 import 'jsdom-global/register'
 import { JSDOM } from 'jsdom'

@@ -1,3 +1,5 @@
+import './index.css'
+
 import {
   ChatsPage,
   InternalErrorPage,
@@ -29,8 +31,7 @@ async function start () {
         onAuthRedirectFromRoute: handleRedirectToSignIn,
         onRenderRoute: () => {
           chatsAPIController.getChats()
-        },
-        onLeaveRoute: storeChatController.resetCurrentChatId
+        }
       })
       .use({
         pathname: RoutePaths.InternalError,
